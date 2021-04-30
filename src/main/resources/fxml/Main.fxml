@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.collections.FXCollections?>
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="480.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.stzeyetrial.auretim.controller.MainController">
+  <children>
+    <BorderPane prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <VBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
+          <children>
+            <TextField id="_subject" fx:id="_subjectTextField" alignment="CENTER" editable="true" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" promptText="%subjectID.text">
+              <VBox.margin>
+                <Insets bottom="10.0" top="10.0" fx:id="x1" />
+              </VBox.margin>
+            </TextField>
+            <TextField id="_test" fx:id="_testTextField" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" promptText="%testID.text" VBox.margin="$x1" />
+            <ComboBox fx:id="_testComboBox" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0">
+              <items>
+                <FXCollections fx:factory="observableArrayList" />
+              </items>
+              <VBox.margin>
+                <Insets bottom="10.0" fx:id="x22" />
+              </VBox.margin>
+            </ComboBox>
+            <HBox alignment="CENTER" fillHeight="false" prefHeight="-1.0" prefWidth="-1.0" spacing="20.0">
+              <children>
+                <Button fx:id="_startButton" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#test" prefHeight="100.0" prefWidth="220.0" text="%test.text" />
+              </children>
+              <padding>
+                <Insets bottom="20.0" top="20.0" />
+              </padding>
+            </HBox>
+          </children>
+        </VBox>
+      </center>
+      <top>
+        <ToolBar maxHeight="-Infinity" minHeight="-Infinity" orientation="HORIZONTAL" prefHeight="45.0" prefWidth="-1.0">
+          <items>
+            <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="80.0" text="%exit.text" textAlignment="CENTER" />
+            <Label id="title" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" style="" styleClass="title" text="%application.title" textAlignment="CENTER" />
+            <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#settings" prefHeight="40.0" prefWidth="80.0" text="%settings.text" textAlignment="CENTER" />
+          </items>
+        </ToolBar>
+      </top>
+    </BorderPane>
+  </children>
+</AnchorPane>

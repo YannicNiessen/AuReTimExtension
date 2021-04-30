@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="320.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.stzeyetrial.auretim.controller.ResultController">
+  <children>
+    <BorderPane onSwipeRight="#swipeBack" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="220.0">
+          <children>
+            <Label text="%label.total.text">
+              <labelFor>
+                <TextField fx:id="_totalTextfield" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0">
+                  <VBox.margin>
+                    <Insets bottom="10.0" fx:id="x1" />
+                  </VBox.margin>
+                </TextField>
+              </labelFor>
+            </Label>
+            <fx:reference source="_totalTextfield" />
+            <Label text="%label.meanSD.text">
+              <labelFor>
+                <TextField id="_totalTextfield" fx:id="_minMaxTextField" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" VBox.margin="$x1" />
+              </labelFor>
+              <VBox.margin>
+                <Insets top="10.0" fx:id="x2" />
+              </VBox.margin>
+            </Label>
+            <TextField fx:id="_meanSDTextfield" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" VBox.margin="$x1" />
+            <Label labelFor="$_meanSDTextfield" text="%label.minMax.text" VBox.margin="$x2" />
+            <fx:reference source="_minMaxTextField" />
+            <Label text="%label.percentils.text" VBox.margin="$x2">
+              <labelFor>
+                <TextField id="_totalTextfield" fx:id="_percentilesTextField" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" VBox.margin="$x1" />
+              </labelFor>
+            </Label>
+            <fx:reference source="_percentilesTextField" />
+            <Label text="%label.cv.text" VBox.margin="$x2">
+              <labelFor>
+                <TextField id="_totalTextfield" fx:id="_cvTextField" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" />
+              </labelFor>
+            </Label>
+            <fx:reference source="_cvTextField" />
+
+
+            <Label text="%label.q10" VBox.margin="$x2">
+              <labelFor>
+                <TextField id="_q10TextField" fx:id="_q10TextField" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" />
+              </labelFor>
+            </Label>
+            <fx:reference source="_q10TextField" />
+            <Label text="%label.q90" VBox.margin="$x2">
+              <labelFor>
+                <TextField id="_q90TextField" fx:id="_q90TextField" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" />
+              </labelFor>
+            </Label>
+            <fx:reference source="_q90TextField" />
+            <Label text="%label.reactionSpeed" VBox.margin="$x2">
+              <labelFor>
+                <TextField id="_reactionSpeedTextField" fx:id="_reactionSpeedTextField" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" />
+              </labelFor>
+            </Label>
+            <fx:reference source="_reactionSpeedTextField" />
+            <Label text="%label.performance" VBox.margin="$x2">
+              <labelFor>
+                <TextField id="_performanceScoreTextField" fx:id="_performanceScoreTextField" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" />
+              </labelFor>
+            </Label>
+            <fx:reference source="_performanceScoreTextField" />
+            <Label text="%label.lapseProbability" VBox.margin="$x2">
+              <labelFor>
+                <TextField id="_lapseProbabilityTextField" fx:id="_lapseProbabilityTextField" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0" />
+              </labelFor>
+            </Label>
+            <fx:reference source="_lapseProbabilityTextField" />
+          </children>
+        </VBox>
+      </center>
+      <top>
+        <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="320.0">
+          <items>
+            <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonBack" prefHeight="40.0" prefWidth="65.0" text="%back.text" />
+            <Label id="title" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="160.0" styleClass="title" text="%result.title" textAlignment="CENTER" />
+            <Button fx:id="_saveButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonSave" prefHeight="40.0" prefWidth="65.0" text="%save.text" />
+          </items>
+        </ToolBar>
+      </top>
+    </BorderPane>
+  </children>
+</AnchorPane>

@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" fx:id="_anchorPane" maxWidth="-Infinity"
+            prefHeight="800.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/2.2"
+            fx:controller="de.stzeyetrial.auretim.controller.SettingsController">
+    <children>
+        <BorderPane prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <Accordion id="parentAccordion" fx:id="_parentAccordion" prefHeight="800.0" prefWidth="480.0">
+                    <panes>
+
+                        <TitledPane fx:id="p1" animated="false" expanded="false" maxWidth="-Infinity"
+                                    minWidth="-Infinity" prefWidth="480.0" text="%test.title">
+
+                            <Accordion id="accordion" fx:id="_accordion" onSwipeDown="#previous" onSwipeUp="#next"
+                                       prefHeight="800.0" prefWidth="480.0">
+                                <expandedPane>
+                                    <TitledPane fx:id="x3" animated="false" expanded="true" maxWidth="-Infinity"
+                                                minWidth="-Infinity" prefWidth="460.0" text="%title.timing.text"
+                                                style="-fx-padding: 0 10 0;">
+                                        <content>
+                                            <AnchorPane id="Content" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0"
+                                                        prefHeight="-1.0" prefWidth="-1.0">
+                                                <children>
+                                                    <VBox alignment="CENTER_LEFT" maxWidth="-1.0" minWidth="-1.0"
+                                                          prefHeight="-1.0" prefWidth="-1.0"
+                                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+                                                          AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                                                        <children>
+                                                            <Label text="%label.repetitions.text"/>
+                                                            <TextField fx:id="_repetitionsTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0">
+                                                                <VBox.margin>
+                                                                    <Insets bottom="1.0" fx:id="x7"/>
+                                                                </VBox.margin>
+                                                            </TextField>
+                                                            <Label text="%label.timeout.text"/>
+                                                            <TextField id="" fx:id="_timeoutTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+                                                            <Label text="%label.minimumResponseTime.text"/>
+                                                            <TextField id="" fx:id="_minimumResponseTimeTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+                                                            <Label text="%label.minimumDelay.text">
+                                                                <VBox.margin>
+                                                                    <Insets fx:id="x2"/>
+                                                                </VBox.margin>
+                                                            </Label>
+                                                            <TextField id="" fx:id="_minimumDelayTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+                                                            <Label text="%label.maximumDelay.text" VBox.margin="$x2"/>
+                                                            <TextField id="" fx:id="_maximumDelayTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0"/>
+                                                        </children>
+                                                    </VBox>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </TitledPane>
+                                </expandedPane>
+                                <panes>
+                                    <TitledPane id="x211" fx:id="x5" animated="false" expanded="false"
+                                                maxWidth="-Infinity" minWidth="-Infinity" prefHeight="-1.0"
+                                                prefWidth="460.0" text="%title.general.text"
+                                                style="-fx-padding: 10 10 0;">
+                                        <content>
+                                            <AnchorPane id="Content" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0"
+                                                        prefHeight="-1.0" prefWidth="-1.0">
+                                                <children>
+                                                    <VBox alignment="CENTER_LEFT" maxHeight="-1.0" maxWidth="-1.0"
+                                                          minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0"
+                                                          prefWidth="-1.0" AnchorPane.bottomAnchor="0.0"
+                                                          AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"
+                                                          AnchorPane.topAnchor="0.0">
+                                                        <children>
+                                                            <Label text="%label.input.text">
+                                                                <labelFor>
+                                                                    <TextField id="_directoryTextField"
+                                                                               focusTraversable="false"
+                                                                               maxHeight="-Infinity"
+                                                                               maxWidth="-Infinity"
+                                                                               minHeight="-Infinity"
+                                                                               minWidth="-Infinity" prefHeight="40.0"
+                                                                               prefWidth="155.0"/>
+                                                                </labelFor>
+                                                            </Label>
+                                                            <ComboBox fx:id="_inputComboBox" focusTraversable="false"
+                                                                      maxHeight="-Infinity" maxWidth="-Infinity"
+                                                                      minWidth="-Infinity" prefHeight="40.0"
+                                                                      prefWidth="330.0">
+                                                                <items>
+                                                                    <FXCollections fx:factory="observableArrayList"/>
+                                                                </items>
+                                                                <VBox.margin>
+                                                                    <Insets bottom="10.0" fx:id="x22"/>
+                                                                </VBox.margin>
+                                                            </ComboBox>
+                                                            <BorderPane prefHeight="40.0" prefWidth="330.0">
+                                                                <left>
+                                                                    <Button fx:id="_inputTestButton" maxHeight="40.0"
+                                                                            maxWidth="110.0" minHeight="40.0"
+                                                                            minWidth="110.0" mnemonicParsing="false"
+                                                                            onAction="#inputTest" prefHeight="40.0"
+                                                                            prefWidth="110.0"
+                                                                            text="%inputTestButton.text"/>
+                                                                </left>
+                                                                <padding>
+                                                                    <Insets bottom="20.0"/>
+                                                                </padding>
+                                                                <right>
+                                                                    <Circle fx:id="_indicator" fill="#9f9f9f"
+                                                                            radius="20.0" stroke="BLACK"
+                                                                            strokeType="INSIDE"/>
+                                                                </right>
+                                                            </BorderPane>
+                                                            <Label text="%label.directory.text">
+                                                                <labelFor>
+                                                                    <TextField fx:id="_directoryTextField"
+                                                                               focusTraversable="false"
+                                                                               maxHeight="-Infinity"
+                                                                               maxWidth="-Infinity"
+                                                                               minHeight="-Infinity"
+                                                                               minWidth="-Infinity" prefHeight="40.0"
+                                                                               prefWidth="155.0"
+                                                                               AnchorPane.bottomAnchor="0.0"
+                                                                               AnchorPane.leftAnchor="0.0"
+                                                                               AnchorPane.topAnchor="0.0"/>
+                                                                </labelFor>
+                                                            </Label>
+                                                            <AnchorPane id="AnchorPane" prefHeight="41.0">
+                                                                <children>
+                                                                    <fx:reference source="_directoryTextField"/>
+                                                                    <Button maxHeight="-Infinity" maxWidth="-Infinity"
+                                                                            minHeight="-Infinity" minWidth="-Infinity"
+                                                                            mnemonicParsing="false" onAction="#chooser"
+                                                                            prefHeight="40.0" prefWidth="40.0"
+                                                                            text="..." AnchorPane.bottomAnchor="0.0"
+                                                                            AnchorPane.rightAnchor="0.0"
+                                                                            AnchorPane.topAnchor="0.0"/>
+                                                                </children>
+                                                                <padding>
+                                                                    <Insets bottom="10.0" fx:id="x213"/>
+                                                                </padding>
+                                                            </AnchorPane>
+                                                            <CheckBox id="_shutdownCheckbox"
+                                                                      fx:id="_useAutoCompletionCheckbox"
+                                                                      contentDisplay="LEFT" mnemonicParsing="false"
+                                                                      text="%checkbox.useAutoCompletion.text">
+                                                                <VBox.margin>
+                                                                    <Insets top="10.0" fx:id="x4"/>
+                                                                </VBox.margin>
+                                                            </CheckBox>
+                                                        </children>
+                                                    </VBox>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </TitledPane>
+                                    <TitledPane fx:id="x1" animated="false" expanded="false" maxWidth="-Infinity"
+                                                minWidth="-Infinity" prefWidth="460.0" text="%title.stimulus.text"
+                                                style="-fx-padding: 0 10 0;">
+                                        <content>
+                                            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0"
+                                                        prefWidth="-1.0">
+                                                <children>
+                                                    <VBox alignment="CENTER_LEFT" maxWidth="-1.0" minHeight="-1.0"
+                                                          prefHeight="-1.0" prefWidth="-1.0"
+                                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+                                                          AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                                                        <children>
+                                                            <CheckBox fx:id="_useNoGoCheckbox" mnemonicParsing="false"
+                                                                      text="%checkbox.useNoGo.text">
+                                                                <VBox.margin>
+                                                                    <Insets bottom="10.0" fx:id="x22"/>
+                                                                </VBox.margin>
+                                                            </CheckBox>
+                                                            <Label text="%label.frequency.text" VBox.margin="$x2">
+                                                                <labelFor>
+                                                                    <ComboBox id="" fx:id="_frequencyChoiceBox"
+                                                                              focusTraversable="false"
+                                                                              maxHeight="-Infinity" maxWidth="-Infinity"
+                                                                              minHeight="-Infinity" minWidth="-Infinity"
+                                                                              prefHeight="40.0" prefWidth="330.0">
+                                                                        <items>
+                                                                            <FXCollections
+                                                                                    fx:factory="observableArrayList">
+                                                                                <String fx:value="Item 1"/>
+                                                                                <String fx:value="Item 2"/>
+                                                                                <String fx:value="Item 3"/>
+                                                                            </FXCollections>
+                                                                        </items>
+                                                                        <VBox.margin>
+                                                                            <Insets bottom="10.0" fx:id="x25"/>
+                                                                        </VBox.margin>
+                                                                    </ComboBox>
+                                                                </labelFor>
+                                                            </Label>
+                                                            <fx:reference source="_frequencyChoiceBox"/>
+                                                            <Label text="%label.volume.text">
+                                                                <labelFor>
+                                                                    <Slider fx:id="_volumeSlider" blockIncrement="1.0"
+                                                                            focusTraversable="false"
+                                                                            majorTickUnit="0.25" max="1.0"
+                                                                            maxWidth="-Infinity" min="0.25"
+                                                                            minWidth="-Infinity" minorTickCount="0"
+                                                                            prefWidth="330.0" showTickLabels="true"
+                                                                            showTickMarks="true" snapToTicks="true"
+                                                                            value="0.25"/>
+                                                                </labelFor>
+                                                                <VBox.margin>
+                                                                    <Insets top="10.0" fx:id="x41a"/>
+                                                                </VBox.margin>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" maxHeight="-Infinity"
+                                                                  maxWidth="-Infinity" minHeight="-Infinity"
+                                                                  minWidth="-Infinity" padding="$x2" prefHeight="40.0"
+                                                                  prefWidth="330.0">
+                                                                <children>
+                                                                    <Button maxHeight="-Infinity" maxWidth="-Infinity"
+                                                                            minHeight="-Infinity" minWidth="-Infinity"
+                                                                            mnemonicParsing="false"
+                                                                            onAction="#lowerVolume" prefHeight="40.0"
+                                                                            prefWidth="60.0" text="-">
+                                                                        <font>
+                                                                            <Font size="20.0" fx:id="x6"/>
+                                                                        </font>
+                                                                    </Button>
+                                                                    <TextField fx:id="_volumeTextField"
+                                                                               alignment="CENTER_RIGHT" editable="false"
+                                                                               maxHeight="-Infinity"
+                                                                               maxWidth="-Infinity"
+                                                                               minHeight="-Infinity"
+                                                                               minWidth="-Infinity" prefHeight="40.0"
+                                                                               prefWidth="60.0">
+                                                                        <HBox.margin>
+                                                                            <Insets left="30.0" right="30.0"/>
+                                                                        </HBox.margin>
+                                                                    </TextField>
+                                                                    <Button font="$x6" maxHeight="-Infinity"
+                                                                            maxWidth="-Infinity" minHeight="-Infinity"
+                                                                            minWidth="-Infinity" mnemonicParsing="false"
+                                                                            onAction="#higherVolume" prefHeight="40.0"
+                                                                            prefWidth="60.0" text="+"/>
+                                                                </children>
+                                                            </HBox>
+                                                            <Label text="%label.pulseDuration.text">
+                                                                <VBox.margin>
+                                                                    <Insets top="20.0"/>
+                                                                </VBox.margin>
+                                                            </Label>
+                                                            <TextField id="" fx:id="_pulseDurationTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0">
+                                                                <VBox.margin>
+                                                                    <Insets bottom="10.0" fx:id="x221"/>
+                                                                </VBox.margin>
+                                                            </TextField>
+                                                            <Button maxHeight="-Infinity" maxWidth="-Infinity"
+                                                                    minHeight="-Infinity" minWidth="-Infinity"
+                                                                    mnemonicParsing="false" onAction="#testTone"
+                                                                    prefHeight="40.0" prefWidth="330.0"
+                                                                    text="%test.button.text">
+                                                                <VBox.margin>
+                                                                    <Insets top="10.0" fx:id="x41"/>
+                                                                </VBox.margin>
+                                                            </Button>
+                                                        </children>
+                                                    </VBox>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </TitledPane>
+                                    <fx:reference source="x3"/>
+                                </panes>
+                            </Accordion>
+                        </TitledPane>
+
+
+                        <TitledPane id="p2" fx:id="p2" animated="false" expanded="false" maxWidth="-Infinity"
+                                    minWidth="-Infinity" prefHeight="-1.0" prefWidth="480.0" text="%nBackTest.title">
+                            <Accordion id="nBackAccordion" fx:id="_nBackAccordion" onSwipeDown="#previous"
+                                       onSwipeUp="#next" prefHeight="800.0" prefWidth="480.0">
+                                <panes>
+                                    <TitledPane fx:id="n1" animated="false" expanded="true" maxWidth="-Infinity"
+                                                minWidth="-Infinity" prefWidth="460.0" text="%settings.sequence.text"
+                                                style="-fx-padding: 10 10 0;">
+                                        <content>
+                                            <AnchorPane id="Content" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0"
+                                                        prefHeight="-1.0" prefWidth="-1.0">
+                                                <children>
+                                                    <VBox alignment="CENTER_LEFT" maxWidth="-1.0" minWidth="-1.0"
+                                                          prefHeight="-1.0" prefWidth="-1.0"
+                                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+                                                          AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                                                        <children>
+                                                            <Label text="%settings.sequence.length"/>
+                                                            <TextField fx:id="_sequenceLengthTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0">
+                                                                <VBox.margin>
+                                                                    <Insets bottom="1.0" fx:id="x8"/>
+                                                                </VBox.margin>
+                                                            </TextField>
+                                                            <Label text="%settings.sequence.repeat"/>
+                                                            <TextField id="" fx:id="_sequenceNRepeatTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+                                                            <Label text="%settings.sequence.match"/>
+                                                            <TextField id="" fx:id="_sequenceNMatchTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+                                                            <Label text="%settings.sequence.lures">
+                                                                <VBox.margin>
+                                                                    <Insets fx:id="x9"/>
+                                                                </VBox.margin>
+                                                            </Label>
+                                                            <TextField id="" fx:id="_sequenceNLuresTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+                                                            <Label text="%settings.sequence.nBackLevel" VBox.margin="$x2"/>
+                                                            <TextField id="" fx:id="_sequenceNBackLevelTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0"/>
+                                                            <CheckBox id="_reUseElementCheckbox"
+                                                                      fx:id="_sequenceReUseElementsCheckbox"
+                                                                      contentDisplay="LEFT" mnemonicParsing="false"
+                                                                      text="%settings.sequence.reUseElement">
+                                                                <VBox.margin>
+                                                                    <Insets top="10.0" fx:id="x10"/>
+                                                                </VBox.margin>
+                                                            </CheckBox>
+                                                        </children>
+                                                    </VBox>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </TitledPane><TitledPane fx:id="n4" animated="false" expanded="true" maxWidth="-Infinity"
+                                                minWidth="-Infinity" prefWidth="460.0" text="%settings.mackworth.title"
+                                                style="-fx-padding: 10 10 0;">
+                                        <content>
+                                            <AnchorPane id="Content" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0"
+                                                        prefHeight="-1.0" prefWidth="-1.0">
+                                                <children>
+                                                    <VBox alignment="CENTER_LEFT" maxWidth="-1.0" minWidth="-1.0"
+                                                          prefHeight="-1.0" prefWidth="-1.0"
+                                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+                                                          AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                                                        <children>
+                                                            <Label text="%settings.mackworth.length"/>
+                                                            <TextField fx:id="_mackworthLengthTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0">
+                                                                <VBox.margin>
+                                                                    <Insets bottom="1.0" fx:id="x12"/>
+                                                                </VBox.margin>
+                                                            </TextField>
+
+                                                            <Label text="%settings.mackworth.targets"/>
+                                                            <TextField id="" fx:id="_mackworthTargetsTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+                                                            <Label text="%settings.mackworth.interval">
+                                                                <VBox.margin>
+                                                                    <Insets fx:id="x13"/>
+                                                                </VBox.margin>
+                                                            </Label>
+                                                            <TextField id="" fx:id="_mackworthIntervalTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+                                                            <Label text="%settings.mackworth.nCircles">
+                                                                <VBox.margin>
+                                                                    <Insets fx:id="x14"/>
+                                                                </VBox.margin>
+                                                            </Label>
+                                                            <TextField id="" fx:id="_mackworthNCirclesTextField"
+                                                                       focusTraversable="false" maxHeight="-Infinity"
+                                                                       maxWidth="-Infinity" minHeight="-Infinity"
+                                                                       minWidth="-Infinity" prefHeight="40.0"
+                                                                       prefWidth="330.0" VBox.margin="$x7"/>
+
+                                                        </children>
+                                                    </VBox>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </TitledPane>
+                                    <TitledPane fx:id="n2" animated="false" expanded="false" maxWidth="-Infinity"
+                                                minWidth="-Infinity" prefWidth="460.0" text="%title.stimulus.text"
+                                                style="-fx-padding: 0 10 0;">
+                                    <content>
+                                    <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0"
+                                                prefWidth="-1.0">
+                                    <children>
+                                    <VBox alignment="CENTER_LEFT" maxWidth="-1.0" minHeight="-1.0"
+                                          prefHeight="-1.0" prefWidth="-1.0"
+                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+                                          AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <Label text="%settings.stimulus.type" VBox.margin="$x2">
+                                        <labelFor>
+                                        <ComboBox fx:id="_stimulusTypeComboBox" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="220.0">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList" />
+                                            </items>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" fx:id="c1" />
+                                            </VBox.margin>
+                                        </ComboBox>
+                                        </labelFor>
+                                        </Label>
+                                        <fx:reference source="_stimulusTypeComboBox"/>
+                                        <CheckBox id="_useVoiceRecognitionElementCheckbox"
+                                                  fx:id="_useVoiceRecognitionCheckbox"
+                                                  contentDisplay="LEFT" mnemonicParsing="false"
+                                                  text="%settings.useVoiceRecognition">
+                                            <VBox.margin>
+                                                <Insets top="10.0" fx:id="x11"/>
+                                            </VBox.margin>
+                                        </CheckBox>
+                                    </children>
+                                    </VBox>
+                                    </children>
+                                    </AnchorPane>
+                                    </content>
+                                    </TitledPane>
+
+                                    <TitledPane id="n2" fx:id="n3" animated="false" expanded="false"
+                                                maxWidth="-Infinity" minWidth="-Infinity" prefWidth="460.0"
+                                                text="%settings.voice.text" style="-fx-padding: 0 10 0;">
+                                        <content>
+                                            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0"
+                                                        prefWidth="-1.0">
+                                                <children>
+                                                    <VBox alignment="CENTER_LEFT" maxWidth="-1.0" minHeight="-1.0"
+                                                          prefHeight="-1.0" prefWidth="-1.0"
+                                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+                                                          AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                                                        <HBox prefWidth="-1" prefHeight="50">
+                                                            <RadioButton fx:id="_radioButtonFemale" text="Female">
+                                                                <HBox.margin>
+                                                                    <Insets right="10.0"/>
+
+                                                                </HBox.margin>
+                                                                <toggleGroup>
+                                                                    <ToggleGroup fx:id="gender"/>
+                                                                </toggleGroup>
+                                                            </RadioButton>
+                                                            <RadioButton fx:id="_radioButtonMale" text="Male">
+                                                                <HBox.margin>
+                                                                    <Insets right="30.0"/>
+                                                                    <Insets bottom="10.0"/>
+                                                                </HBox.margin>
+                                                                <toggleGroup>
+                                                                    <fx:reference source="gender"/>
+                                                                </toggleGroup>
+                                                            </RadioButton>
+                                                        </HBox>
+                                                        <HBox prefWidth="-1" prefHeight="50">
+                                                        <RadioButton fx:id="_radioButtonGerman" text="Deutsch">
+                                                            <HBox.margin>
+                                                                <Insets right="10.0"/>
+                                                            </HBox.margin>
+                                                            <toggleGroup>
+                                                                <ToggleGroup fx:id="language"/>
+                                                            </toggleGroup>
+                                                        </RadioButton>
+                                                        <RadioButton fx:id="_radioButtonEnglish" text="English">
+                                                            <HBox.margin>
+                                                                <Insets right="30.0"/>
+                                                                <Insets bottom="10.0"/>
+                                                            </HBox.margin>
+                                                            <toggleGroup>
+                                                                <fx:reference source="language"/>
+                                                            </toggleGroup>
+                                                        </RadioButton>
+                                                    </HBox>
+                                                    </VBox>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </TitledPane>
+                                </panes>
+                            </Accordion>
+                        </TitledPane>
+                        <TitledPane id="n2" fx:id="dynamicPane" animated="false" expanded="false"
+                                    maxWidth="-Infinity" minWidth="-Infinity" prefWidth="460.0"
+                                    text="%settings.pane.test.title" style="-fx-padding: 0 10 0;">
+                            <content>
+                                <AnchorPane id="Content" fx:id="_dynamicContentAnchorPane" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0"
+                                            prefWidth="-1.0">
+                                    <children>
+                                        <VBox alignment="CENTER_LEFT" maxWidth="-1.0" minHeight="-1.0"
+                                              prefHeight="-1.0" prefWidth="-1.0"
+                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+                                              AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+            </center>
+            <top>
+                <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                         prefHeight="45.0" prefWidth="480.0">
+                    <items>
+                        <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                                minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                                onAction="#buttonBack" prefHeight="40.0" prefWidth="80.0" text="%back.text"/>
+                        <Label id="title" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity"
+                               minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" styleClass="title"
+                               text="%settings.title" textAlignment="CENTER"/>
+                        <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                                minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createNew"
+                                prefHeight="40.0" prefWidth="80.0" text="%new.text"/>
+                        <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                                minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#load"
+                                prefHeight="40.0" prefWidth="80.0" text="%load.text"/>
+                        <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                                minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#save"
+                                prefHeight="40.0" prefWidth="80.0" text="%save.text"/>
+                    </items>
+                </ToolBar>
+            </top>
+        </BorderPane>
+    </children>
+</AnchorPane>

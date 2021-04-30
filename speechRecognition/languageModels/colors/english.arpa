@@ -1,0 +1,17 @@
+\data\
+ngram 1=13
+\1-grams:
+-1.0000 <unk>	-0.2553
+-98.9366 <s>	 -0.3064
+-1.0000 </s>	 0.0000
+-0.6990 green
+-0.6990 red
+-0.6990 blue
+-0.6990 white
+-0.6990 black
+-0.6990 yellow
+-0.6990 orange
+-0.6990 purple
+-0.6990 brown
+-0.6990 pink
+\end\
