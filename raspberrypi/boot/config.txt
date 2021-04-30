@@ -1,5 +1,5 @@
 # For more options and information see
-# http://www.raspberrypi.org/documentation/configuration/config-txt.md
+# http://rpf.io/configtxt
 # Some settings may impact device functionality. See link above for details
 
 # uncomment if you get no picture on HDMI for a default "safe" mode
@@ -7,7 +7,7 @@
 
 # uncomment this if your display has a black border of unused pixels visible
 # and your display can output without overscan
-disable_overscan=1
+#disable_overscan=1
 
 # uncomment the following to adjust overscan. Use positive numbers if console
 # goes off screen, and negative if there is too much border
@@ -18,17 +18,15 @@ disable_overscan=1
 
 # uncomment to force a console size. By default it will be display's size minus
 # overscan.
-framebuffer_width=320
-framebuffer_height=480
-framebuffer_depth=16
+#framebuffer_width=1280
+#framebuffer_height=720
 
 # uncomment if hdmi display is not detected and composite is being output
-hdmi_force_hotplug=1
+#hdmi_force_hotplug=1
 
 # uncomment to force a specific HDMI mode (this will force VGA)
-hdmi_group=2
-hdmi_mode=87
-hdmi_cvt=480 320 60 1 0 0 0
+#hdmi_group=1
+#hdmi_mode=1
 
 # uncomment to force a HDMI mode rather than DVI. This can make audio work in
 # DMT (computer monitor) modes
@@ -42,18 +40,30 @@ hdmi_cvt=480 320 60 1 0 0 0
 #sdtv_mode=2
 
 #uncomment to overclock the arm. 700 MHz is the default.
-arm_freq=1000
+#arm_freq=800
 
-core_freq=500
-sdram_freq=500
-over_voltage=2
-gpu_mem=512
+# Uncomment some or all of these to enable the optional hardware interfaces
+#dtparam=i2c_arm=on
+#dtparam=i2s=on
+#dtparam=spi=on
 
+# Uncomment this to enable infrared communication.
+#dtoverlay=gpio-ir,gpio_pin=17
+#dtoverlay=gpio-ir-tx,gpio_pin=18
 
-dtparam=i2c_arm=on
-dtparam=i2c=on
-dtparam=i2c1=on
-dtparam=spi=on
+# Additional overlays and parameters are documented /boot/overlays/README
 
-dtoverlay=piscreen,speed=16000000,rotate=0
-dtoverlay=ads7846,penirq=17,swapxy=0,pmax=255,xohms=60,xmin=200,xmax=3900,ymin=200,ymax=3900
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+
+[all]
+#dtoverlay=vc4-fkms-v3d
+dtoverlay=rpi-ft5406,touchscreen-swapped-x-y=1,touchscreen-inverted-y=1,touchscreen-size-x=480
+display_rotate=3
+
+#force_turbo=1
