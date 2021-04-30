@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=AuReTim
+Exec=/bin/bash /home/pi/AuReTim/auretim.sh
