@@ -117,7 +117,7 @@ public class ResultController extends AbstractBackSupportController {
 		for (final Result result : results) {
 			switch (result.getType()) {
 				case TRUE_POSITIVE:
-					if ((!Config.getInstance().useNoGoProperty().get()) || (result.getDuration() < Config.getInstance().timeoutProperty().get() * 1000)) {
+					if ((!Config.getInstance().auditoryPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().auditoryPVTtimeoutProperty().get() * 1000)) {
 						stats.addValue(result.getDuration());
 					}
 					hits++;

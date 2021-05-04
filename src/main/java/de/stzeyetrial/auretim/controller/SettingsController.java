@@ -36,11 +36,13 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 
 import javax.sound.sampled.LineUnavailableException;
 import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 /**
  * FXML Controller class
@@ -250,6 +252,12 @@ public class SettingsController extends AbstractBackSupportController {
 				}
 				
 				switch(selectedValue){
+					case "PVT":
+						addAuditoryPVTSettings();
+						break;
+					case "Visual PVT":
+						addVisualPVTSettings();
+						break;
 					case "nBack_Visual_Identity":
 						addVisualIdentityNBackSettings();
 						break;
@@ -279,6 +287,7 @@ public class SettingsController extends AbstractBackSupportController {
 		_testSelectionComboBox.itemsProperty().get().add("nBack_Auditory");
 		_testSelectionComboBox.itemsProperty().get().add("Mackworth Clock");
 		_testSelectionComboBox.itemsProperty().get().add("PVT");
+		_testSelectionComboBox.itemsProperty().get().add("Visual PVT");
 		_testSelectionComboBox.itemsProperty().get().add("Visual Identity & Auditory Dual-nBack");
 		_testSelectionComboBox.itemsProperty().get().add("Visual Location & Auditory Dual-nBack");
 		_testSelectionComboBox.itemsProperty().get().add("Visual Location & Identity Dual-nBack");
@@ -325,17 +334,17 @@ public class SettingsController extends AbstractBackSupportController {
 
 	@FXML
 	private void lowerVolume(final ActionEvent e) {
-		final int volume = Config.getInstance().volumeProperty().get() - Config.VOLUME_DELTA;
+		final int volume = Config.getInstance().auditoryPVTvolumeProperty().get() - Config.VOLUME_DELTA;
 		if (volume >= Config.MIN_VOLUME) {
-			Config.getInstance().volumeProperty().set(volume);
+			Config.getInstance().auditoryPVTvolumeProperty().set(volume);
 		}
 	}
 
 	@FXML
 	private void higherVolume(final ActionEvent e) {
-		final int volume = Config.getInstance().volumeProperty().get() + Config.VOLUME_DELTA;
+		final int volume = Config.getInstance().auditoryPVTvolumeProperty().get() + Config.VOLUME_DELTA;
 		if (volume <= Config.MAX_VOLUME) {
-			Config.getInstance().volumeProperty().set(volume);
+			Config.getInstance().auditoryPVTvolumeProperty().set(volume);
 		}
 	}
 
@@ -347,15 +356,15 @@ public class SettingsController extends AbstractBackSupportController {
 
 	@FXML
 	private void testTone(final ActionEvent e) {
-		final int pulseDuration = Config.getInstance().pulseDurationProperty().get();
-		int frequency = Config.getInstance().frequencyProperty().get() * ((_positive) ? 1 : 2);
-		if (Config.getInstance().useNoGoProperty().get()) {
+		final int pulseDuration = Config.getInstance().auditoryPVTpulseDurationProperty().get();
+		int frequency = Config.getInstance().auditoryPVTfrequencyProperty().get() * ((_positive) ? 1 : 2);
+		if (Config.getInstance().auditoryPVTuseNoGoProperty().get()) {
 			frequency *= ((_positive) ? 1 : 2);
 			_positive = !_positive;
 		} else {
 			_positive = true;
 		}
-		final int volume = Config.getInstance().volumeProperty().get();
+		final int volume = Config.getInstance().auditoryPVTvolumeProperty().get();
 		final ByteBuffer buffer = ToneUtils.createToneBuffer(pulseDuration, frequency);
 		try (final Tone tone = Tone.createTone(buffer)) {
 			tone.play(volume);
@@ -419,7 +428,7 @@ public class SettingsController extends AbstractBackSupportController {
 		if (file != null){
 			Config config = Config.getInstance();
 			config.inputProperty().unbind();
-			config.frequencyProperty().unbind();
+			config.auditoryPVTfrequencyProperty().unbind();
 			ConfigMeta configMeta = ConfigMeta.getInstance();
 			configMeta.activeConfigProperty().setValue(file.getName());
 			try {
@@ -489,6 +498,30 @@ public class SettingsController extends AbstractBackSupportController {
 			parentElement.getChildren().add(stimulusTypeComboBox);
 		}
 	}
+
+	private ColorPicker createColorPicker(StringProperty colorProperty){
+
+		ColorPicker colorPicker = new ColorPicker(Color.web(colorProperty.getValue()));
+
+
+		colorPicker.valueProperty().addListener(new ChangeListener<Color>() {
+			@Override
+			public void changed(ObservableValue<? extends Color> observableValue, Color color, Color t1) {
+				String hex = String.format( "#%02X%02X%02X",
+						(int)( t1.getRed() * 255 ),
+						(int)( t1.getGreen() * 255 ),
+						(int)( t1.getBlue() * 255 ) );
+				colorProperty.setValue(hex);
+
+			}
+		});
+		VBox.setMargin(colorPicker, new Insets(0, 50, 10, 50));
+
+		return colorPicker;
+	}
+
+
+
 
 	private void addSequenceSettings(Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, IntegerProperty sequenceLengthProperty, IntegerProperty sequenceRepeatProperty, IntegerProperty sequenceMatchesProperty , IntegerProperty sequenceLuresProperty, IntegerProperty sequenceNBackLevelProperty){
 		VBox contentAnchor = (VBox) _scrollPane.getContent();
@@ -627,6 +660,16 @@ public class SettingsController extends AbstractBackSupportController {
 		Label rowCountLabel = createLabel(rowCountTextField, "Number of rows & columns");
 		contentAnchor.getChildren().add(rowCountLabel);
 		contentAnchor.getChildren().add(rowCountTextField);
+
+		ColorPicker colorPicker = createColorPicker(config.visualLocationColorProperty());
+		Label colorPickerLabel = createLabel(colorPicker, "Color");
+
+		colorPicker.setAccessibleText("hello");
+
+		contentAnchor.getChildren().add(colorPickerLabel);
+		contentAnchor.getChildren().add(colorPicker);
+
+
 
 	}
 
@@ -776,6 +819,116 @@ public class SettingsController extends AbstractBackSupportController {
 		VBox contentAnchor = (VBox) _scrollPane.getContent();
 
 		Config config = Config.getInstance();
+
+		CheckBox useNoGoCheckbox = new CheckBox();
+
+		useNoGoCheckbox.selectedProperty().bindBidirectional(config.auditoryPVTuseNoGoProperty());
+		VBox.setMargin(useNoGoCheckbox, new Insets(0, 50 , 10, 50));
+
+
+		TextField volumeTextField = createTextField(config.auditoryPVTvolumeProperty(), 1);
+		TextField pulseDurationTextField = createTextField(config.auditoryPVTpulseDurationProperty(), 1);
+		TextField timeoutTextField = createTextField(config.auditoryPVTtimeoutProperty(), 1);
+		TextField minimumDelayTextField = createTextField(config.auditoryPVTminimumDelayProperty(), 1);
+		TextField maximumDelayTextField = createTextField(config.auditoryPVTmaximumDelayProperty(), 1);
+		TextField repetitionsTextField = createTextField(config.auditoryPVTrepetitionsProperty(), 1);
+		TextField minimumResponseTimeTextField = createTextField(config.auditoryPVTminimumResponseTimeProperty(), 1);
+
+		Label volumeTextFieldLabel = createLabel(volumeTextField, "Volume");
+		Label pulseDurationTextFieldLabel = createLabel(pulseDurationTextField, "Pulse Duration");
+		Label timeoutTextFieldLabel = createLabel(timeoutTextField, "Timeout (ms)");
+		Label minimumDelayTextFieldLabel = createLabel(minimumDelayTextField, "Minimum Delay");
+		Label maximumDelayTextFieldLabel = createLabel(maximumDelayTextField, "Maximum Delay");
+		Label repetitionsTextFieldLabel = createLabel(repetitionsTextField, "Repetitions");
+		Label minimumResponseTimeTextFieldLabel = createLabel(minimumResponseTimeTextField, "Minimum Response Time");
+		Label useNoGoCheckBoxLabel = createLabel(useNoGoCheckbox, "Use No-Go Paradigm");
+
+		_validation.registerValidator(volumeTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(pulseDurationTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(timeoutTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(minimumDelayTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(maximumDelayTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(repetitionsTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(minimumResponseTimeTextField, false, Validator.createEmptyValidator(""));
+
+		config.auditoryPVTuseNoGoProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, Boolean newValue) -> maximumDelayTextField.setDisable(newValue));
+		maximumDelayTextField.setDisable(config.auditoryPVTuseNoGoProperty().get());
+
+		contentAnchor.getChildren().add(volumeTextFieldLabel);
+		contentAnchor.getChildren().add(volumeTextField);
+		contentAnchor.getChildren().add(pulseDurationTextFieldLabel);
+		contentAnchor.getChildren().add(pulseDurationTextField);
+		contentAnchor.getChildren().add(minimumDelayTextFieldLabel);
+		contentAnchor.getChildren().add(minimumDelayTextField);
+		contentAnchor.getChildren().add(maximumDelayTextFieldLabel);
+		contentAnchor.getChildren().add(maximumDelayTextField);
+		contentAnchor.getChildren().add(repetitionsTextFieldLabel);
+		contentAnchor.getChildren().add(repetitionsTextField);
+		contentAnchor.getChildren().add(minimumResponseTimeTextFieldLabel);
+		contentAnchor.getChildren().add(minimumResponseTimeTextField);
+		contentAnchor.getChildren().add(timeoutTextFieldLabel);
+		contentAnchor.getChildren().add(timeoutTextField);
+		contentAnchor.getChildren().add(useNoGoCheckBoxLabel);
+		contentAnchor.getChildren().add(useNoGoCheckbox);
+
+
+
 	}
+
+	private void addVisualPVTSettings() {
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+
+		CheckBox useNoGoCheckbox = new CheckBox();
+
+		useNoGoCheckbox.selectedProperty().bindBidirectional(config.visualPVTuseNoGoProperty());
+		VBox.setMargin(useNoGoCheckbox, new Insets(0, 50, 10, 50));
+
+
+		TextField pulseDurationTextField = createTextField(config.visualPVTpulseDurationProperty(), 1);
+		TextField timeoutTextField = createTextField(config.visualPVTtimeoutProperty(), 1);
+		TextField minimumDelayTextField = createTextField(config.visualPVTminimumDelayProperty(), 1);
+		TextField maximumDelayTextField = createTextField(config.visualPVTmaximumDelayProperty(), 1);
+		TextField repetitionsTextField = createTextField(config.visualPVTrepetitionsProperty(), 1);
+		TextField minimumResponseTimeTextField = createTextField(config.visualPVTminimumResponseTimeProperty(), 1);
+
+		Label pulseDurationTextFieldLabel = createLabel(pulseDurationTextField, "Pulse Duration");
+		Label timeoutTextFieldLabel = createLabel(timeoutTextField, "Timeout (ms)");
+		Label minimumDelayTextFieldLabel = createLabel(minimumDelayTextField, "Minimum Delay");
+		Label maximumDelayTextFieldLabel = createLabel(maximumDelayTextField, "Maximum Delay");
+		Label repetitionsTextFieldLabel = createLabel(repetitionsTextField, "Repetitions");
+		Label minimumResponseTimeTextFieldLabel = createLabel(minimumResponseTimeTextField, "Minimum Response Time");
+		Label useNoGoCheckBoxLabel = createLabel(useNoGoCheckbox, "Use No-Go Paradigm");
+
+		_validation.registerValidator(pulseDurationTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(timeoutTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(minimumDelayTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(maximumDelayTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(repetitionsTextField, false, Validator.createEmptyValidator(""));
+		_validation.registerValidator(minimumResponseTimeTextField, false, Validator.createEmptyValidator(""));
+
+		config.visualPVTuseNoGoProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, Boolean newValue) -> maximumDelayTextField.setDisable(newValue));
+		maximumDelayTextField.setDisable(config.visualPVTuseNoGoProperty().get());
+
+		contentAnchor.getChildren().add(pulseDurationTextFieldLabel);
+		contentAnchor.getChildren().add(pulseDurationTextField);
+		contentAnchor.getChildren().add(minimumDelayTextFieldLabel);
+		contentAnchor.getChildren().add(minimumDelayTextField);
+		contentAnchor.getChildren().add(maximumDelayTextFieldLabel);
+		contentAnchor.getChildren().add(maximumDelayTextField);
+		contentAnchor.getChildren().add(repetitionsTextFieldLabel);
+		contentAnchor.getChildren().add(repetitionsTextField);
+		contentAnchor.getChildren().add(minimumResponseTimeTextFieldLabel);
+		contentAnchor.getChildren().add(minimumResponseTimeTextField);
+		contentAnchor.getChildren().add(timeoutTextFieldLabel);
+		contentAnchor.getChildren().add(timeoutTextField);
+		contentAnchor.getChildren().add(useNoGoCheckBoxLabel);
+		contentAnchor.getChildren().add(useNoGoCheckbox);
+	}
+
+
+
+
 
 }

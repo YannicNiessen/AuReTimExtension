@@ -86,7 +86,7 @@ public class AuditoryPVTController extends AbstractController {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		_volumeTextField.textProperty().bindBidirectional(Config.getInstance().volumeProperty(), NumberFormat.getIntegerInstance());
+		_volumeTextField.textProperty().bindBidirectional(Config.getInstance().auditoryPVTvolumeProperty(), NumberFormat.getIntegerInstance());
 		_resources = resources;
 
 		_timelineGreen = new Timeline();
@@ -119,20 +119,20 @@ public class AuditoryPVTController extends AbstractController {
 	private void start() {
 		unbind();
 
-		final int frequency				= Config.getInstance().frequencyProperty().get();
-		final int pulseDuration			= Config.getInstance().pulseDurationProperty().get();
-		final int minimumResponseTime	= Config.getInstance().minimumResponseTimeProperty().get();
-		final int minimumDelay			= Config.getInstance().minimumDelayProperty().get();
-		final int maximumDelay			= Config.getInstance().maximumDelayProperty().get();
-		final int timeout				= Config.getInstance().timeoutProperty().get();
-		final int repetitions			= Config.getInstance().repetitionsProperty().get();
+		final int frequency				= Config.getInstance().auditoryPVTfrequencyProperty().get();
+		final int pulseDuration			= Config.getInstance().auditoryPVTpulseDurationProperty().get();
+		final int minimumResponseTime	= Config.getInstance().auditoryPVTminimumResponseTimeProperty().get();
+		final int minimumDelay			= Config.getInstance().auditoryPVTminimumDelayProperty().get();
+		final int maximumDelay			= Config.getInstance().auditoryPVTmaximumDelayProperty().get();
+		final int timeout				= Config.getInstance().auditoryPVTtimeoutProperty().get();
+		final int repetitions			= Config.getInstance().auditoryPVTrepetitionsProperty().get();
 
 		final List<Result> results = Session.getCurrentSession().getResults();
 		results.clear();
 
-		final AbstractRunnerTask task = (Config.getInstance().useNoGoProperty().get())
-			? new NoGoRunnerTask(results, frequency, Config.getInstance().volumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, timeout, repetitions, false)
-			: new RunnerTask(results, frequency, Config.getInstance().volumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, maximumDelay, timeout, repetitions, false)
+		final AbstractRunnerTask task = (Config.getInstance().auditoryPVTuseNoGoProperty().get())
+			? new NoGoRunnerTask(results, frequency, Config.getInstance().auditoryPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, timeout, repetitions, false)
+			: new RunnerTask(results, frequency, Config.getInstance().auditoryPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, maximumDelay, timeout, repetitions, false)
 		;
 		task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
 		//task.setOnFailed(event -> getScreenManager().showException(task.getException()));
@@ -167,17 +167,17 @@ public class AuditoryPVTController extends AbstractController {
 
 	@FXML
 	private void lowerVolume(final ActionEvent e) {
-		final int volume = Config.getInstance().volumeProperty().get() - Config.VOLUME_DELTA;
+		final int volume = Config.getInstance().auditoryPVTvolumeProperty().get() - Config.VOLUME_DELTA;
 		if (volume >= Config.MIN_VOLUME) {
-			Config.getInstance().volumeProperty().set(volume);
+			Config.getInstance().auditoryPVTvolumeProperty().set(volume);
 		}
 	}
 
 	@FXML
 	private void higherVolume(final ActionEvent e) {
-		final int volume = Config.getInstance().volumeProperty().get() + Config.VOLUME_DELTA;
+		final int volume = Config.getInstance().auditoryPVTvolumeProperty().get() + Config.VOLUME_DELTA;
 		if (volume <= Config.MAX_VOLUME) {
-			Config.getInstance().volumeProperty().set(volume);
+			Config.getInstance().auditoryPVTvolumeProperty().set(volume);
 		}
 	}
 

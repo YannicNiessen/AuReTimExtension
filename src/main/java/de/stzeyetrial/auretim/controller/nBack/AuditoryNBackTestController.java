@@ -39,7 +39,7 @@ public class AuditoryNBackTestController extends AbstractNBackTestController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        _volumeTextField.textProperty().bindBidirectional(Config.getInstance().volumeProperty(), NumberFormat.getIntegerInstance());
+        _volumeTextField.textProperty().bindBidirectional(Config.getInstance().auditoryPVTvolumeProperty(), NumberFormat.getIntegerInstance());
         setConfig();
 
     }
@@ -55,7 +55,7 @@ public class AuditoryNBackTestController extends AbstractNBackTestController {
         final int nBackLevel			= Config.getInstance().auditorySequenceNBackLevelProperty().get();
         final int timeout				= Config.getInstance().auditoryIntervalProperty().get();
         final boolean reUseElements		= Config.getInstance().auditorySequenceReUseElementProperty().get();
-        final int minimumResponseTime	= Config.getInstance().minimumResponseTimeProperty().get();
+
 
         final boolean useVoiceRecognition = Config.getInstance().useVoiceRecognitionProperty().get();
 
@@ -106,17 +106,17 @@ public class AuditoryNBackTestController extends AbstractNBackTestController {
 
     @FXML
     private void lowerVolume(final ActionEvent e) {
-        final int volume = Config.getInstance().volumeProperty().get() - Config.VOLUME_DELTA;
+        final int volume = Config.getInstance().auditoryPVTvolumeProperty().get() - Config.VOLUME_DELTA;
         if (volume >= Config.MIN_VOLUME) {
-            Config.getInstance().volumeProperty().set(volume);
+            Config.getInstance().auditoryPVTvolumeProperty().set(volume);
         }
     }
 
     @FXML
     private void higherVolume(final ActionEvent e) {
-        final int volume = Config.getInstance().volumeProperty().get() + Config.VOLUME_DELTA;
+        final int volume = Config.getInstance().auditoryPVTvolumeProperty().get() + Config.VOLUME_DELTA;
         if (volume <= Config.MAX_VOLUME) {
-            Config.getInstance().volumeProperty().set(volume);
+            Config.getInstance().auditoryPVTvolumeProperty().set(volume);
         }
     }
 

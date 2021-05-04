@@ -23,7 +23,7 @@ public class LocationNBackTestController extends AbstractNBackTestController {
 
     private GridPane _stimulusGridPane;
     private int _rowNumber;
-
+    private String _hexColor;
 
     @Override
     protected void start() {
@@ -36,7 +36,8 @@ public class LocationNBackTestController extends AbstractNBackTestController {
         final int nBackLevel			= Config.getInstance().visualLocationSequenceNBackLevelProperty().get();
         final int timeout				= Config.getInstance().visualLocationIntervalProperty().get();
         final boolean reUseElements		= Config.getInstance().visualLocationSequenceReUseElementProperty().get();
-        final int minimumResponseTime	= Config.getInstance().minimumResponseTimeProperty().get();
+        _hexColor = Config.getInstance().visualLocationColorProperty().getValue();
+
 
         final boolean useVoiceRecognition = Config.getInstance().useVoiceRecognitionProperty().get();
         int rowNumber = Config.getInstance().visualLocationRowCountProperty().getValue();
@@ -105,7 +106,7 @@ public class LocationNBackTestController extends AbstractNBackTestController {
             for (int i = 0; i < _stimulusGridPane.getChildren().toArray().length; i++){
                 ((Rectangle) _stimulusGridPane.getChildren().get(i)).setFill(Paint.valueOf("white"));
             }
-            FillTransition fillBlue = new FillTransition(Duration.millis(100),((Rectangle) _stimulusGridPane.getChildren().get(value)) ,Color.WHITE, Color.BLUE);
+            FillTransition fillBlue = new FillTransition(Duration.millis(100),((Rectangle) _stimulusGridPane.getChildren().get(value)) ,Color.WHITE, Color.web(_hexColor));
             fillBlue.play();
 
     }

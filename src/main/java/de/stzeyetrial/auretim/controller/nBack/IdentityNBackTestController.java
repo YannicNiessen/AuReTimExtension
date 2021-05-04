@@ -52,8 +52,7 @@ public class IdentityNBackTestController extends AbstractNBackTestController {
         final int nBackLevel			= Config.getInstance().visualIdentitySequenceNBackLevelProperty().get();
         final int timeout				= Config.getInstance().visualIdentityIntervalProperty().get();
         final boolean reUseElements		= Config.getInstance().visualIdentitySequenceReUseElementProperty().get();
-        final int minimumResponseTime	= Config.getInstance().minimumResponseTimeProperty().get();
-        
+
         final int nOptions = 10;
 
         final List<Result> results = Session.getCurrentSession().getResults();

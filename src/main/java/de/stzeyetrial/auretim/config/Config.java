@@ -33,19 +33,44 @@ public class Config {
 
 	private static final String CONFIG_COMMENT							= "AuReTim configuration";
 
+	private static final String PROPERTY_USE_AUTO_COMPLETION			= "userAutoCompletion";
+
 	private static final String PROPERTY_DIRECTORY						= "directory";
 	private static final String PROPERTY_INPUT							= "input";
-	private static final String PROPERTY_FREQUENCY						= "frequency";
-	private static final String PROPERTY_VOLUME							= "volume";
-	private static final String PROPERTY_USE_AUTO_COMPLETION			= "userAutoCompletion";
-	private static final String PROPERTY_USE_NO_GO						= "useNoGo";
-	private static final String PROPERTY_FREQUENCIES					= "frequencies";
-	private static final String PROPERTY_PULSEDURATION					= "pulseDuration";
-	private static final String PROPERTY_TIMEOUT						= "timeout";
-	private static final String PROPERTY_MINIMUM_DELAY					= "minimumDelay";
-	private static final String PROPERTY_MAXIMUM_DELAY					= "maximumDelay";
-	private static final String PROPERTY_MINIMUM_RESPONSE_TIME			= "minimumResponseTime";
-	private static final String PROPERTY_REPETITIONS					= "repetitions";
+
+	private static final String PROPERTY_VISUAL_PVT_GO_COLOR = 			"visualPVTgoColor";
+	private static final String PROPERTY_VISUAL_PVT_NO_GO_COLOR = 			"visualPVTnoGoColor";
+	private static final String PROPERTY_VISUAL_LOCATION_COLOR = 			"visualLocationSequenceColor";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_COLOR = 			"dualAuditoryLocationColor";
+
+
+	private static final String PROPERTY_AUDITORY_PVT_FREQUENCY						= "auditoryPVTfrequency";
+	private static final String PROPERTY_AUDITORY_PVT_VOLUME							= "auditoryPVTvolume";
+	private static final String PROPERTY_AUDITORY_PVT_USE_NO_GO						= "auditoryPVTuseNoGo";
+	private static final String PROPERTY_AUDITORY_PVT_FREQUENCIES					= "auditoryPVTfrequencies";
+	private static final String PROPERTY_AUDITORY_PVT_PULSEDURATION					= "auditoryPVTpulseDuration";
+	private static final String PROPERTY_AUDITORY_PVT_TIMEOUT						= "auditoryPVTtimeout";
+	private static final String PROPERTY_AUDITORY_PVT_MINIMUM_DELAY					= "auditoryPVTminimumDelay";
+	private static final String PROPERTY_AUDITORY_PVT_MAXIMUM_DELAY					= "auditoryPVTmaximumDelay";
+	private static final String PROPERTY_AUDITORY_PVT_MINIMUM_RESPONSE_TIME			= "auditoryPVTminimumResponseTime";
+	private static final String PROPERTY_AUDITORY_PVT_REPETITIONS					= "auditoryPVTrepetitions";
+
+
+	private static final String PROPERTY_VISUAL_PVT_USE_NO_GO						= "visualPVTuseNoGo";
+	private static final String PROPERTY_VISUAL_PVT_PULSEDURATION					= "visualPVTpulseDuration";
+	private static final String PROPERTY_VISUAL_PVT_TIMEOUT						= "visualPVTtimeout";
+	private static final String PROPERTY_VISUAL_PVT_MINIMUM_DELAY					= "visualPVTminimumDelay";
+	private static final String PROPERTY_VISUAL_PVT_MAXIMUM_DELAY					= "visualPVTmaximumDelay";
+	private static final String PROPERTY_VISUAL_PVT_MINIMUM_RESPONSE_TIME			= "visualPVTminimumResponseTime";
+	private static final String PROPERTY_VISUAL_PVT_REPETITIONS					= "visualPVTrepetitions";
+
+
+
+
+
+
+
+
 	private static final String PROPERTY_VOICE_FEMALE					= "useFemaleVoice";
 	private static final String PROPERTY_VOICE_MALE						= "useMaleVoice";
 	private static final String PROPERTY_VOICE_GERMAN					= "useGermanVoice";
@@ -146,7 +171,7 @@ public class Config {
 
 
 
-
+	private static final String PROPERTY_COLOR_DEFAULT = "#FF0000";
 	private static final String PROPERTY_DIRECTORY_DEFAULT				= ".";
 	private static final String PROPERTY_INPUT_DEFAULT					= Input.BUTTON.toString();
 	private static final String PROPERTY_FREQUENCY_DEFAULT				= Integer.toString(440);
@@ -188,16 +213,33 @@ public class Config {
 
 	private final StringProperty _directory				= new SimpleStringProperty();
 	private final ObjectProperty<Input> _input			= new SimpleObjectProperty<>();
-	private final IntegerProperty _frequency			= new SimpleIntegerProperty();
-	private final IntegerProperty _volume				= new SimpleIntegerProperty();
 	private final BooleanProperty _useAutoCompletion	= new SimpleBooleanProperty();
-	private final BooleanProperty _useNoGo				= new SimpleBooleanProperty();
-	private final IntegerProperty _pulseDuration		= new SimpleIntegerProperty();
-	private final IntegerProperty _timeout				= new SimpleIntegerProperty();
-	private final IntegerProperty _minimumDelay			= new SimpleIntegerProperty();
-	private final IntegerProperty _maximumDelay			= new SimpleIntegerProperty();
-	private final IntegerProperty _minimumResponseTime	= new SimpleIntegerProperty();
-	private final IntegerProperty _repetitions			= new SimpleIntegerProperty();
+
+
+	private final StringProperty _visualPVTgoColor = new SimpleStringProperty();
+	private final StringProperty _visualPVTnoGoColor = new SimpleStringProperty();
+	private final StringProperty _visualLocationColor = new SimpleStringProperty();
+	private final StringProperty _dualAuditoryLocationColor = new SimpleStringProperty();
+
+	private final IntegerProperty _auditoryPVTfrequency			= new SimpleIntegerProperty();
+	private final IntegerProperty _auditoryPVTvolume				= new SimpleIntegerProperty();
+	private final BooleanProperty _auditoryPVTuseNoGo				= new SimpleBooleanProperty();
+	private final IntegerProperty _auditoryPVTpulseDuration		= new SimpleIntegerProperty();
+	private final IntegerProperty _auditoryPVTtimeout				= new SimpleIntegerProperty();
+	private final IntegerProperty _auditoryPVTminimumDelay			= new SimpleIntegerProperty();
+	private final IntegerProperty _auditoryPVTmaximumDelay			= new SimpleIntegerProperty();
+	private final IntegerProperty _auditoryPVTminimumResponseTime	= new SimpleIntegerProperty();
+	private final IntegerProperty _auditoryPVTrepetitions			= new SimpleIntegerProperty();
+
+	private final IntegerProperty _visualPVTfrequency			= new SimpleIntegerProperty();
+	private final IntegerProperty _visualPVTvolume				= new SimpleIntegerProperty();
+	private final BooleanProperty _visualPVTuseNoGo				= new SimpleBooleanProperty();
+	private final IntegerProperty _visualPVTpulseDuration		= new SimpleIntegerProperty();
+	private final IntegerProperty _visualPVTtimeout				= new SimpleIntegerProperty();
+	private final IntegerProperty _visualPVTminimumDelay			= new SimpleIntegerProperty();
+	private final IntegerProperty _visualPVTmaximumDelay			= new SimpleIntegerProperty();
+	private final IntegerProperty _visualPVTminimumResponseTime	= new SimpleIntegerProperty();
+	private final IntegerProperty _visualPVTrepetitions			= new SimpleIntegerProperty();
 
 	private final BooleanProperty _voiceFemale 			= new SimpleBooleanProperty();
 	private final BooleanProperty _voiceMale 			= new SimpleBooleanProperty();
@@ -322,16 +364,31 @@ public class Config {
 
 		directoryProperty().setValue(p.getProperty(PROPERTY_DIRECTORY, PROPERTY_DIRECTORY_DEFAULT));
 		inputProperty().setValue(Input.valueOf(p.getProperty(PROPERTY_INPUT, PROPERTY_INPUT_DEFAULT)));
-		frequencyProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_FREQUENCY, PROPERTY_FREQUENCY_DEFAULT)));
-		volumeProperty().setValue(Double.valueOf(p.getProperty(PROPERTY_VOLUME, PROPERTY_VOLUME_DEFAULT)));
 		useAutoCompletionProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_USE_AUTO_COMPLETION, PROPERTY_USE_AUTO_COMPLETION_DEFAULT)));
-		useNoGoProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_USE_NO_GO, PROPERTY_USE_NO_GO_DEFAULT)));
-		pulseDurationProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_PULSEDURATION, PROPERTY_PULSEDURATION_DEFAULT)));
-		timeoutProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_TIMEOUT, PROPERTY_TIMEOUT_DEFAULT)));
-		minimumDelayProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_MINIMUM_DELAY, PROPERTY_MINIMUM_DELAY_DEFAULT)));
-		maximumDelayProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_MAXIMUM_DELAY, PROPERTY_MAXIMUM_DELAY_DEFAULT)));
-		repetitionsProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_REPETITIONS, PROPERTY_REPETITIONS_DEFAULT)));
-		minimumResponseTimeProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_MINIMUM_RESPONSE_TIME, PROPERTY_MINIMUM_RESPONSE_TIME_DEFAULT)));
+
+		visualPVTgoColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_PVT_GO_COLOR, PROPERTY_COLOR_DEFAULT));
+		visualPVTnoGoColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_PVT_NO_GO_COLOR, PROPERTY_COLOR_DEFAULT));
+		visualLocationColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_LOCATION_COLOR, PROPERTY_COLOR_DEFAULT));
+		dualAuditoryLocationColorProperty().setValue(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_COLOR, PROPERTY_COLOR_DEFAULT));
+
+		auditoryPVTfrequencyProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_FREQUENCY, PROPERTY_FREQUENCY_DEFAULT)));
+		auditoryPVTvolumeProperty().setValue(Double.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_VOLUME, PROPERTY_VOLUME_DEFAULT)));
+		auditoryPVTuseNoGoProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_USE_NO_GO, PROPERTY_USE_NO_GO_DEFAULT)));
+		auditoryPVTpulseDurationProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_PULSEDURATION, PROPERTY_PULSEDURATION_DEFAULT)));
+		auditoryPVTtimeoutProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_TIMEOUT, PROPERTY_TIMEOUT_DEFAULT)));
+		auditoryPVTminimumDelayProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_MINIMUM_DELAY, PROPERTY_MINIMUM_DELAY_DEFAULT)));
+		auditoryPVTmaximumDelayProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_MAXIMUM_DELAY, PROPERTY_MAXIMUM_DELAY_DEFAULT)));
+		auditoryPVTrepetitionsProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_REPETITIONS, PROPERTY_REPETITIONS_DEFAULT)));
+		auditoryPVTminimumResponseTimeProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_MINIMUM_RESPONSE_TIME, PROPERTY_MINIMUM_RESPONSE_TIME_DEFAULT)));
+
+
+		visualPVTuseNoGoProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_VISUAL_PVT_USE_NO_GO, PROPERTY_USE_NO_GO_DEFAULT)));
+		visualPVTpulseDurationProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_VISUAL_PVT_PULSEDURATION, PROPERTY_PULSEDURATION_DEFAULT)));
+		visualPVTtimeoutProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_VISUAL_PVT_TIMEOUT, PROPERTY_TIMEOUT_DEFAULT)));
+		visualPVTminimumDelayProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_VISUAL_PVT_MINIMUM_DELAY, PROPERTY_MINIMUM_DELAY_DEFAULT)));
+		visualPVTmaximumDelayProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_VISUAL_PVT_MAXIMUM_DELAY, PROPERTY_MAXIMUM_DELAY_DEFAULT)));
+		visualPVTrepetitionsProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_VISUAL_PVT_REPETITIONS, PROPERTY_REPETITIONS_DEFAULT)));
+		visualPVTminimumResponseTimeProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_VISUAL_PVT_MINIMUM_RESPONSE_TIME, PROPERTY_MINIMUM_RESPONSE_TIME_DEFAULT)));
 
 
 		voiceFemaleProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_VOICE_FEMALE, PROPERTY_VOICE_FEMALE_DEFAULT)));
@@ -431,7 +488,7 @@ public class Config {
 		mackworthNCirclesProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_MACKWORTH_N_CIRCLES, PROPERTY_MACKWORTH_N_CIRCLES_DEFAULT)));
 
 
-		Arrays.stream(p.getProperty(PROPERTY_FREQUENCIES, PROPERTY_FREQUENCIES_DEFAULT)
+		Arrays.stream(p.getProperty(PROPERTY_AUDITORY_PVT_FREQUENCY, PROPERTY_FREQUENCIES_DEFAULT)
 			.split(","))
 			.map(s -> s.trim())
 			.mapToInt(s -> Integer.valueOf(s))
@@ -443,17 +500,27 @@ public class Config {
 
 		p.setProperty(PROPERTY_DIRECTORY,				directoryProperty().getValue());
 		p.setProperty(PROPERTY_INPUT,					inputProperty().getValue().toString());
-		p.setProperty(PROPERTY_FREQUENCY,				Integer.toString(frequencyProperty().getValue()));
-		p.setProperty(PROPERTY_VOLUME,					Double.toString(volumeProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_FREQUENCIES,				PROPERTY_FREQUENCIES_DEFAULT);
 		p.setProperty(PROPERTY_USE_AUTO_COMPLETION,		Boolean.toString(useAutoCompletionProperty().getValue()));
-		p.setProperty(PROPERTY_USE_NO_GO,				Boolean.toString(useNoGoProperty().getValue()));
-		p.setProperty(PROPERTY_FREQUENCIES,				PROPERTY_FREQUENCIES_DEFAULT);
-		p.setProperty(PROPERTY_PULSEDURATION,			Integer.toString(pulseDurationProperty().getValue()));
-		p.setProperty(PROPERTY_TIMEOUT,					Integer.toString(timeoutProperty().getValue()));
-		p.setProperty(PROPERTY_MINIMUM_DELAY,			Integer.toString(minimumDelayProperty().getValue()));
-		p.setProperty(PROPERTY_MAXIMUM_DELAY,			Integer.toString(maximumDelayProperty().getValue()));
-		p.setProperty(PROPERTY_REPETITIONS,				Integer.toString(repetitionsProperty().getValue()));
-		p.setProperty(PROPERTY_MINIMUM_RESPONSE_TIME,	Integer.toString(minimumResponseTimeProperty().getValue()));
+
+		p.setProperty(PROPERTY_AUDITORY_PVT_FREQUENCY,				Integer.toString(auditoryPVTfrequencyProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_VOLUME,					Double.toString(auditoryPVTvolumeProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_USE_NO_GO,				Boolean.toString(auditoryPVTuseNoGoProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_PULSEDURATION,			Integer.toString(auditoryPVTpulseDurationProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_TIMEOUT,					Integer.toString(auditoryPVTtimeoutProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_MINIMUM_DELAY,			Integer.toString(auditoryPVTminimumDelayProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_MAXIMUM_DELAY,			Integer.toString(auditoryPVTmaximumDelayProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_REPETITIONS,				Integer.toString(auditoryPVTrepetitionsProperty().getValue()));
+		p.setProperty(PROPERTY_AUDITORY_PVT_MINIMUM_RESPONSE_TIME,	Integer.toString(auditoryPVTminimumResponseTimeProperty().getValue()));
+
+		p.setProperty(PROPERTY_VISUAL_PVT_USE_NO_GO,				Boolean.toString(visualPVTuseNoGoProperty().getValue()));
+		p.setProperty(PROPERTY_VISUAL_PVT_PULSEDURATION,			Integer.toString(visualPVTpulseDurationProperty().getValue()));
+		p.setProperty(PROPERTY_VISUAL_PVT_TIMEOUT,					Integer.toString(visualPVTtimeoutProperty().getValue()));
+		p.setProperty(PROPERTY_VISUAL_PVT_MINIMUM_DELAY,			Integer.toString(visualPVTminimumDelayProperty().getValue()));
+		p.setProperty(PROPERTY_VISUAL_PVT_MAXIMUM_DELAY,			Integer.toString(visualPVTmaximumDelayProperty().getValue()));
+		p.setProperty(PROPERTY_VISUAL_PVT_REPETITIONS,				Integer.toString(visualPVTrepetitionsProperty().getValue()));
+
+
 		p.setProperty(PROPERTY_VOICE_FEMALE, 			Boolean.toString(voiceFemaleProperty().getValue()));
 		p.setProperty(PROPERTY_VOICE_MALE, 				Boolean.toString(voiceMaleProperty().getValue()));
 		p.setProperty(PROPERTY_VOICE_GERMAN, 			Boolean.toString(voiceGermanProperty().getValue()));
@@ -556,6 +623,13 @@ public class Config {
 
 	}
 
+
+	public StringProperty visualPVTgoColorProperty(){return _visualPVTgoColor;}
+	public StringProperty visualPVTnoGoColorProperty(){return _visualPVTnoGoColor;}
+	public StringProperty visualLocationColorProperty(){return _visualLocationColor;}
+	public StringProperty dualAuditoryLocationColorProperty(){return _dualAuditoryLocationColor;}
+
+
 	public StringProperty directoryProperty() {
 		return _directory;
 	}
@@ -564,44 +638,83 @@ public class Config {
 		return _input;
 	}
 
-	public IntegerProperty frequencyProperty() {
-		return _frequency;
-	}
-
-	public IntegerProperty volumeProperty() {
-		return _volume;
-	}
-
 	public BooleanProperty useAutoCompletionProperty() {
 		return _useAutoCompletion;
 	}
 
-	public BooleanProperty useNoGoProperty() {
-		return _useNoGo;
+
+	public IntegerProperty auditoryPVTfrequencyProperty() {
+		return _auditoryPVTfrequency;
 	}
 
-	public IntegerProperty pulseDurationProperty() {
-		return _pulseDuration;
+	public IntegerProperty auditoryPVTvolumeProperty() {
+		return _auditoryPVTvolume;
 	}
 
-	public IntegerProperty timeoutProperty() {
-		return _timeout;
+
+	public BooleanProperty auditoryPVTuseNoGoProperty() {
+		return _auditoryPVTuseNoGo;
 	}
 
-	public IntegerProperty minimumDelayProperty() {
-		return _minimumDelay;
+	public IntegerProperty auditoryPVTpulseDurationProperty() {
+		return _auditoryPVTpulseDuration;
 	}
 
-	public IntegerProperty maximumDelayProperty() {
-		return _maximumDelay;
+	public IntegerProperty auditoryPVTtimeoutProperty() {
+		return _auditoryPVTtimeout;
 	}
 
-	public IntegerProperty minimumResponseTimeProperty() {
-		return _minimumResponseTime;
+	public IntegerProperty auditoryPVTminimumDelayProperty() {
+		return _auditoryPVTminimumDelay;
 	}
 
-	public IntegerProperty repetitionsProperty() {
-		return _repetitions;
+	public IntegerProperty auditoryPVTmaximumDelayProperty() {
+		return _auditoryPVTmaximumDelay;
+	}
+
+	public IntegerProperty auditoryPVTminimumResponseTimeProperty() {
+		return _auditoryPVTminimumResponseTime;
+	}
+
+	public IntegerProperty auditoryPVTrepetitionsProperty() {
+		return _auditoryPVTrepetitions;
+	}
+
+	public IntegerProperty visualPVTfrequencyProperty() {
+		return _visualPVTfrequency;
+	}
+
+	public IntegerProperty visualPVTvolumeProperty() {
+		return _visualPVTvolume;
+	}
+
+
+	public BooleanProperty visualPVTuseNoGoProperty() {
+		return _visualPVTuseNoGo;
+	}
+
+	public IntegerProperty visualPVTpulseDurationProperty() {
+		return _visualPVTpulseDuration;
+	}
+
+	public IntegerProperty visualPVTtimeoutProperty() {
+		return _visualPVTtimeout;
+	}
+
+	public IntegerProperty visualPVTminimumDelayProperty() {
+		return _visualPVTminimumDelay;
+	}
+
+	public IntegerProperty visualPVTmaximumDelayProperty() {
+		return _visualPVTmaximumDelay;
+	}
+
+	public IntegerProperty visualPVTminimumResponseTimeProperty() {
+		return _visualPVTminimumResponseTime;
+	}
+
+	public IntegerProperty visualPVTrepetitionsProperty() {
+		return _visualPVTrepetitions;
 	}
 
 	public ObjectProperty<ObservableList<Integer>> frequenciesProperty() {

@@ -138,20 +138,20 @@ public class VisualPVTController extends AbstractController {
 	private void start() {
 		unbind();
 
-		final int frequency				= Config.getInstance().frequencyProperty().get();
-		final int pulseDuration			= Config.getInstance().pulseDurationProperty().get();
-		final int minimumResponseTime	= Config.getInstance().minimumResponseTimeProperty().get();
-		final int minimumDelay			= Config.getInstance().minimumDelayProperty().get();
-		final int maximumDelay			= Config.getInstance().maximumDelayProperty().get();
-		final int timeout				= Config.getInstance().timeoutProperty().get();
-		final int repetitions			= Config.getInstance().repetitionsProperty().get();
+		final int frequency				= Config.getInstance().visualPVTfrequencyProperty().get();
+		final int pulseDuration			= Config.getInstance().visualPVTpulseDurationProperty().get();
+		final int minimumResponseTime	= Config.getInstance().visualPVTminimumResponseTimeProperty().get();
+		final int minimumDelay			= Config.getInstance().visualPVTminimumDelayProperty().get();
+		final int maximumDelay			= Config.getInstance().visualPVTmaximumDelayProperty().get();
+		final int timeout				= Config.getInstance().visualPVTtimeoutProperty().get();
+		final int repetitions			= Config.getInstance().visualPVTrepetitionsProperty().get();
 
 		final List<Result> results = Session.getCurrentSession().getResults();
 		results.clear();
 
-		final AbstractRunnerTask task = (Config.getInstance().useNoGoProperty().get())
-			? new NoGoRunnerTask(results, frequency, Config.getInstance().volumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, timeout, repetitions, true)
-			: new RunnerTask(results, frequency, Config.getInstance().volumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, maximumDelay, timeout, repetitions, true)
+		final AbstractRunnerTask task = (Config.getInstance().visualPVTuseNoGoProperty().get())
+			? new NoGoRunnerTask(results, frequency, Config.getInstance().visualPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, timeout, repetitions, true)
+			: new RunnerTask(results, frequency, Config.getInstance().visualPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, maximumDelay, timeout, repetitions, true)
 		;
 		task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
 		//task.setOnFailed(event -> getScreenManager().showException(task.getException()));
@@ -180,22 +180,6 @@ public class VisualPVTController extends AbstractController {
 		if (_backButton.disableProperty().not().get()) {
 			Session.getCurrentSession().clearResults();
 			getScreenManager().setScreen(Screens.MAIN);
-		}
-	}
-
-	@FXML
-	private void lowerVolume(final ActionEvent e) {
-		final int volume = Config.getInstance().volumeProperty().get() - Config.VOLUME_DELTA;
-		if (volume >= Config.MIN_VOLUME) {
-			Config.getInstance().volumeProperty().set(volume);
-		}
-	}
-
-	@FXML
-	private void higherVolume(final ActionEvent e) {
-		final int volume = Config.getInstance().volumeProperty().get() + Config.VOLUME_DELTA;
-		if (volume <= Config.MAX_VOLUME) {
-			Config.getInstance().volumeProperty().set(volume);
 		}
 	}
 

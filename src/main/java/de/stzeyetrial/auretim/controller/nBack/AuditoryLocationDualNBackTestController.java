@@ -26,6 +26,8 @@ public class AuditoryLocationDualNBackTestController extends AbstractNBackTestCo
 
     private TextField _stimulusTextField;
     private GridPane _stimulusGridPane;
+    private String _hexColor;
+
 
 
     @FXML
@@ -60,6 +62,8 @@ public class AuditoryLocationDualNBackTestController extends AbstractNBackTestCo
         final int timeout				= Config.getInstance().dualAuditoryLocationIntervalProperty().get();
 
         final int nOptionsAuditorySequence = 10;
+
+        _hexColor = Config.getInstance().dualAuditoryLocationColorProperty().getValue();
 
         int rowNumber = Config.getInstance().dualAuditoryLocationRowCountProperty().get();
 
@@ -123,7 +127,7 @@ public class AuditoryLocationDualNBackTestController extends AbstractNBackTestCo
             for (int i = 0; i < _stimulusGridPane.getChildren().toArray().length; i++){
                 ((Rectangle) _stimulusGridPane.getChildren().get(i)).setFill(Paint.valueOf("white"));
             }
-            FillTransition fillBlue = new FillTransition(Duration.millis(350),((Rectangle) _stimulusGridPane.getChildren().get(locationValue)) ,Color.WHITE, Color.BLUE);
+            FillTransition fillBlue = new FillTransition(Duration.millis(350),((Rectangle) _stimulusGridPane.getChildren().get(locationValue)) ,Color.WHITE, Color.web(_hexColor));
 
             fillBlue.play();
 

@@ -133,7 +133,7 @@ public class MackworthClockTestController extends AbstractController {
 		final int length				= Config.getInstance().mackworthLengthProperty().get();
 		final int nMatch				= Config.getInstance().mackworthTargetsProperty().get();
 		final int timeout				= Config.getInstance().mackworthIntervalProperty().get();
-		final int minimumResponseTime	= Config.getInstance().minimumResponseTimeProperty().get();
+		final int minimumResponseTime	= Config.getInstance().auditoryPVTminimumResponseTimeProperty().get();
 
 		final List<Result> results = Session.getCurrentSession().getResults();
 		results.clear();
