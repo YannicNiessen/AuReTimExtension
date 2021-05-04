@@ -228,13 +228,13 @@ public class VisualPVTController extends AbstractController {
 
 				Platform.runLater(() -> {
 						try {
-							_stimulusRectangle.setFill(Paint.valueOf("red"));
+							outputStimulus(t1);
 							task.gate.await();
 						} catch (InterruptedException | BrokenBarrierException e) {
 							e.printStackTrace();
 						}
 
-				});//Execute on UI Thread / Application Thread
+				});
 
 				Runnable r = () -> {
 					try {
@@ -255,6 +255,8 @@ public class VisualPVTController extends AbstractController {
 			_stimulusRectangle.setFill(Color.web(Config.getInstance().visualPVTgoColorProperty().getValue()));
 		}else if (stimulus.isNoGo()){
 			_stimulusRectangle.setFill(Color.web(Config.getInstance().visualPVTnoGoColorProperty().getValue()));
+		}else if(stimulus.isUnreal()){
+			_stimulusRectangle.setFill(Paint.valueOf("white"));
 		}
 	}
 }

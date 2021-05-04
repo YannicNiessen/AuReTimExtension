@@ -15,33 +15,7 @@
   <component name="ChangeListManager">
     <list default="true" id="62bbde6f-770b-405c-ad97-e7898d97b85b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.properties2" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/HelloFX.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/VisualPVTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/VisualPVTController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NoGoRunnerTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NoGoRunnerTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/RunnerTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/RunnerTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/Stimulus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/Stimulus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HelloFX.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/config/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/config/Config.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/VisualPVTController$2$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/VisualPVTController$2$2$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/VisualPVTController$2$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/VisualPVTController$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/VisualPVTController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/VisualPVTController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AuditoryLocationDualNBackTestController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AuditoryLocationDualNBackTestController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AuditoryLocationDualNBackTestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AuditoryLocationDualNBackTestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NoGoRunnerTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NoGoRunnerTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/RunnerTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/RunnerTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/util/Stimulus$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/util/Stimulus$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/util/Stimulus$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/util/Stimulus$Type.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/util/Stimulus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/util/Stimulus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
