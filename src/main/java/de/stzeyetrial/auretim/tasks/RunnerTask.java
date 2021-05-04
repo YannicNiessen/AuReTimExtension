@@ -17,8 +17,8 @@ public class RunnerTask extends AbstractRunnerTask {
 
 	private Tone _tone;
 
-	public RunnerTask(final List<Result> results, final int frequency, final IntegerProperty volumeProperty, final int pulseDuration, final int minimumResponseTime, final int minimumDelay, final int maximumDelay, final int timeout, final int repetitions) {
-		super(results, frequency, volumeProperty, pulseDuration, minimumResponseTime, minimumDelay, timeout, repetitions);
+	public RunnerTask(final List<Result> results, final int frequency, final IntegerProperty volumeProperty, final int pulseDuration, final int minimumResponseTime, final int minimumDelay, final int maximumDelay, final int timeout, final int repetitions, boolean visual) {
+		super(results, frequency, volumeProperty, pulseDuration, minimumResponseTime, minimumDelay, timeout, repetitions, visual);
 
 		_maximumDelay = maximumDelay;
 	}

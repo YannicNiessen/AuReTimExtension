@@ -53,6 +53,10 @@ public class Config {
 
 	private static final String PROPERTY_VISUAL_IDENTITY_STIMULUS_TYPE					= "visualIdentityStimulusType";
 	private static final String PROPERTY_AUDITORY_STIMULUS_TYPE							= "auditoryStimulusType";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_STIMULUS_TYPE			= "dualAuditoryLocationStimulusType";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_STIMULUS_TYPE		= "dualAuditoryIdentityFirstStimulusType";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_STIMULUS_TYPE	= "dualAuditoryIdentitySecondStimulusType";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_STIMULUS_TYPE			= "dualIdentityLocationStimulusType";
 
 	private static final String PROPERTY_VISUAL_IDENTITY_SEQUENCE_LENGTH				= "visualIdentitySequenceLength";
 	private static final String PROPERTY_VISUAL_IDENTITY_SEQUENCE_N_REPEAT				= "visualIdentitySequenceRepeat";
@@ -80,6 +84,57 @@ public class Config {
 	private static final String PROPERTY_AUDITORY_SEQUENCE_N_BACK_LEVEL			= "auditorySequenceNBackLevel";
 	private static final String PROPERTY_AUDITORY_SEQUENCE_RE_USE_ELEMENT		= "auditorySequenceReUseElement";
 	private static final String PROPERTY_AUDITORY_INTERVAL						= "auditoryInterval";
+
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_SEQUENCE_LENGTH				= "dualAuditoryLocationSequenceLength";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_SEQUENCE_N_BACK_LEVEL			= "dualAuditoryLocationSequenceNBackLevel";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_INTERVAL						= "dualAuditoryLocationInterval";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_ROW_COUNT						= "dualAuditoryLocationRowCount";
+
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_REPEAT				= "dualAuditoryLocationFirstSequenceRepeat";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_MATCH				= "dualAuditoryLocationFirstSequenceNMatch";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_LURES				= "dualAuditoryLocationFirstSequenceNLures";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_RE_USE_ELEMENT		= "dualAuditoryLocationFirstSequenceReUseElement";
+
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_REPEAT				= "dualAuditoryLocationFirstSequenceRepeat";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_MATCH				= "dualAuditoryLocationFirstSequenceNMatch";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_LURES				= "dualAuditoryLocationFirstSequenceNLures";
+	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_RE_USE_ELEMENT		= "dualAuditoryLocationFirstSequenceReUseElement";
+
+
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_SEQUENCE_LENGTH				= "dualIdentityLocationSequenceLength";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_SEQUENCE_N_BACK_LEVEL			= "dualIdentityLocationSequenceNBackLevel";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_INTERVAL						= "dualIdentityLocationInterval";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_ROW_COUNT						= "dualIdentityLocationRowCount";
+
+
+
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_REPEAT				= "dualIdentityLocationFirstSequenceRepeat";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_MATCH				= "dualIdentityLocationFirstSequenceNMatch";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_LURES				= "dualIdentityLocationFirstSequenceNLures";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_RE_USE_ELEMENT		= "dualIdentityLocationFirstSequenceReUseElement";
+
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_REPEAT				= "dualIdentityLocationFirstSequenceRepeat";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_MATCH				= "dualIdentityLocationFirstSequenceNMatch";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_LURES				= "dualIdentityLocationFirstSequenceNLures";
+	private static final String PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_RE_USE_ELEMENT		= "dualIdentityLocationFirstSequenceReUseElement";
+
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_SEQUENCE_LENGTH				= "dualAuditoryIdentitySequenceLength";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_SEQUENCE_N_BACK_LEVEL			= "dualAuditoryIdentitySequenceNBackLevel";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_INTERVAL						= "dualAuditoryIdentityInterval";
+
+
+
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_REPEAT				= "dualAuditoryIdentityFirstSequenceRepeat";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_MATCH				= "dualAuditoryIdentityFirstSequenceNMatch";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_LURES				= "dualAuditoryIdentityFirstSequenceNLures";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_RE_USE_ELEMENT		= "dualAuditoryIdentityFirstSequenceReUseElement";
+
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_REPEAT				= "dualAuditoryIdentityFirstSequenceRepeat";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_MATCH				= "dualAuditoryIdentityFirstSequenceNMatch";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_LURES				= "dualAuditoryIdentityFirstSequenceNLures";
+	private static final String PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_RE_USE_ELEMENT		= "dualAuditoryIdentityFirstSequenceReUseElement";
+
+
 
 
 	private static final String PROPERTY_USE_VOICE_RECOGNITION			= "useVoiceRecogntion";
@@ -151,6 +206,10 @@ public class Config {
 
 	private final StringProperty _visualIdentityStimulusType			= new SimpleStringProperty();
 	private final StringProperty _auditoryStimulusType			= new SimpleStringProperty();
+	private final StringProperty _dualAuditoryLocationStimulusType			= new SimpleStringProperty();
+	private final StringProperty _dualAuditoryIdentityFirstStimulusType			= new SimpleStringProperty();
+	private final StringProperty _dualAuditoryIdentitySecondStimulusType			= new SimpleStringProperty();
+	private final StringProperty _dualIdentityLocationStimulusType			= new SimpleStringProperty();
 
 	private final IntegerProperty _visualIdentitySequenceLength 		= new SimpleIntegerProperty();
 	private final IntegerProperty _visualIdentitySequenceNRepeat 		= new SimpleIntegerProperty();
@@ -177,6 +236,55 @@ public class Config {
 	private final IntegerProperty _auditorySequenceNBackLevel 	= new SimpleIntegerProperty();
 	private final BooleanProperty _auditorySequenceReUseElement = new SimpleBooleanProperty();
 	private final IntegerProperty _auditoryInterval 			= new SimpleIntegerProperty();
+
+	private final IntegerProperty _dualAuditoryLocationSequenceLength 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryLocationInterval 			= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryLocationSequenceNBackLevel 	= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryLocationRowCount 	= new SimpleIntegerProperty();
+
+
+
+	private final IntegerProperty _dualAuditoryLocationFirstSequenceNRepeat 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryLocationFirstSequenceNMatch		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryLocationFirstSequenceNLures 		= new SimpleIntegerProperty();
+	private final BooleanProperty _dualAuditoryLocationFirstSequenceReUseElement = new SimpleBooleanProperty();
+
+	private final IntegerProperty _dualAuditoryLocationSecondSequenceNRepeat 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryLocationSecondSequenceNMatch		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryLocationSecondSequenceNLures 		= new SimpleIntegerProperty();
+	private final BooleanProperty _dualAuditoryLocationSecondSequenceReUseElement = new SimpleBooleanProperty();
+
+
+	private final IntegerProperty _dualIdentityLocationSequenceLength 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualIdentityLocationInterval 			= new SimpleIntegerProperty();
+	private final IntegerProperty _dualIdentityLocationSequenceNBackLevel 	= new SimpleIntegerProperty();
+	private final IntegerProperty _dualIdentityLocationRowCount 	= new SimpleIntegerProperty();
+
+	private final IntegerProperty _dualIdentityLocationFirstSequenceNRepeat 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualIdentityLocationFirstSequenceNMatch		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualIdentityLocationFirstSequenceNLures 		= new SimpleIntegerProperty();
+	private final BooleanProperty _dualIdentityLocationFirstSequenceReUseElement = new SimpleBooleanProperty();
+
+	private final IntegerProperty _dualIdentityLocationSecondSequenceNRepeat 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualIdentityLocationSecondSequenceNMatch		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualIdentityLocationSecondSequenceNLures 		= new SimpleIntegerProperty();
+	private final BooleanProperty _dualIdentityLocationSecondSequenceReUseElement = new SimpleBooleanProperty();
+
+	private final IntegerProperty _dualAuditoryIdentitySequenceLength 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryIdentityInterval 			= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryIdentitySequenceNBackLevel 	= new SimpleIntegerProperty();
+
+
+
+	private final IntegerProperty _dualAuditoryIdentityFirstSequenceNRepeat 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryIdentityFirstSequenceNMatch		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryIdentityFirstSequenceNLures 		= new SimpleIntegerProperty();
+	private final BooleanProperty _dualAuditoryIdentityFirstSequenceReUseElement = new SimpleBooleanProperty();
+
+	private final IntegerProperty _dualAuditoryIdentitySecondSequenceNRepeat 		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryIdentitySecondSequenceNMatch		= new SimpleIntegerProperty();
+	private final IntegerProperty _dualAuditoryIdentitySecondSequenceNLures 		= new SimpleIntegerProperty();
+	private final BooleanProperty _dualAuditoryIdentitySecondSequenceReUseElement = new SimpleBooleanProperty();
 
 
 	private final BooleanProperty _useVoiceRecognition 	= new SimpleBooleanProperty();
@@ -234,6 +342,11 @@ public class Config {
 		visualIdentityStimulusTypeProperty().setValue(p.getProperty(PROPERTY_VISUAL_IDENTITY_STIMULUS_TYPE, PROPERTY_STIMULUS_TYPE_DEFAULT));
 		auditoryStimulusTypeProperty().setValue(p.getProperty(PROPERTY_AUDITORY_STIMULUS_TYPE, PROPERTY_STIMULUS_TYPE_DEFAULT));
 
+		dualAuditoryLocationStimulusTypeProperty().setValue(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_STIMULUS_TYPE, PROPERTY_STIMULUS_TYPE_DEFAULT));
+		dualAuditoryIdentityFirstStimulusTypeProperty().setValue(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_STIMULUS_TYPE, PROPERTY_STIMULUS_TYPE_DEFAULT));
+		dualAuditoryIdentitySecondStimulusTypeProperty().setValue(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_STIMULUS_TYPE, PROPERTY_STIMULUS_TYPE_DEFAULT));
+		dualIdentityLocationStimulusTypeProperty().setValue(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_STIMULUS_TYPE, PROPERTY_STIMULUS_TYPE_DEFAULT));
+
 
 		visualIdentitySequenceLengthProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_VISUAL_IDENTITY_SEQUENCE_LENGTH, PROPERTY_SEQUENCE_LENGTH_DEFAULT)));
 		visualIdentitySequenceNRepeatProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_VISUAL_IDENTITY_SEQUENCE_N_REPEAT, PROPERTY_SEQUENCE_N_REPEAT_DEFAULT)));
@@ -262,6 +375,53 @@ public class Config {
 		auditorySequenceReUseElementProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_AUDITORY_SEQUENCE_RE_USE_ELEMENT, PROPERTY_SEQUENCE_RE_USE_ELEMENT_DEFAULT)));
 		auditoryIntervalProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_INTERVAL, PROPERTY_N_BACK_INTERVAL_DEFAULT)));
 
+		dualAuditoryLocationSequenceLengthProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SEQUENCE_LENGTH, PROPERTY_SEQUENCE_LENGTH_DEFAULT)));
+		dualAuditoryLocationIntervalProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_INTERVAL, PROPERTY_N_BACK_INTERVAL_DEFAULT)));
+		dualAuditoryLocationSequenceNBackLevelProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SEQUENCE_N_BACK_LEVEL, PROPERTY_SEQUENCE_N_BACK_LEVEL_DEFAULT)));
+
+
+		dualAuditoryLocationFirstSequenceNRepeatProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_REPEAT, PROPERTY_SEQUENCE_N_REPEAT_DEFAULT)));
+		dualAuditoryLocationFirstSequenceNMatchProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_MATCH, PROPERTY_SEQUENCE_N_MATCH_DEFAULT)));
+		dualAuditoryLocationFirstSequenceNLuresProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_LURES, PROPERTY_SEQUENCE_N_LURES_DEFAULT)));
+		dualAuditoryLocationFirstSequenceReUseElementProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_RE_USE_ELEMENT, PROPERTY_SEQUENCE_RE_USE_ELEMENT_DEFAULT)));
+
+		dualAuditoryLocationSecondSequenceNRepeatProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_REPEAT, PROPERTY_SEQUENCE_N_REPEAT_DEFAULT)));
+		dualAuditoryLocationSecondSequenceNMatchProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_MATCH, PROPERTY_SEQUENCE_N_MATCH_DEFAULT)));
+		dualAuditoryLocationSecondSequenceNLuresProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_LURES, PROPERTY_SEQUENCE_N_LURES_DEFAULT)));
+		dualAuditoryLocationSecondSequenceReUseElementProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_RE_USE_ELEMENT, PROPERTY_SEQUENCE_RE_USE_ELEMENT_DEFAULT)));
+		dualAuditoryLocationRowCountProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_ROW_COUNT, PROPERTY_N_BACK_ROW_COUNT_DEFAULT)));
+
+
+		dualAuditoryIdentitySequenceLengthProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SEQUENCE_LENGTH, PROPERTY_SEQUENCE_LENGTH_DEFAULT)));
+		dualAuditoryIdentityIntervalProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_INTERVAL, PROPERTY_N_BACK_INTERVAL_DEFAULT)));
+		dualAuditoryIdentitySequenceNBackLevelProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SEQUENCE_N_BACK_LEVEL, PROPERTY_SEQUENCE_N_BACK_LEVEL_DEFAULT)));
+
+
+		dualAuditoryIdentityFirstSequenceNRepeatProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_REPEAT, PROPERTY_SEQUENCE_N_REPEAT_DEFAULT)));
+		dualAuditoryIdentityFirstSequenceNMatchProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_MATCH, PROPERTY_SEQUENCE_N_MATCH_DEFAULT)));
+		dualAuditoryIdentityFirstSequenceNLuresProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_LURES, PROPERTY_SEQUENCE_N_LURES_DEFAULT)));
+		dualAuditoryIdentityFirstSequenceReUseElementProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_RE_USE_ELEMENT, PROPERTY_SEQUENCE_RE_USE_ELEMENT_DEFAULT)));
+
+		dualAuditoryIdentitySecondSequenceNRepeatProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_REPEAT, PROPERTY_SEQUENCE_N_REPEAT_DEFAULT)));
+		dualAuditoryIdentitySecondSequenceNMatchProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_MATCH, PROPERTY_SEQUENCE_N_MATCH_DEFAULT)));
+		dualAuditoryIdentitySecondSequenceNLuresProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_LURES, PROPERTY_SEQUENCE_N_LURES_DEFAULT)));
+		dualAuditoryIdentitySecondSequenceReUseElementProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_RE_USE_ELEMENT, PROPERTY_SEQUENCE_RE_USE_ELEMENT_DEFAULT)));
+
+		dualIdentityLocationSequenceLengthProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SEQUENCE_LENGTH, PROPERTY_SEQUENCE_LENGTH_DEFAULT)));
+		dualIdentityLocationIntervalProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_INTERVAL, PROPERTY_N_BACK_INTERVAL_DEFAULT)));
+		dualIdentityLocationSequenceNBackLevelProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SEQUENCE_N_BACK_LEVEL, PROPERTY_SEQUENCE_N_BACK_LEVEL_DEFAULT)));
+		dualIdentityLocationRowCountProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_ROW_COUNT, PROPERTY_N_BACK_ROW_COUNT_DEFAULT)));
+
+
+		dualIdentityLocationFirstSequenceNRepeatProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_REPEAT, PROPERTY_SEQUENCE_N_REPEAT_DEFAULT)));
+		dualIdentityLocationFirstSequenceNMatchProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_MATCH, PROPERTY_SEQUENCE_N_MATCH_DEFAULT)));
+		dualIdentityLocationFirstSequenceNLuresProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_LURES, PROPERTY_SEQUENCE_N_LURES_DEFAULT)));
+		dualIdentityLocationFirstSequenceReUseElementProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_RE_USE_ELEMENT, PROPERTY_SEQUENCE_RE_USE_ELEMENT_DEFAULT)));
+
+		dualIdentityLocationSecondSequenceNRepeatProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_REPEAT, PROPERTY_SEQUENCE_N_REPEAT_DEFAULT)));
+		dualIdentityLocationSecondSequenceNMatchProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_MATCH, PROPERTY_SEQUENCE_N_MATCH_DEFAULT)));
+		dualIdentityLocationSecondSequenceNLuresProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_LURES, PROPERTY_SEQUENCE_N_LURES_DEFAULT)));
+		dualIdentityLocationSecondSequenceReUseElementProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_RE_USE_ELEMENT, PROPERTY_SEQUENCE_RE_USE_ELEMENT_DEFAULT)));
 
 		useVoiceRecognitionProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_USE_VOICE_RECOGNITION, PROPERTY_USE_VOICE_RECOGNITION_DEFAULT)));
 
@@ -298,8 +458,16 @@ public class Config {
 		p.setProperty(PROPERTY_VOICE_MALE, 				Boolean.toString(voiceMaleProperty().getValue()));
 		p.setProperty(PROPERTY_VOICE_GERMAN, 			Boolean.toString(voiceGermanProperty().getValue()));
 		p.setProperty(PROPERTY_VOICE_ENGLISH, 			Boolean.toString(voiceEnglishProperty().getValue()));
+
+
+
 		p.setProperty(PROPERTY_VISUAL_IDENTITY_STIMULUS_TYPE, 			visualIdentityStimulusTypeProperty().getValue());
 		p.setProperty(PROPERTY_AUDITORY_STIMULUS_TYPE, 			auditoryStimulusTypeProperty().getValue());
+
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_STIMULUS_TYPE, 			dualAuditoryLocationStimulusTypeProperty().getValue());
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_STIMULUS_TYPE, 			dualAuditoryIdentityFirstStimulusTypeProperty().getValue());
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_STIMULUS_TYPE, 			dualAuditoryIdentitySecondStimulusTypeProperty().getValue());
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_STIMULUS_TYPE, 			dualIdentityLocationStimulusTypeProperty().getValue());
 
 
 		p.setProperty(PROPERTY_VISUAL_IDENTITY_SEQUENCE_LENGTH, 		Integer.toString(visualIdentitySequenceLengthProperty().getValue()));
@@ -328,6 +496,53 @@ public class Config {
 		p.setProperty(PROPERTY_AUDITORY_SEQUENCE_N_BACK_LEVEL, 	Integer.toString(auditorySequenceNBackLevelProperty().getValue()));
 		p.setProperty(PROPERTY_AUDITORY_SEQUENCE_RE_USE_ELEMENT, Boolean.toString(auditorySequenceReUseElementProperty().getValue()));
 		p.setProperty(PROPERTY_AUDITORY_INTERVAL, 	Integer.toString(auditoryIntervalProperty().getValue()));
+
+
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SEQUENCE_LENGTH, 		Integer.toString(dualAuditoryLocationSequenceLengthProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SEQUENCE_N_BACK_LEVEL, 	Integer.toString(dualAuditoryLocationSequenceNBackLevelProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_INTERVAL, 	Integer.toString(dualAuditoryLocationIntervalProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_ROW_COUNT, 	Integer.toString(dualAuditoryLocationRowCountProperty().getValue()));
+
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_REPEAT, 		Integer.toString(dualAuditoryLocationFirstSequenceNRepeatProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_MATCH, 		Integer.toString(dualAuditoryLocationFirstSequenceNMatchProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_N_LURES, 		Integer.toString(dualAuditoryLocationFirstSequenceNLuresProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_FIRST_SEQUENCE_RE_USE_ELEMENT, Boolean.toString(dualAuditoryLocationFirstSequenceReUseElementProperty().getValue()));
+
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_REPEAT, 		Integer.toString(dualAuditoryLocationSecondSequenceNRepeatProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_MATCH, 		Integer.toString(dualAuditoryLocationSecondSequenceNMatchProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_N_LURES, 		Integer.toString(dualAuditoryLocationSecondSequenceNLuresProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_SECOND_SEQUENCE_RE_USE_ELEMENT, Boolean.toString(dualAuditoryLocationSecondSequenceReUseElementProperty().getValue()));
+
+
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SEQUENCE_LENGTH, 		Integer.toString(dualAuditoryIdentitySequenceLengthProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SEQUENCE_N_BACK_LEVEL, 	Integer.toString(dualAuditoryIdentitySequenceNBackLevelProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_INTERVAL, 	Integer.toString(dualAuditoryIdentityIntervalProperty().getValue()));
+
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_REPEAT, 		Integer.toString(dualAuditoryIdentityFirstSequenceNRepeatProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_MATCH, 		Integer.toString(dualAuditoryIdentityFirstSequenceNMatchProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_N_LURES, 		Integer.toString(dualAuditoryIdentityFirstSequenceNLuresProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_FIRST_SEQUENCE_RE_USE_ELEMENT, Boolean.toString(dualAuditoryIdentityFirstSequenceReUseElementProperty().getValue()));
+
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_REPEAT, 		Integer.toString(dualAuditoryIdentitySecondSequenceNRepeatProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_MATCH, 		Integer.toString(dualAuditoryIdentitySecondSequenceNMatchProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_N_LURES, 		Integer.toString(dualAuditoryIdentitySecondSequenceNLuresProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_AUDITORY_IDENTITY_SECOND_SEQUENCE_RE_USE_ELEMENT, Boolean.toString(dualAuditoryIdentitySecondSequenceReUseElementProperty().getValue()));
+
+
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SEQUENCE_LENGTH, 		Integer.toString(dualIdentityLocationSequenceLengthProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SEQUENCE_N_BACK_LEVEL, 	Integer.toString(dualIdentityLocationSequenceNBackLevelProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_INTERVAL, 	Integer.toString(dualIdentityLocationIntervalProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_ROW_COUNT, 	Integer.toString(dualIdentityLocationRowCountProperty().getValue()));
+
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_REPEAT, 		Integer.toString(dualIdentityLocationFirstSequenceNRepeatProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_MATCH, 		Integer.toString(dualIdentityLocationFirstSequenceNMatchProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_N_LURES, 		Integer.toString(dualIdentityLocationFirstSequenceNLuresProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_FIRST_SEQUENCE_RE_USE_ELEMENT, Boolean.toString(dualIdentityLocationFirstSequenceReUseElementProperty().getValue()));
+
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_REPEAT, 		Integer.toString(dualIdentityLocationSecondSequenceNRepeatProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_MATCH, 		Integer.toString(dualIdentityLocationSecondSequenceNMatchProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_N_LURES, 		Integer.toString(dualIdentityLocationSecondSequenceNLuresProperty().getValue()));
+		p.setProperty(PROPERTY_DUAL_IDENTITY_LOCATION_SECOND_SEQUENCE_RE_USE_ELEMENT, Boolean.toString(dualIdentityLocationSecondSequenceReUseElementProperty().getValue()));
 
 
 		p.setProperty(PROPERTY_USE_VOICE_RECOGNITION, 	Boolean.toString(useVoiceRecognitionProperty().getValue()));
@@ -411,6 +626,10 @@ public class Config {
 
 	public StringProperty visualIdentityStimulusTypeProperty(){return _visualIdentityStimulusType;}
 	public StringProperty auditoryStimulusTypeProperty(){return _auditoryStimulusType;}
+	public StringProperty dualAuditoryLocationStimulusTypeProperty(){return _dualAuditoryLocationStimulusType;}
+	public StringProperty dualAuditoryIdentityFirstStimulusTypeProperty(){return _dualAuditoryIdentityFirstStimulusType;}
+	public StringProperty dualAuditoryIdentitySecondStimulusTypeProperty(){return _dualAuditoryIdentitySecondStimulusType;}
+	public StringProperty dualIdentityLocationStimulusTypeProperty(){return _dualIdentityLocationStimulusType;}
 
 	//Visual Identity
 
@@ -462,6 +681,89 @@ public class Config {
 	public BooleanProperty auditorySequenceReUseElementProperty(){return _auditorySequenceReUseElement;}
 
 	public IntegerProperty auditoryIntervalProperty(){return _auditoryInterval;}
+
+	//dual auditory location
+
+	public IntegerProperty dualAuditoryLocationSequenceLengthProperty(){return _dualAuditoryLocationSequenceLength;}
+
+	public IntegerProperty dualAuditoryLocationIntervalProperty(){return _dualAuditoryLocationInterval;}
+
+	public IntegerProperty dualAuditoryLocationSequenceNBackLevelProperty(){return _dualAuditoryLocationSequenceNBackLevel;}
+
+	public IntegerProperty dualAuditoryLocationRowCountProperty(){return _dualAuditoryLocationRowCount;}
+
+
+	public IntegerProperty dualAuditoryLocationFirstSequenceNRepeatProperty(){return _dualAuditoryLocationFirstSequenceNRepeat;}
+
+	public IntegerProperty dualAuditoryLocationFirstSequenceNMatchProperty(){return _dualAuditoryLocationFirstSequenceNMatch;}
+
+	public IntegerProperty dualAuditoryLocationFirstSequenceNLuresProperty(){return _dualAuditoryLocationFirstSequenceNLures;}
+
+	public BooleanProperty dualAuditoryLocationFirstSequenceReUseElementProperty(){return _dualAuditoryLocationFirstSequenceReUseElement;}
+
+	public IntegerProperty dualAuditoryLocationSecondSequenceNRepeatProperty(){return _dualAuditoryLocationSecondSequenceNRepeat;}
+
+	public IntegerProperty dualAuditoryLocationSecondSequenceNMatchProperty(){return _dualAuditoryLocationSecondSequenceNMatch;}
+
+	public IntegerProperty dualAuditoryLocationSecondSequenceNLuresProperty(){return _dualAuditoryLocationSecondSequenceNLures;}
+
+
+	public BooleanProperty dualAuditoryLocationSecondSequenceReUseElementProperty(){return _dualAuditoryLocationSecondSequenceReUseElement;}
+
+	//dual identity location
+	public IntegerProperty dualIdentityLocationSequenceLengthProperty(){return _dualIdentityLocationSequenceLength;}
+
+	public IntegerProperty dualIdentityLocationIntervalProperty(){return _dualIdentityLocationInterval;}
+
+	public IntegerProperty dualIdentityLocationSequenceNBackLevelProperty(){return _dualIdentityLocationSequenceNBackLevel;}
+
+	public IntegerProperty dualIdentityLocationRowCountProperty(){return _dualIdentityLocationRowCount;}
+
+
+	public IntegerProperty dualIdentityLocationFirstSequenceNRepeatProperty(){return _dualIdentityLocationFirstSequenceNRepeat;}
+
+	public IntegerProperty dualIdentityLocationFirstSequenceNMatchProperty(){return _dualIdentityLocationFirstSequenceNMatch;}
+
+	public IntegerProperty dualIdentityLocationFirstSequenceNLuresProperty(){return _dualIdentityLocationFirstSequenceNLures;}
+
+	public BooleanProperty dualIdentityLocationFirstSequenceReUseElementProperty(){return _dualIdentityLocationFirstSequenceReUseElement;}
+
+	public IntegerProperty dualIdentityLocationSecondSequenceNRepeatProperty(){return _dualIdentityLocationSecondSequenceNRepeat;}
+
+	public IntegerProperty dualIdentityLocationSecondSequenceNMatchProperty(){return _dualIdentityLocationSecondSequenceNMatch;}
+
+	public IntegerProperty dualIdentityLocationSecondSequenceNLuresProperty(){return _dualIdentityLocationSecondSequenceNLures;}
+
+
+	public BooleanProperty dualIdentityLocationSecondSequenceReUseElementProperty(){return _dualIdentityLocationSecondSequenceReUseElement;}
+
+
+	//dual auditory identity
+	public IntegerProperty dualAuditoryIdentitySequenceLengthProperty(){return _dualAuditoryIdentitySequenceLength;}
+
+	public IntegerProperty dualAuditoryIdentityIntervalProperty(){return _dualAuditoryIdentityInterval;}
+
+	public IntegerProperty dualAuditoryIdentitySequenceNBackLevelProperty(){return _dualAuditoryIdentitySequenceNBackLevel;}
+
+
+	public IntegerProperty dualAuditoryIdentityFirstSequenceNRepeatProperty(){return _dualAuditoryIdentityFirstSequenceNRepeat;}
+
+	public IntegerProperty dualAuditoryIdentityFirstSequenceNMatchProperty(){return _dualAuditoryIdentityFirstSequenceNMatch;}
+
+	public IntegerProperty dualAuditoryIdentityFirstSequenceNLuresProperty(){return _dualAuditoryIdentityFirstSequenceNLures;}
+
+	public BooleanProperty dualAuditoryIdentityFirstSequenceReUseElementProperty(){return _dualAuditoryIdentityFirstSequenceReUseElement;}
+
+	public IntegerProperty dualAuditoryIdentitySecondSequenceNRepeatProperty(){return _dualAuditoryIdentitySecondSequenceNRepeat;}
+
+	public IntegerProperty dualAuditoryIdentitySecondSequenceNMatchProperty(){return _dualAuditoryIdentitySecondSequenceNMatch;}
+
+	public IntegerProperty dualAuditoryIdentitySecondSequenceNLuresProperty(){return _dualAuditoryIdentitySecondSequenceNLures;}
+
+
+	public BooleanProperty dualAuditoryIdentitySecondSequenceReUseElementProperty(){return _dualAuditoryIdentitySecondSequenceReUseElement;}
+
+
 
 
 

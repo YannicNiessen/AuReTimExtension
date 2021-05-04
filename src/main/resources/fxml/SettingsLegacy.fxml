@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            prefHeight="800.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/2.2"
+            fx:controller="de.stzeyetrial.auretim.controller.SettingsController">
+    <children>
+        <BorderPane prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="_dynamicContentAnchorPane">
+        <center >
+
+        </center>
+            <top>
+        <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                 prefHeight="45.0" prefWidth="480.0">
+            <items>
+                <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                        onAction="#buttonBack" prefHeight="40.0" prefWidth="80.0" text="%back.text"/>
+                <Label id="title" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity"
+                       minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" styleClass="title"
+                       text="%settings.title" textAlignment="CENTER"/>
+                <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createNew"
+                        prefHeight="40.0" prefWidth="80.0" text="%new.text"/>
+                <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#load"
+                        prefHeight="40.0" prefWidth="80.0" text="%load.text"/>
+                <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#save"
+                        prefHeight="40.0" prefWidth="80.0" text="%save.text"/>
+            </items>
+        </ToolBar>
+            </top>
+        </BorderPane>
+    </children>
+
+
+</AnchorPane>

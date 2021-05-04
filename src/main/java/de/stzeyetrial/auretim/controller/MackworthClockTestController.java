@@ -5,10 +5,7 @@ import de.stzeyetrial.auretim.output.TriggerFactory;
 import de.stzeyetrial.auretim.output.TriggerType;
 import de.stzeyetrial.auretim.screens.Screens;
 import de.stzeyetrial.auretim.session.Session;
-import de.stzeyetrial.auretim.tasks.AbstractNBackTask;
 import de.stzeyetrial.auretim.tasks.MackworthClockTask;
-import de.stzeyetrial.auretim.tasks.NBackSpeechTask;
-import de.stzeyetrial.auretim.tasks.NBackTask;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
 import javafx.animation.KeyFrame;
@@ -19,18 +16,15 @@ import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -40,7 +34,6 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.function.Consumer;
 
 /**
  * FXML Controller class

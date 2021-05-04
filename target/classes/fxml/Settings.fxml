@@ -532,11 +532,8 @@
                                 <AnchorPane id="Content" fx:id="_dynamicContentAnchorPane" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0"
                                             prefWidth="-1.0">
                                     <children>
-                                        <VBox alignment="CENTER_LEFT" maxWidth="-1.0" minHeight="-1.0"
-                                              prefHeight="-1.0" prefWidth="-1.0"
-                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
-                                              AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
-                                        </VBox>
+
+
                                     </children>
                                 </AnchorPane>
                             </content>

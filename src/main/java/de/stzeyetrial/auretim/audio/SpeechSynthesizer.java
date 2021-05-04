@@ -36,7 +36,7 @@ public class SpeechSynthesizer {
     public static void speak(String speakText){
         System.out.println(System.getProperty("user.dir"));
         System.out.println(System.getProperty("PATH"));
-        String command = "/home/pi/BachelorArbeit/AuReTim/espeak-ng -s 150 -v " + voiceName + " \"" + speakText +  "\" --stdout | aplay -D 'sysdefault'\n";
+        String command = "/usr/bin/espeak-ng -s 150 -v " + voiceName + " \"" + speakText +  "\" --stdout | aplay -D 'sysdefault'\n";
         System.out.println(command);
         try {
             Runtime.getRuntime().exec(new String[] { "/bin/sh"//$NON-NLS-1$

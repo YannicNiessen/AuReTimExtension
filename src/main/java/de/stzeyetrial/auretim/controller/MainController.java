@@ -50,6 +50,7 @@ public class MainController extends AbstractController {
 		_testComboBox.itemsProperty().get().add("nBack_Auditive");
 		_testComboBox.itemsProperty().get().add("Mackworth Clock");
 		_testComboBox.itemsProperty().get().add("PVT");
+		_testComboBox.itemsProperty().get().add("Visual PVT");
 		_testComboBox.itemsProperty().get().add("Visual Identity & Auditive Dual-nBack");
 		_testComboBox.itemsProperty().get().add("Visual Location & Auditive Dual-nBack");
 		_testComboBox.itemsProperty().get().add("Visual Location & Identity Dual-nBack");
@@ -103,6 +104,8 @@ public class MainController extends AbstractController {
 			}
 			else if (testType.equals("PVT")){
 				getScreenManager().setScreen(Screens.TEST);
+			}else if (testType.equals("Visual PVT")){
+				getScreenManager().setScreen(Screens.VISUAL_PVT);
 			}
 
 		} else {

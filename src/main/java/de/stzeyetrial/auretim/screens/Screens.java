@@ -5,8 +5,9 @@ package de.stzeyetrial.auretim.screens;
  */
 public enum Screens {
 	MAIN("/fxml/Main.fxml"),
-	SETTINGS("/fxml/Settings.fxml"),
+	SETTINGS("/fxml/SettingsLegacy.fxml"),
 	TEST("/fxml/Test.fxml"),
+	VISUAL_PVT("/fxml/VisualPVT.fxml"),
 	RESULT("/fxml/Result.fxml"),
 	DIRECTORY_CHOOSER("/fxml/DirectoryChooser.fxml"),
 	N_BACK_TEST_VISUAL_IDENTITY("/fxml/nBackTestVisualIdentity.fxml"),

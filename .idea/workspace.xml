@@ -14,73 +14,104 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62bbde6f-770b-405c-ad97-e7898d97b85b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/speechRecognition/dictionaries/colors/english.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/speechRecognition/dictionaries/colors/german.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/speechRecognition/dictionaries/letters/english.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/speechRecognition/languageModels/colors/english.arpa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/speechRecognition/languageModels/colors/german.arpa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/speechRecognition/languageModels/letters/english.arpa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/ConfigMeta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/MackworthClockTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualIdentityDualNBackTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualLocationDualNBackTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualLocationIdentityDualNBackTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualLocationNBackTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/SpeechDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractNBackSpeechTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MackworthClockTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechInputTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tests/InputLatencyTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tests/SpeechDecoderTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/RandomSequence.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/Stimulus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/Decoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/Feature.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/FrontEnd.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/FsgModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/Hypothesis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/Jsgf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/JsgfIterator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/JsgfRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/Lattice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/LogMath.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/NBest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/NBestIterator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/NBestList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/NGramModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/NGramModelSet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/NGramModelSetIterator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/PocketSphinx.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/PocketSphinxJNI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_fe_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_feat_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_float32.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_fsg_model_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_int16.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_jsgf_rule_iter_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_logmath_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_mfcc_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_ngram_file_type_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_ngram_model_set_iter_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_p_p_mfcc_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_ps_nbest_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_ps_seg_t.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/Segment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SegmentIterator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SegmentList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SphinxBase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/cmu/pocketsphinx/SphinxBaseJNI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/TextArea.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/MackworthClockTest.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestDual.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualIdentityDual.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocation.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocationDual.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocationIdentityDual.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/spatialWorkingMemoryUpdate.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/VisualPVTController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/DualNBackTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/CustomScrollEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/SettingsLegacy.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/VisualPVT.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties2" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/install.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mbrola/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mbrola/de1/de1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mbrola/de6/de6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mbrola/us1/us1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mbrola/us1/us1mrpa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mbrola/us2/us2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/audio/SpeechSynthesizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/audio/SpeechSynthesizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/MackworthClockTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/MackworthClockTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/AuditoryPVTController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditiveNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualIdentityDualNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryIdentityDualNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualIdentityNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualLocationDualNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryLocationDualNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualLocationIdentityDualNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityLocationDualNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/VisualLocationNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/LocationNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/screens/Screens.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/screens/Screens.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractNBackSpeechTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractNBackTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractNBackTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackTask.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NoGoRunnerTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NoGoRunnerTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/RunnerTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/RunnerTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Settings.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Test.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Test.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestAuditive.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestAuditive.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualIdentity.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualIdentity.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualIdentityDual.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualIdentityDual.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocationDual.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocationDual.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocationIdentityDual.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/nBackTestVisualLocationIdentityDual.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/audio/SpeechSynthesizer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/audio/SpeechSynthesizer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/config/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/config/Config.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController$2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController$2$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MackworthClockTestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$4$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$4$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/TestController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/TestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$2$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AuditiveNBackTestController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/AuditiveNBackTestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualIdentityDualNBackTestController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualIdentityDualNBackTestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualIdentityNBackTestController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualIdentityNBackTestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualLocationDualNBackTestController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualLocationDualNBackTestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualLocationIdentityDualNBackTestController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualLocationIdentityDualNBackTestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/nBack/VisualLocationNBackTestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/screens/Screens.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/screens/Screens.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractNBackSpeechTask$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractNBackSpeechTask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractNBackTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractNBackTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NBackSpeechTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NBackSpeechTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NBackTask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NoGoRunnerTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NoGoRunnerTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/RunnerTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/RunnerTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/Settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/Settings.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/Test.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/Test.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestAuditive.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/nBackTestAuditive.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualIdentity.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualIdentity.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualIdentityDual.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualIdentityDual.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocationDual.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocationDual.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocationIdentityDual.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocationIdentityDual.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +156,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="inlay.hints.JAVA" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -172,8 +203,8 @@
     </configuration>
     <list>
       <item itemvalue="Application.RandomSequence" />
-      <item itemvalue="Java Scratch.SpeechSynthesizer" />
       <item itemvalue="Java Scratch.InputLatencyTest" />
+      <item itemvalue="Java Scratch.SpeechSynthesizer" />
     </list>
     <recent_temporary>
       <list>

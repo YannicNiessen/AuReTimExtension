@@ -9,7 +9,7 @@ import java.util.concurrent.CyclicBarrier;
 /**
  * @author strasser
  */
-public class NBackSpeechTask extends AbstractNBackSpeechTask {
+public class NBackSpeechTask extends MonoNBackSpeechTask {
 	private final int _timeout;
 	private final int _minimumResponseTime;
 
@@ -44,7 +44,6 @@ public class NBackSpeechTask extends AbstractNBackSpeechTask {
 		return _tone;
 	}
 
-	@Override
 	protected AbstractInputTask getInputTask(CyclicBarrier gate, long testStart, boolean result) {
 		return null;
 	}

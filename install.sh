@@ -8,5 +8,10 @@ cp -r ./raspberrypi/boot/* /boot
 mkdir /home/pi/.config/autostart
 cp ./raspberrypi/auretim.desktop /home/pi/.config/autostart/
 mkdir /usr/share/mbrola
-cp -r ./mbrola/* /usr/share/mbrola/ 
+cp -r ./mbrolaVoices/* /usr/share/mbrola/ 
+apt-get -y install git make gcc
+git clone https://github.com/numediart/MBROLA.git
+cd MBROLA
+make
+cp Bin/mbrola /usr/bin/mbrola
 reboot

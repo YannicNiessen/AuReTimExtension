@@ -17,8 +17,8 @@ public class NoGoRunnerTask extends AbstractRunnerTask {
 
 	private boolean _positive;
 
-	public NoGoRunnerTask(final List<Result> results, final int frequency, final IntegerProperty volumeProperty, final int pulseDuration, final int minimumResponseTime, final int delay, final int timeout, final int repetitions) {
-		super(results, frequency, volumeProperty, pulseDuration, minimumResponseTime, delay, timeout, repetitions);
+	public NoGoRunnerTask(final List<Result> results, final int frequency, final IntegerProperty volumeProperty, final int pulseDuration, final int minimumResponseTime, final int delay, final int timeout, final int repetitions, boolean visual) {
+		super(results, frequency, volumeProperty, pulseDuration, minimumResponseTime, delay, timeout, repetitions, visual);
 	}
 
 	@Override

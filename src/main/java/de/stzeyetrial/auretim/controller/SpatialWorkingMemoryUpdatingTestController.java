@@ -1,17 +1,12 @@
 package de.stzeyetrial.auretim.controller;
 
 import com.sun.javafx.scene.control.skin.FXVK;
-import com.sun.javafx.scene.control.skin.FXVKSkin;
 import de.stzeyetrial.auretim.config.Config;
 import de.stzeyetrial.auretim.output.TriggerFactory;
 import de.stzeyetrial.auretim.output.TriggerType;
 import de.stzeyetrial.auretim.screens.Screens;
 import de.stzeyetrial.auretim.session.Session;
-import de.stzeyetrial.auretim.tasks.AbstractNBackTask;
-import de.stzeyetrial.auretim.tasks.NBackSpeechTask;
-import de.stzeyetrial.auretim.tasks.NBackTask;
 import de.stzeyetrial.auretim.tasks.SpatialWorkingMemoryUpdateTask;
-import de.stzeyetrial.auretim.util.EnterSubmitHandler;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
 import javafx.animation.FillTransition;
@@ -21,7 +16,6 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableListValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -35,7 +29,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -43,15 +36,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.PopupWindow;
 import javafx.stage.Window;
 import javafx.util.Duration;
-import org.w3c.dom.Text;
 
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.function.Consumer;
 
 import static java.lang.Thread.sleep;
 

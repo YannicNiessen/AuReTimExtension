@@ -2,7 +2,6 @@ package de.stzeyetrial.auretim.controller.nBack;
 
 import de.stzeyetrial.auretim.config.Config;
 import de.stzeyetrial.auretim.controller.AbstractController;
-import de.stzeyetrial.auretim.input.Input;
 import de.stzeyetrial.auretim.output.TriggerFactory;
 import de.stzeyetrial.auretim.output.TriggerType;
 import de.stzeyetrial.auretim.screens.Screens;
@@ -17,7 +16,6 @@ import javafx.application.Platform;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -28,10 +26,7 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.text.NumberFormat;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;

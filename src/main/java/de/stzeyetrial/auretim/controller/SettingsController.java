@@ -6,9 +6,8 @@ import de.stzeyetrial.auretim.audio.ToneUtils;
 import de.stzeyetrial.auretim.config.Config;
 import de.stzeyetrial.auretim.config.ConfigMeta;
 import de.stzeyetrial.auretim.controller.nBack.*;
-import de.stzeyetrial.auretim.input.Input;
-import de.stzeyetrial.auretim.input.InputFactory;
 import de.stzeyetrial.auretim.screens.Screens;
+import de.stzeyetrial.auretim.util.CustomScrollEvent;
 import de.stzeyetrial.auretim.util.EnterSubmitHandler;
 import de.stzeyetrial.auretim.util.NullSafeNumberStringConverter;
 
@@ -19,37 +18,29 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import de.stzeyetrial.auretim.util.Stimulus;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.SwipeEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
-import javafx.util.StringConverter;
+
 import javax.sound.sampled.LineUnavailableException;
 import org.controlsfx.validation.ValidationSupport;
-import org.controlsfx.validation.Validator;
 
 /**
  * FXML Controller class
@@ -68,111 +59,19 @@ public class SettingsController extends AbstractBackSupportController {
 
 	private ResourceBundle _rb;
 
-	@FXML
-	private AnchorPane _anchorPane;
+
 
 	@FXML
-	private CheckBox _useNoGoCheckbox;
+	private BorderPane _dynamicContentAnchorPane;
 
-	@FXML
-	private ComboBox<Integer> _frequencyChoiceBox;
+	private double _lastYposition = 0;
 
-	@FXML
-	private Circle _indicator;
-
-	@FXML
-	private TextField _directoryTextField;
-
-	@FXML
-	private TextField _volumeTextField;
-
-	@FXML
-	private CheckBox _useAutoCompletionCheckbox;
-
-	@FXML
-	private TextField _pulseDurationTextField;
-
-	@FXML
-	private TextField _timeoutTextField;
-
-	@FXML
-	private TextField _minimumDelayTextField;
-
-	@FXML
-	private TextField _maximumDelayTextField;
-
-	@FXML
-	private TextField _minimumResponseTimeTextField;
-
-	@FXML
-	private TextField _repetitionsTextField;
-
-	@FXML
-	private ComboBox<Input> _inputComboBox;
-
-	@FXML
-	private Accordion _accordion;
-
-	@FXML
-	private Accordion _parentAccordion;
-
-	@FXML
-	private Button _inputTestButton;
-
-	@FXML
-	private RadioButton _radioButtonMale;
-
-	@FXML
-	private RadioButton _radioButtonFemale;
-
-	@FXML
-	private RadioButton _radioButtonGerman;
-
-	@FXML
-	private RadioButton _radioButtonEnglish;
-
-	@FXML
-	private ComboBox<String> _stimulusTypeComboBox;
-
-	@FXML
-	private TextField _sequenceLengthTextField;
-
-	@FXML
-	private TextField _sequenceNRepeatTextField;
-
-	@FXML
-	private TextField _sequenceNMatchTextField;
-
-	@FXML
-	private TextField _sequenceNLuresTextField;
-
-	@FXML
-	private TextField _sequenceNBackLevelTextField;
-
-	@FXML
-	private CheckBox _sequenceReUseElementsCheckbox;
-
-	@FXML
-	private CheckBox _useVoiceRecognitionCheckbox;
-
-	@FXML
-	private TextField _mackworthLengthTextField;
-
-	@FXML
-	private TextField _mackworthTargetsTextField;
-
-	@FXML
-	private TextField _mackworthIntervalTextField;
-
-	@FXML
-	private TextField _mackworthNCirclesTextField;
-
-	@FXML
-	private AnchorPane _dynamicContentAnchorPane;
 
 	private Paint _indicatorDefaultColor;
 
 	private boolean _positive = true;
+
+	private ScrollPane _scrollPane;
 
 
 
@@ -183,9 +82,11 @@ public class SettingsController extends AbstractBackSupportController {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		_rb = resources;
-		_indicatorDefaultColor = _indicator.getFill();
+		//_indicatorDefaultColor = _indicator.getFill();
 
 		final Config config = Config.getInstance();
+
+		/*
 		_directoryTextField.textProperty().bindBidirectional(config.directoryProperty());
 		_validation.registerValidator(_directoryTextField, false, Validator.createEmptyValidator(""));
 		_directoryTextField.setOnKeyPressed(new EnterSubmitHandler());
@@ -298,14 +199,51 @@ public class SettingsController extends AbstractBackSupportController {
 		config.inputProperty().bind(_inputComboBox.getSelectionModel().selectedItemProperty());
 		_inputComboBox.itemsProperty().get().addAll(Input.values());
 
+*/
 
 		ComboBox<String> _testSelectionComboBox = new ComboBox<>();
 
-		VBox contentAnchor = (VBox) _dynamicContentAnchorPane.getChildren().get(0);
+		VBox contentAnchor = new VBox();
+
+		_scrollPane = new ScrollPane();
+
+		_scrollPane.setContent(contentAnchor);
+
+		_scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+		_scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+		_scrollPane.setPrefHeight(755);
+		_scrollPane.setPrefWidth(480);
+
+		VBox.setMargin(_scrollPane, new Insets(30));
+
+		_scrollPane.setStyle("-fx-background: rgb(47.0, 52.0, 57.0);-fx-background-insets: 0; -fx-padding: 0;");
+
+		_scrollPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				_lastYposition = event.getSceneY();
+			}
+		});
+
+
+		_scrollPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				double newYposition = event.getSceneY();
+				double diff = newYposition - _lastYposition;
+				_lastYposition = newYposition;
+				CustomScrollEvent cse = new CustomScrollEvent();
+				cse.fireVerticalScroll((int)diff, SettingsController.this, (EventTarget) event.getSource());
+			}
+
+		});
+
+		_dynamicContentAnchorPane.setCenter(_scrollPane);
 
 		_testSelectionComboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observableValue, String previousValue, String selectedValue) {
+
 
 				for (int i = contentAnchor.getChildren().size()-1; i > 0; i--) {
 					contentAnchor.getChildren().remove(i);
@@ -321,6 +259,15 @@ public class SettingsController extends AbstractBackSupportController {
 					case "nBack_Auditory":
 						addAuditoryNBackSettings();
 						break;
+					case "Visual Identity & Auditory Dual-nBack":
+						addDualAuditoryIdentityNBackSettings();
+						break;
+					case "Visual Location & Auditory Dual-nBack":
+						addDualAuditoryLocationNBackSettings();
+						break;
+					case "Visual Location & Identity Dual-nBack":
+						addDualIdentityLocationNBackSettings();
+						break;
 				}
 				
 				
@@ -330,11 +277,10 @@ public class SettingsController extends AbstractBackSupportController {
 		_testSelectionComboBox.itemsProperty().get().add("nBack_Visual_Identity");
 		_testSelectionComboBox.itemsProperty().get().add("nBack_Visual_Location");
 		_testSelectionComboBox.itemsProperty().get().add("nBack_Auditory");
-		_testSelectionComboBox.itemsProperty().get().add("nBack_Dual");
 		_testSelectionComboBox.itemsProperty().get().add("Mackworth Clock");
 		_testSelectionComboBox.itemsProperty().get().add("PVT");
-		_testSelectionComboBox.itemsProperty().get().add("Visual Identity & Auditive Dual-nBack");
-		_testSelectionComboBox.itemsProperty().get().add("Visual Location & Auditive Dual-nBack");
+		_testSelectionComboBox.itemsProperty().get().add("Visual Identity & Auditory Dual-nBack");
+		_testSelectionComboBox.itemsProperty().get().add("Visual Location & Auditory Dual-nBack");
 		_testSelectionComboBox.itemsProperty().get().add("Visual Location & Identity Dual-nBack");
 		_testSelectionComboBox.itemsProperty().get().add("Spatial Working Memory Update Test");
 
@@ -343,6 +289,7 @@ public class SettingsController extends AbstractBackSupportController {
 
 		_testSelectionComboBox.getSelectionModel().select("nBack_Visual_Identity");
 
+		_testSelectionComboBox.setPrefWidth(480);
 
 
 	}
@@ -357,12 +304,13 @@ public class SettingsController extends AbstractBackSupportController {
 		if (!_validation.isInvalid()) {
 			try {
 				Config.getInstance().save();
-				((VisualIdentityNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_IDENTITY)).setConfig();
-				((VisualLocationNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_LOCATION)).setConfig();
-				((AuditiveNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_AUDITIVE)).setConfig();
+				((IdentityNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_IDENTITY)).setConfig();
+				((LocationNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_LOCATION)).setConfig();
+				((AuditoryNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_AUDITIVE)).setConfig();
 				((MackworthClockTestController) getScreenManager().getController(Screens.MACKWORTH_CLOCK_TEST)).setConfig();
-				((VisualIdentityDualNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_IDENTITY_AUDITIVE_DUAL)).setConfig();
-				((VisualLocationIdentityDualNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_LOCATION_IDENTITY_DUAL)).setConfig();
+				((AuditoryIdentityDualNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_IDENTITY_AUDITIVE_DUAL)).setConfig();
+				((AuditoryLocationDualNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_LOCATION_AUDITIVE_DUAL)).setConfig();
+				((IdentityLocationDualNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_LOCATION_IDENTITY_DUAL)).setConfig();
 				SpeechSynthesizer.setup();
 				getScreenManager().showMessage(_rb.getString("settingsSaved.text"));
 			} catch (IOException ex) {
@@ -373,23 +321,7 @@ public class SettingsController extends AbstractBackSupportController {
 		}
 	}
 
-	@FXML
-	private void next(final SwipeEvent e) {
-		final int index = _accordion.getPanes().indexOf(_accordion.getExpandedPane());
-		if (index + 1 < _accordion.getPanes().size()) {
-			_accordion.setExpandedPane(_accordion.getPanes().get(index + 1));
-		}
-		e.consume();
-	}
 
-	@FXML
-	private void previous(final SwipeEvent e) {
-		final int index = _accordion.getPanes().indexOf(_accordion.getExpandedPane());
-		if (index - 1 >= 0) {
-			_accordion.setExpandedPane(_accordion.getPanes().get(index - 1));
-		}
-		e.consume();
-	}
 
 	@FXML
 	private void lowerVolume(final ActionEvent e) {
@@ -435,7 +367,7 @@ public class SettingsController extends AbstractBackSupportController {
 	@FXML
 	private void inputTest(final ActionEvent e) {
 		e.consume();
-		
+		/*
 		final AtomicInteger time = new AtomicInteger(WAIT_TIME);
 
 		_inputTestButton.setDisable(true);
@@ -470,14 +402,20 @@ public class SettingsController extends AbstractBackSupportController {
 				_inputTestButton.setText(_rb.getString("inputTestButton.text"));
 			});
 		});
+				*/
+
+
 	}
+
+
+
 
 	public void load(ActionEvent actionEvent) {
 		System.out.println("Load called");
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Config File");
 
-		File file = fileChooser.showOpenDialog(_anchorPane.getScene().getWindow());
+		File file = fileChooser.showOpenDialog(_dynamicContentAnchorPane.getScene().getWindow());
 		if (file != null){
 			Config config = Config.getInstance();
 			config.inputProperty().unbind();
@@ -490,17 +428,14 @@ public class SettingsController extends AbstractBackSupportController {
 				e.printStackTrace();
 			}
 
-			config.frequencyProperty().bind(_frequencyChoiceBox.getSelectionModel().selectedItemProperty());
-			config.inputProperty().bind(_inputComboBox.getSelectionModel().selectedItemProperty());
-
 		}
 	}
+
 
 	public void createNew(ActionEvent actionEvent) {
 		FileChooser fileChooser = new FileChooser();
 		//Show save file dialog
-		File file = fileChooser.showSaveDialog(_anchorPane.getScene().getWindow());
-
+		File file = fileChooser.showSaveDialog(_dynamicContentAnchorPane.getScene().getWindow());
 
 		if (file != null) {
 			saveTextToFile("", file);
@@ -523,7 +458,7 @@ public class SettingsController extends AbstractBackSupportController {
 		Label label = new Label();
 		label.setLabelFor(node);
 		label.setText(text);
-		VBox.setMargin(label, new Insets(10, 0, 0, 0));
+		VBox.setMargin(label, new Insets(10, 50, 0, 50));
 		return label;
 
 	}
@@ -534,13 +469,12 @@ public class SettingsController extends AbstractBackSupportController {
 		textField.textProperty().bindBidirectional(valueProperty, new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
 		textField.getProperties().put("vkType", vkType);
 		textField.setOnKeyPressed(new EnterSubmitHandler());
-		VBox.setMargin(textField, new Insets(0, 0, 10, 0));
+		textField.setPrefWidth(380);
+		VBox.setMargin(textField, new Insets(0, 50, 10, 50));
 		return textField;
 	}
 
-	private void addSequenceSettings(Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, IntegerProperty sequenceLengthProperty, IntegerProperty sequenceRepeatProperty, IntegerProperty sequenceMatchesProperty , IntegerProperty sequenceLuresProperty, IntegerProperty sequenceNBackLevelProperty){
-		VBox contentAnchor = (VBox) _dynamicContentAnchorPane.getChildren().get(0);
-
+	private void createAndAddStimulusComboBox(VBox parentElement, Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, String label){
 		if (availableStimulusTypes.length > 0){
 			ComboBox<String> stimulusTypeComboBox = new ComboBox();
 
@@ -548,16 +482,18 @@ public class SettingsController extends AbstractBackSupportController {
 				stimulusTypeComboBox.getItems().add(String.valueOf(availableStimulusTypes[i]));
 			}
 			stimulusTypeComboBox.valueProperty().bindBidirectional(stimulusTypeProperty);
-			VBox.setMargin(stimulusTypeComboBox, new Insets(0, 0, 10, 0));
-			Label stimulusTypeLabel = createLabel(stimulusTypeComboBox, "Stimulus Type");
-			contentAnchor.getChildren().add(stimulusTypeLabel);
-			contentAnchor.getChildren().add(stimulusTypeComboBox);
-
+			stimulusTypeComboBox.setPrefWidth(380);
+			VBox.setMargin(stimulusTypeComboBox, new Insets(0, 50, 10, 50));
+			Label stimulusTypeLabel = createLabel(stimulusTypeComboBox, label);
+			parentElement.getChildren().add(stimulusTypeLabel);
+			parentElement.getChildren().add(stimulusTypeComboBox);
 		}
+	}
 
+	private void addSequenceSettings(Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, IntegerProperty sequenceLengthProperty, IntegerProperty sequenceRepeatProperty, IntegerProperty sequenceMatchesProperty , IntegerProperty sequenceLuresProperty, IntegerProperty sequenceNBackLevelProperty){
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
 
-
-
+		createAndAddStimulusComboBox(contentAnchor, availableStimulusTypes, stimulusTypeProperty, "Stimulus Type");
 
 		TextField sequenceLengthTextField = createTextField(sequenceLengthProperty, 1);
 		TextField sequenceRepeatingTextField = createTextField(sequenceRepeatProperty, 1);
@@ -566,10 +502,10 @@ public class SettingsController extends AbstractBackSupportController {
 		TextField sequenceNBackLevelTextField = createTextField(sequenceNBackLevelProperty, 1);
 
 		Label sequenceLengthLabel = createLabel(sequenceLengthTextField, "Length");
-		Label sequenceRepeatingLabel = createLabel(sequenceLengthTextField, "Repeating Elements");
-		Label sequenceMatchesLabel = createLabel(sequenceLengthTextField, "Matches");
-		Label sequenceLuresLabel = createLabel(sequenceLengthTextField, "Lures");
-		Label sequenceNBackLevelLabel = createLabel(sequenceLengthTextField, "n-Back Level");
+		Label sequenceRepeatingLabel = createLabel(sequenceRepeatingTextField, "Repeating Elements");
+		Label sequenceMatchesLabel = createLabel(sequenceMatchesTextField, "Matches");
+		Label sequenceLuresLabel = createLabel(sequenceLuresTextField, "Lures");
+		Label sequenceNBackLevelLabel = createLabel(sequenceNBackLevelTextField, "n-Back Level");
 
 		contentAnchor.getChildren().add(sequenceLengthLabel);
 		contentAnchor.getChildren().add(sequenceLengthTextField);
@@ -583,9 +519,61 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(sequenceNBackLevelTextField);
 	}
 
+	private void addDualSequenceSettings(String firstSequenceName, String secondSequenceName, Stimulus.Type[] availableStimulusTypesFirstSequence, Stimulus.Type[] availableStimulusTypesSecondSequence, StringProperty stimulusTypePropertyFirstSequence, StringProperty stimulusTypePropertySecondSequence, IntegerProperty sequenceLengthProperty, IntegerProperty firstSequenceRepeatProperty, IntegerProperty secondSequenceRepeatProperty, IntegerProperty firstSequenceMatchesProperty , IntegerProperty secondSequenceMatchesProperty ,IntegerProperty firstSequenceLuresProperty, IntegerProperty secondSequenceLuresProperty, IntegerProperty sequenceNBackLevelProperty){
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		TextField sequenceNBackLevelTextField = createTextField(sequenceNBackLevelProperty, 1);
+		Label sequenceNBackLevelLabel = createLabel(sequenceNBackLevelTextField, "n-Back Level");
+
+		TextField sequenceLengthTextField = createTextField(sequenceLengthProperty, 1);
+		Label sequenceLengthLabel = createLabel(sequenceLengthTextField,  " Sequence Length");
+
+		createAndAddStimulusComboBox(contentAnchor, availableStimulusTypesFirstSequence, stimulusTypePropertyFirstSequence, firstSequenceName + " Stimulus Type");
+
+		TextField firstSequenceRepeatingTextField = createTextField(firstSequenceRepeatProperty, 1);
+		TextField firstSequenceMatchesTextField = createTextField(firstSequenceMatchesProperty, 1);
+		TextField firstSequenceLuresTextField = createTextField(firstSequenceLuresProperty, 1);
+
+		Label firstSequenceRepeatingLabel = createLabel(firstSequenceRepeatingTextField, firstSequenceName + " Sequence Repeating Elements");
+		Label firstSequenceMatchesLabel = createLabel(firstSequenceMatchesTextField, firstSequenceName + " Sequence Matches");
+		Label firstSequenceLuresLabel = createLabel(firstSequenceLuresTextField, firstSequenceName + " Sequence Lures");
+
+		createAndAddStimulusComboBox(contentAnchor, availableStimulusTypesSecondSequence, stimulusTypePropertySecondSequence, secondSequenceName + " Stimulus Type");
+
+		TextField secondSequenceRepeatingTextField = createTextField(secondSequenceRepeatProperty, 1);
+		TextField secondSequenceMatchesTextField = createTextField(secondSequenceMatchesProperty, 1);
+		TextField secondSequenceLuresTextField = createTextField(secondSequenceLuresProperty, 1);
+
+		Label secondSequenceRepeatingLabel = createLabel(secondSequenceRepeatingTextField, secondSequenceName + " Sequence Repeating Elements");
+		Label secondSequenceMatchesLabel = createLabel(secondSequenceMatchesTextField, secondSequenceName + " Sequence Matches");
+		Label secondSequenceLuresLabel = createLabel(secondSequenceLuresTextField, secondSequenceName + " Sequence Lures");
+
+		contentAnchor.getChildren().add(sequenceLengthLabel);
+		contentAnchor.getChildren().add(sequenceLengthTextField);
+
+		contentAnchor.getChildren().add(sequenceNBackLevelLabel);
+		contentAnchor.getChildren().add(sequenceNBackLevelTextField);
+
+		contentAnchor.getChildren().add(firstSequenceRepeatingLabel);
+		contentAnchor.getChildren().add(firstSequenceRepeatingTextField);
+		contentAnchor.getChildren().add(firstSequenceMatchesLabel);
+		contentAnchor.getChildren().add(firstSequenceMatchesTextField);
+		contentAnchor.getChildren().add(firstSequenceLuresLabel);
+		contentAnchor.getChildren().add(firstSequenceLuresTextField);
+
+
+		contentAnchor.getChildren().add(secondSequenceRepeatingLabel);
+		contentAnchor.getChildren().add(secondSequenceRepeatingTextField);
+		contentAnchor.getChildren().add(secondSequenceMatchesLabel);
+		contentAnchor.getChildren().add(secondSequenceMatchesTextField);
+		contentAnchor.getChildren().add(secondSequenceLuresLabel);
+		contentAnchor.getChildren().add(secondSequenceLuresTextField);
+
+	}
+
 	private void addVisualIdentityNBackSettings(){
 
-		VBox contentAnchor = (VBox) _dynamicContentAnchorPane.getChildren().get(0);
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
 
 		Config config = Config.getInstance();
 
@@ -611,7 +599,7 @@ public class SettingsController extends AbstractBackSupportController {
 	}
 	private void addVisualLocationNBackSettings(){
 
-		VBox contentAnchor = (VBox) _dynamicContentAnchorPane.getChildren().get(0);
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
 
 
 		Config config = Config.getInstance();
@@ -647,7 +635,7 @@ public class SettingsController extends AbstractBackSupportController {
 
 	private void addAuditoryNBackSettings(){
 
-		VBox contentAnchor = (VBox) _dynamicContentAnchorPane.getChildren().get(0);
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
 
 		Config config = Config.getInstance();
 
@@ -673,5 +661,121 @@ public class SettingsController extends AbstractBackSupportController {
 
 	}
 
+	private void addDualAuditoryLocationNBackSettings(){
+
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+
+		IntegerProperty sequenceLengthProperty = config.dualAuditoryLocationSequenceLengthProperty();
+		IntegerProperty sequenceNBackLevelProperty = config.dualAuditoryLocationSequenceNBackLevelProperty();
+		IntegerProperty intervalProperty  = config.dualAuditoryLocationIntervalProperty();
+
+		IntegerProperty firstSequenceRepeatProperty = config.dualAuditoryLocationFirstSequenceNRepeatProperty();
+		IntegerProperty firstSequenceMatchProperty = config.dualAuditoryLocationFirstSequenceNMatchProperty();
+		IntegerProperty firstSequenceLuresProperty = config.dualAuditoryLocationFirstSequenceNLuresProperty();
+
+		IntegerProperty secondSequenceRepeatProperty = config.dualAuditoryLocationSecondSequenceNRepeatProperty();
+		IntegerProperty secondSequenceMatchProperty = config.dualAuditoryLocationSecondSequenceNMatchProperty();
+		IntegerProperty secondSequenceLuresProperty = config.dualAuditoryLocationSecondSequenceNLuresProperty();
+
+		StringProperty auditorySequenceSelectedStimulusProperty = config.dualAuditoryLocationStimulusTypeProperty();
+
+		Stimulus.Type[] availableTypes = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER};
+
+		TextField intervalTextField = createTextField(intervalProperty, 1);
+		Label intervalLabel = createLabel(intervalTextField, "Interval (ms)");
+
+		contentAnchor.getChildren().add(intervalLabel);
+		contentAnchor.getChildren().add(intervalTextField);
+
+
+
+		IntegerProperty rowCountProperty = Config.getInstance().dualAuditoryLocationRowCountProperty();
+		TextField rowCountTextField = createTextField(rowCountProperty, 1);
+		Label rowCountLabel = createLabel(rowCountTextField, "Location Number of Rows & Columns");
+
+		contentAnchor.getChildren().add(rowCountLabel);
+		contentAnchor.getChildren().add(rowCountTextField);
+
+
+
+		addDualSequenceSettings("Auditory", "Location", availableTypes, new Stimulus.Type[]{}, auditorySequenceSelectedStimulusProperty, null, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, sequenceNBackLevelProperty);
+
+	}
+
+	private void addDualAuditoryIdentityNBackSettings(){
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+
+		IntegerProperty sequenceLengthProperty = config.dualAuditoryIdentitySequenceLengthProperty();
+		IntegerProperty sequenceNBackLevelProperty = config.dualAuditoryIdentitySequenceNBackLevelProperty();
+		IntegerProperty intervalProperty  = config.dualAuditoryIdentityIntervalProperty();
+
+		IntegerProperty firstSequenceRepeatProperty = config.dualAuditoryIdentityFirstSequenceNRepeatProperty();
+		IntegerProperty firstSequenceMatchProperty = config.dualAuditoryIdentityFirstSequenceNMatchProperty();
+		IntegerProperty firstSequenceLuresProperty = config.dualAuditoryIdentityFirstSequenceNLuresProperty();
+
+		IntegerProperty secondSequenceRepeatProperty = config.dualAuditoryIdentitySecondSequenceNRepeatProperty();
+		IntegerProperty secondSequenceMatchProperty = config.dualAuditoryIdentitySecondSequenceNMatchProperty();
+		IntegerProperty secondSequenceLuresProperty = config.dualAuditoryIdentitySecondSequenceNLuresProperty();
+
+		StringProperty auditorySequenceSelectedStimulusProperty = config.dualAuditoryIdentityFirstStimulusTypeProperty();
+		StringProperty identitySequenceSelectedStimulusProperty = config.dualAuditoryIdentitySecondStimulusTypeProperty();
+
+		Stimulus.Type[] availableTypesAuditory = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER};
+		Stimulus.Type[] availableTypesIdentity = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER, Stimulus.Type.COLOR, Stimulus.Type.IMAGE};
+
+		TextField intervalTextField = createTextField(intervalProperty, 1);
+		Label intervalLabel = createLabel(intervalTextField, "Interval (ms)");
+		contentAnchor.getChildren().add(intervalLabel);
+		contentAnchor.getChildren().add(intervalTextField);
+
+		addDualSequenceSettings("Auditory", "Identity", availableTypesAuditory, availableTypesIdentity, auditorySequenceSelectedStimulusProperty, identitySequenceSelectedStimulusProperty, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, sequenceNBackLevelProperty);
+	}
+
+	private void addDualIdentityLocationNBackSettings(){
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+
+		IntegerProperty sequenceLengthProperty = config.dualIdentityLocationSequenceLengthProperty();
+		IntegerProperty sequenceNBackLevelProperty = config.dualIdentityLocationSequenceNBackLevelProperty();
+		IntegerProperty intervalProperty  = config.dualAuditoryIdentityIntervalProperty();
+
+		IntegerProperty firstSequenceRepeatProperty = config.dualIdentityLocationFirstSequenceNRepeatProperty();
+		IntegerProperty firstSequenceMatchProperty = config.dualIdentityLocationFirstSequenceNMatchProperty();
+		IntegerProperty firstSequenceLuresProperty = config.dualIdentityLocationFirstSequenceNLuresProperty();
+
+		IntegerProperty secondSequenceRepeatProperty = config.dualIdentityLocationSecondSequenceNRepeatProperty();
+		IntegerProperty secondSequenceMatchProperty = config.dualIdentityLocationSecondSequenceNMatchProperty();
+		IntegerProperty secondSequenceLuresProperty = config.dualIdentityLocationSecondSequenceNLuresProperty();
+
+		StringProperty identitySequenceSelectedStimulusProperty = config.dualIdentityLocationStimulusTypeProperty();
+
+		Stimulus.Type[] availableTypes = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER, Stimulus.Type.COLOR, Stimulus.Type.IMAGE};
+
+		TextField intervalTextField = createTextField(intervalProperty, 1);
+		Label intervalLabel = createLabel(intervalTextField, "Interval (ms)");
+		contentAnchor.getChildren().add(intervalLabel);
+		contentAnchor.getChildren().add(intervalTextField);
+
+		IntegerProperty rowCountProperty = Config.getInstance().dualIdentityLocationRowCountProperty();
+		TextField rowCountTextField = createTextField(rowCountProperty, 1);
+		Label rowCountLabel = createLabel(rowCountTextField, "Location Number of Rows & Columns");
+
+		contentAnchor.getChildren().add(rowCountLabel);
+		contentAnchor.getChildren().add(rowCountTextField);
+
+		addDualSequenceSettings("Identity", "Location", availableTypes, new Stimulus.Type[]{}, identitySequenceSelectedStimulusProperty, null, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, sequenceNBackLevelProperty);
+	}
+
+
+	private void addAuditoryPVTSettings(){
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+	}
 
 }

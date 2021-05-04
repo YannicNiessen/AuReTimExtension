@@ -12,6 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+import de.stzeyetrial.auretim.util.Stimulus;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -26,6 +28,10 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 
 	private final ITrigger _trigger = TriggerFactory.getInstance().createTrigger();
 	private final ReadOnlyObjectWrapper<Result> _currentResult = new ReadOnlyObjectWrapper<>();
+	protected final ReadOnlyObjectWrapper<Stimulus> _currentStimulus = new ReadOnlyObjectWrapper<>();
+
+	public ReadOnlyObjectProperty<Stimulus> currentStimulusProperty() {return _currentStimulus.getReadOnlyProperty();}
+
 
 	protected final int _frequency;
 	protected final int _pulseDuration;
@@ -36,10 +42,14 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 	private final int _timeout;
 	private final int _minimumResponseTime;
 	private final int _repetitions;
+	private final boolean _visual;
 
 	private final ScheduledExecutorService _executor;
 
-	protected AbstractRunnerTask(final List<Result> results, final int frequency, final IntegerProperty volumeProperty, final int pulseDuration, final int minimumResponseTime, final int delay, final int timeout, final int repetitions) {
+	public final CyclicBarrier gate = new CyclicBarrier(2);
+
+
+	protected AbstractRunnerTask(final List<Result> results, final int frequency, final IntegerProperty volumeProperty, final int pulseDuration, final int minimumResponseTime, final int delay, final int timeout, final int repetitions, boolean visual) {
 		_results				= results;
 		_frequency				= frequency;
 		_volumeProperty			= volumeProperty;
@@ -48,6 +58,7 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 		_delay					= delay;
 		_timeout				= timeout;
 		_repetitions			= repetitions;
+		_visual 				= visual;
 
 		_executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE, r -> {
 			final Thread t = Executors.defaultThreadFactory().newThread(r);
@@ -77,27 +88,39 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 		_trigger.trigger(TriggerType.START_TEST);
 
 		for (int i = 1; i <= _repetitions && !isCancelled(); i++) {
-			final CyclicBarrier gate = new CyclicBarrier(2);
 
 			final int delay = getDelay();
 
 			final Tone tone = getTone();
 			final AbstractInputTask inputTask = getInputTask(gate, testStart, _timeout, _minimumResponseTime);
 
-			final ScheduledFuture<?> futureTone = _executor.schedule(new ToneTask(tone, gate, _volumeProperty.get()), delay, TimeUnit.SECONDS);
+			final Result result;
 
-			final Result result = _executor.submit(inputTask).get();
+			if (_visual){
+				_currentStimulus.setValue(new Stimulus(1, new Integer[]{1}));
+				result = _executor.submit(inputTask).get();
 
-			futureTone.get();
+				_currentStimulus.setValue(Stimulus.unrealStimulus());
+
+			}else{
+				final ScheduledFuture<?> futureTone = _executor.schedule(new ToneTask(tone, gate, _volumeProperty.get()), delay, TimeUnit.SECONDS);
+				result = _executor.submit(inputTask).get();
+				futureTone.get();
+			}
+
+
 
 			updateProgress(i, _repetitions);
 			_results.add(result);
 			Platform.runLater(() -> _currentResult.setValue(result));
 
+
+
 			final long wait = _timeout * 1000 - result.getDuration();
 			if (wait > 0) {
 				_executor.schedule(() -> {}, wait, TimeUnit.MILLISECONDS).get();
 			}
+
 		}
 		_trigger.trigger(TriggerType.END_TEST);
 	}
