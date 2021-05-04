@@ -7,7 +7,6 @@ de/stzeyetrial/auretim/tests/InputLatencyTest$1.class
 de/stzeyetrial/auretim/controller/SettingsController$2.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_feat_t.class
 de/stzeyetrial/auretim/input/SpeechDecoder.class
-de/stzeyetrial/auretim/controller/VisualPVTController$2$1.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_fsg_model_t.class
 de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$3.class
 edu/cmu/pocketsphinx/Decoder.class
@@ -59,7 +58,6 @@ edu/cmu/pocketsphinx/NBestList.class
 de/stzeyetrial/auretim/input/gpio/GPIOButtonInput.class
 de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController$1.class
 de/stzeyetrial/auretim/tasks/NBackSpeechTask.class
-de/stzeyetrial/auretim/controller/VisualPVTController$2$2.class
 de/stzeyetrial/auretim/Preloader.class
 de/stzeyetrial/auretim/input/mouse/MouseButtonInput.class
 de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$2$1.class
@@ -76,7 +74,6 @@ de/stzeyetrial/auretim/tasks/InputTask.class
 de/stzeyetrial/auretim/tasks/SpeechTask.class
 de/stzeyetrial/auretim/controller/nBack/IdentityLocationDualNBackTestController.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_ps_seg_t.class
-de/stzeyetrial/auretim/controller/VisualPVTController$2$2$1.class
 de/stzeyetrial/auretim/controller/nBack/LocationNBackTestController.class
 de/stzeyetrial/auretim/tests/SpeechDecoderTest$1.class
 de/stzeyetrial/auretim/tests/SpeechDecoderTest$Language.class
@@ -93,7 +90,6 @@ de/stzeyetrial/auretim/output/gpio/GPIOTrigger.class
 de/stzeyetrial/auretim/controller/SettingsController$3.class
 de/stzeyetrial/auretim/tasks/AbstractInputTask.class
 de/stzeyetrial/auretim/tasks/MackworthClockTask.class
-de/stzeyetrial/auretim/controller/VisualPVTController$2.class
 de/stzeyetrial/auretim/input/Input.class
 de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$2.class
 de/stzeyetrial/auretim/controller/MackworthClockTestController$1.class
@@ -133,7 +129,6 @@ de/stzeyetrial/auretim/util/Test.class
 de/stzeyetrial/auretim/controller/SettingsController$4.class
 de/stzeyetrial/auretim/output/TriggerFactory.class
 de/stzeyetrial/auretim/util/CustomScrollEvent.class
-HelloFX.class
 de/stzeyetrial/auretim/controller/SettingsController.class
 de/stzeyetrial/auretim/util/Stimulus$1.class
 de/stzeyetrial/auretim/tasks/DualNBackTask.class

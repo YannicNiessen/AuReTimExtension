@@ -40,6 +40,10 @@ public class Stimulus {
         return Arrays.asList(_values).contains(-1);
     }
 
+    public boolean isGo(){return Arrays.asList(_values).contains(1);}
+
+    public boolean isNoGo(){return Arrays.asList(_values).contains(2);}
+
     public static Node getContainerNode(Type type, double prefWidth, double prefHeight){
 
         switch(type){
@@ -96,6 +100,10 @@ public class Stimulus {
     public static Stimulus unrealStimulus(){
         return new Stimulus(1, new Integer[] {-1});
     }
+    public static Stimulus goStimulus(){return new Stimulus(1, new Integer[] {1});}
+    public static Stimulus noGoStimulus(){return new Stimulus(1, new Integer[] {2}); }
+
+
 
     @Override
     public String toString() {

@@ -7,6 +7,8 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ThreadLocalRandom;
+
+import de.stzeyetrial.auretim.util.Stimulus;
 import javafx.beans.property.IntegerProperty;
 
 /**
@@ -44,6 +46,14 @@ public class NoGoRunnerTask extends AbstractRunnerTask {
 		final int index = ThreadLocalRandom.current().nextInt(2);
 		_positive = (index == 0);
 		return _tones[index];
+	}
+
+	@Override
+	protected Stimulus getStimulus() {
+		final int index = ThreadLocalRandom.current().nextInt(2);
+		_positive = (index == 0);
+
+		return (index == 0) ? Stimulus.goStimulus() : Stimulus.noGoStimulus();
 	}
 
 	@Override

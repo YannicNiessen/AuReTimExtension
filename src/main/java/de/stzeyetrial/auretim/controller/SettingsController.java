@@ -911,6 +911,12 @@ public class SettingsController extends AbstractBackSupportController {
 		config.visualPVTuseNoGoProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, Boolean newValue) -> maximumDelayTextField.setDisable(newValue));
 		maximumDelayTextField.setDisable(config.visualPVTuseNoGoProperty().get());
 
+
+		ColorPicker goColorPicker = createColorPicker(Config.getInstance().visualPVTgoColorProperty());
+		ColorPicker noGoColorPicker = createColorPicker(Config.getInstance().visualPVTnoGoColorProperty());
+		Label goColorPickerLabel = createLabel(goColorPicker, "Go Color");
+		Label noGoColorPickerLabel = createLabel(noGoColorPicker, "No-Go Color");
+
 		contentAnchor.getChildren().add(pulseDurationTextFieldLabel);
 		contentAnchor.getChildren().add(pulseDurationTextField);
 		contentAnchor.getChildren().add(minimumDelayTextFieldLabel);
@@ -925,6 +931,10 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(timeoutTextField);
 		contentAnchor.getChildren().add(useNoGoCheckBoxLabel);
 		contentAnchor.getChildren().add(useNoGoCheckbox);
+		contentAnchor.getChildren().add(goColorPickerLabel);
+		contentAnchor.getChildren().add(goColorPicker);
+		contentAnchor.getChildren().add(noGoColorPickerLabel);
+		contentAnchor.getChildren().add(noGoColorPicker);
 	}
 
 

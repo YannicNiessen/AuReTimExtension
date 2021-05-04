@@ -171,7 +171,8 @@ public class Config {
 
 
 
-	private static final String PROPERTY_COLOR_DEFAULT = "#FF0000";
+	private static final String PROPERTY_COLOR_DEFAULT = "#00FF00";
+	private static final String PROPERTY_NO_GO_COLOR_DEFAULT = "#FF0000";
 	private static final String PROPERTY_DIRECTORY_DEFAULT				= ".";
 	private static final String PROPERTY_INPUT_DEFAULT					= Input.BUTTON.toString();
 	private static final String PROPERTY_FREQUENCY_DEFAULT				= Integer.toString(440);
@@ -367,7 +368,7 @@ public class Config {
 		useAutoCompletionProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_USE_AUTO_COMPLETION, PROPERTY_USE_AUTO_COMPLETION_DEFAULT)));
 
 		visualPVTgoColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_PVT_GO_COLOR, PROPERTY_COLOR_DEFAULT));
-		visualPVTnoGoColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_PVT_NO_GO_COLOR, PROPERTY_COLOR_DEFAULT));
+		visualPVTnoGoColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_PVT_NO_GO_COLOR, PROPERTY_NO_GO_COLOR_DEFAULT));
 		visualLocationColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_LOCATION_COLOR, PROPERTY_COLOR_DEFAULT));
 		dualAuditoryLocationColorProperty().setValue(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_COLOR, PROPERTY_COLOR_DEFAULT));
 
@@ -502,6 +503,11 @@ public class Config {
 		p.setProperty(PROPERTY_INPUT,					inputProperty().getValue().toString());
 		p.setProperty(PROPERTY_AUDITORY_PVT_FREQUENCIES,				PROPERTY_FREQUENCIES_DEFAULT);
 		p.setProperty(PROPERTY_USE_AUTO_COMPLETION,		Boolean.toString(useAutoCompletionProperty().getValue()));
+
+		p.setProperty(PROPERTY_VISUAL_LOCATION_COLOR, visualLocationColorProperty().getValue());
+		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_COLOR, dualAuditoryLocationColorProperty().getValue());
+		p.setProperty(PROPERTY_VISUAL_PVT_GO_COLOR, visualPVTgoColorProperty().getValue());
+		p.setProperty(PROPERTY_VISUAL_PVT_NO_GO_COLOR, visualPVTnoGoColorProperty().getValue());
 
 		p.setProperty(PROPERTY_AUDITORY_PVT_FREQUENCY,				Integer.toString(auditoryPVTfrequencyProperty().getValue()));
 		p.setProperty(PROPERTY_AUDITORY_PVT_VOLUME,					Double.toString(auditoryPVTvolumeProperty().getValue()));

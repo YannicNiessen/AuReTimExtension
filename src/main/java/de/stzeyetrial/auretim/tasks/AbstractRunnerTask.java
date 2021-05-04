@@ -97,7 +97,7 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 			final Result result;
 
 			if (_visual){
-				_currentStimulus.setValue(new Stimulus(1, new Integer[]{1}));
+				_currentStimulus.setValue(getStimulus());
 				result = _executor.submit(inputTask).get();
 
 				_currentStimulus.setValue(Stimulus.unrealStimulus());
@@ -127,5 +127,6 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 
 	protected abstract int getDelay();
 	protected abstract Tone getTone();
+	protected abstract Stimulus getStimulus();
 	protected abstract AbstractInputTask getInputTask(final CyclicBarrier gate, final long testStart, final int maximumTime, final int minimumResponseTime);
 }

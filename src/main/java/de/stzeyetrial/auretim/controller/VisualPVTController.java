@@ -221,54 +221,40 @@ public class VisualPVTController extends AbstractController {
 			}
 		});
 
-		task.currentStimulusProperty().addListener(new ChangeListener<Stimulus>() {
-			@Override
-			public void changed(ObservableValue<? extends Stimulus> observableValue, Stimulus stimulus, Stimulus t1) {
+		task.currentStimulusProperty().addListener((observableValue, stimulus, t1) -> {
 
-				if(t1.isUnreal())
-					return;
+			if(t1.isUnreal())
+				return;
 
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-								try {
-									_stimulusRectangle.setFill(Paint.valueOf("red"));
-									task.gate.await();
-								} catch (InterruptedException | BrokenBarrierException e) {
-									e.printStackTrace();
-								}
-
+				Platform.runLater(() -> {
+						try {
+							_stimulusRectangle.setFill(Paint.valueOf("red"));
+							task.gate.await();
+						} catch (InterruptedException | BrokenBarrierException e) {
+							e.printStackTrace();
 						}
-					});//Execute on UI Thread / Application Thread
 
-					Runnable r = new Runnable() {
-						@Override
-						public void run() {
-							try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							Platform.runLater(new Runnable() {
-								@Override
-								public void run() {
-									_stimulusRectangle.setFill(Paint.valueOf("white"));
-								}
-							});
-						}
-					};
+				});//Execute on UI Thread / Application Thread
 
-					(new Thread(r)).start();
-			}
+				Runnable r = () -> {
+					try {
+						Thread.sleep(Config.getInstance().visualPVTpulseDurationProperty().getValue());
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					Platform.runLater(() -> outputStimulus(t1));
+				};
+
+				(new Thread(r)).start();
 		});
 	}
 
 
 	private void outputStimulus(Stimulus stimulus){
-		if (stimulus.isUnreal()){
-			_stimulusRectangle.setFill(Paint.valueOf("white"));
-		}else{
-			_stimulusRectangle.setFill(Paint.valueOf("red"));
+		if (stimulus.isGo()){
+			_stimulusRectangle.setFill(Color.web(Config.getInstance().visualPVTgoColorProperty().getValue()));
+		}else if (stimulus.isNoGo()){
+			_stimulusRectangle.setFill(Color.web(Config.getInstance().visualPVTnoGoColorProperty().getValue()));
 		}
 	}
 }

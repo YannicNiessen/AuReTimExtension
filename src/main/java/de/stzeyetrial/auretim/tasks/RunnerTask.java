@@ -7,6 +7,8 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ThreadLocalRandom;
+
+import de.stzeyetrial.auretim.util.Stimulus;
 import javafx.beans.property.IntegerProperty;
 
 /**
@@ -42,6 +44,11 @@ public class RunnerTask extends AbstractRunnerTask {
 	@Override
 	protected Tone getTone() {
 		return _tone;
+	}
+
+	@Override
+	protected Stimulus getStimulus() {
+		return Stimulus.goStimulus();
 	}
 
 	@Override
