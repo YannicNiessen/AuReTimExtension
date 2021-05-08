@@ -15,6 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import de.stzeyetrial.auretim.util.TestType;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -119,9 +121,10 @@ public class ResultController extends AbstractBackSupportController {
 		for (final Result result : results) {
 			switch (result.getType()) {
 				case TRUE_POSITIVE:
-					if ((!Config.getInstance().auditoryPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().auditoryPVTtimeoutProperty().get())) {
+					if ((Session.getCurrentSession().getTestType() == TestType.PVT_AUDITORY) && ((!Config.getInstance().auditoryPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().auditoryPVTtimeoutProperty().get()))) {
+
 						stats.addValue(result.getDuration());
-					}else if((!Config.getInstance().visualPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().visualPVTtimeoutProperty().get())){
+					}else if((Session.getCurrentSession().getTestType() == TestType.PVT_VISUAL) && ((!Config.getInstance().visualPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().visualPVTtimeoutProperty().get()))){
 						stats.addValue(result.getDuration());
 					}
 					hits++;
