@@ -362,13 +362,11 @@ public class SettingsController extends AbstractBackSupportController {
 
 		if (response.isPresent()){
 
-			Runnable r = () -> {
-				File file = new File("config/" + response.get() + ".config.properties");
-				saveTextToFile("", file);
-				loadImplicit(file);
-				saveImplicit();
-			};
-			new Thread(r).start();
+		File file = new File("config/" + response.get() + ".config.properties");
+		saveTextToFile("", file);
+		loadImplicit(file);
+		saveImplicit();
+
 
 
 		}else{

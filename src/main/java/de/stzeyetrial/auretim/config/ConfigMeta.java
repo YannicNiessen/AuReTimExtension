@@ -24,7 +24,7 @@ public class ConfigMeta {
 
 	private static final String PROPERTY_ACTIVE_CONFIG						= "activeConfig";
 
-	private static final String PROPERTY_ACTIVE_CONFIG_DEFAULT				= "./configs/config.properties";
+	private static final String PROPERTY_ACTIVE_CONFIG_DEFAULT				= "configs/config.properties";
 
 	private final StringProperty _activeConfig				= new SimpleStringProperty();
 
