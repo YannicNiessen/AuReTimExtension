@@ -789,12 +789,12 @@ public class SettingsController extends AbstractBackSupportController {
 		TextField minimumResponseTimeTextField = createTextField(config.auditoryPVTminimumResponseTimeProperty(), 1);
 
 		Label volumeTextFieldLabel = createLabel(volumeTextField, "Volume");
-		Label pulseDurationTextFieldLabel = createLabel(pulseDurationTextField, "Pulse Duration");
+		Label pulseDurationTextFieldLabel = createLabel(pulseDurationTextField, "Pulse Duration (ms) ");
 		Label timeoutTextFieldLabel = createLabel(timeoutTextField, "Timeout (ms)");
-		Label minimumDelayTextFieldLabel = createLabel(minimumDelayTextField, "Minimum Delay");
-		Label maximumDelayTextFieldLabel = createLabel(maximumDelayTextField, "Maximum Delay");
+		Label minimumDelayTextFieldLabel = createLabel(minimumDelayTextField, "Minimum Delay (s)");
+		Label maximumDelayTextFieldLabel = createLabel(maximumDelayTextField, "Maximum Delay (s)");
 		Label repetitionsTextFieldLabel = createLabel(repetitionsTextField, "Repetitions");
-		Label minimumResponseTimeTextFieldLabel = createLabel(minimumResponseTimeTextField, "Minimum Response Time");
+		Label minimumResponseTimeTextFieldLabel = createLabel(minimumResponseTimeTextField, "Minimum Response Time (ms)");
 		Label useNoGoCheckBoxLabel = createLabel(useNoGoCheckbox, "Use No-Go Paradigm");
 
 		_validation.registerValidator(volumeTextField, false, Validator.createEmptyValidator(""));
@@ -847,12 +847,12 @@ public class SettingsController extends AbstractBackSupportController {
 		TextField repetitionsTextField = createTextField(config.visualPVTrepetitionsProperty(), 1);
 		TextField minimumResponseTimeTextField = createTextField(config.visualPVTminimumResponseTimeProperty(), 1);
 
-		Label pulseDurationTextFieldLabel = createLabel(pulseDurationTextField, "Pulse Duration");
+		Label pulseDurationTextFieldLabel = createLabel(pulseDurationTextField, "Pulse Duration (ms)");
 		Label timeoutTextFieldLabel = createLabel(timeoutTextField, "Timeout (ms)");
-		Label minimumDelayTextFieldLabel = createLabel(minimumDelayTextField, "Minimum Delay");
-		Label maximumDelayTextFieldLabel = createLabel(maximumDelayTextField, "Maximum Delay");
+		Label minimumDelayTextFieldLabel = createLabel(minimumDelayTextField, "Minimum Delay (s)");
+		Label maximumDelayTextFieldLabel = createLabel(maximumDelayTextField, "Maximum Delay (s)");
 		Label repetitionsTextFieldLabel = createLabel(repetitionsTextField, "Repetitions");
-		Label minimumResponseTimeTextFieldLabel = createLabel(minimumResponseTimeTextField, "Minimum Response Time");
+		Label minimumResponseTimeTextFieldLabel = createLabel(minimumResponseTimeTextField, "Minimum Response Time (ms)");
 		Label useNoGoCheckBoxLabel = createLabel(useNoGoCheckbox, "Use No-Go Paradigm");
 
 		_validation.registerValidator(pulseDurationTextField, false, Validator.createEmptyValidator(""));

@@ -188,7 +188,7 @@ public class Config {
 	private static final String PROPERTY_USE_NO_GO_DEFAULT				= Boolean.toString(false);
 	private static final String PROPERTY_FREQUENCIES_DEFAULT			= "220,440,880,1760,3520";
 	private static final String PROPERTY_PULSEDURATION_DEFAULT			= Integer.toString(500);
-	private static final String PROPERTY_TIMEOUT_DEFAULT				= Integer.toString(2);
+	private static final String PROPERTY_TIMEOUT_DEFAULT				= Integer.toString(2000);
 	private static final String PROPERTY_MINIMUM_DELAY_DEFAULT			= Integer.toString(2);
 	private static final String PROPERTY_MAXIMUM_DELAY_DEFAULT			= Integer.toString(8);
 	private static final String PROPERTY_REPETITIONS_DEFAULT			= Integer.toString(10);
