@@ -15,4 +15,5 @@ git clone https://github.com/numediart/MBROLA.git
 cd MBROLA
 make
 cp Bin/mbrola /usr/bin/mbrola
+mv ../AuReTimExtension/ ../AuReTim
 reboot
