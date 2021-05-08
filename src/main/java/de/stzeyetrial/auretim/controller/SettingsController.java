@@ -192,6 +192,7 @@ public class SettingsController extends AbstractBackSupportController {
 		for (int i = 0; i < TestType.values().length; i++) {
 			_testSelectionComboBox.getItems().add(TestType.values()[i].name());
 		}
+		_testSelectionComboBox.setVisibleRowCount(_testSelectionComboBox.getItems().size());
 
 		contentAnchor.getChildren().add(_testSelectionComboBox);
 
