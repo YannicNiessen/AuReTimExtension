@@ -222,7 +222,8 @@ public class VisualPVTController extends AbstractController {
 		});
 
 		task.currentStimulusProperty().addListener((observableValue, stimulus, t1) -> {
-
+				if (stimulus.isUnreal())
+					return;
 				Platform.runLater(() -> {
 						try {
 							outputStimulus(t1);
@@ -239,7 +240,7 @@ public class VisualPVTController extends AbstractController {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					Platform.runLater(() -> outputStimulus(t1));
+					Platform.runLater(() -> outputStimulus(Stimulus.unrealStimulus()));
 				};
 
 				(new Thread(r)).start();

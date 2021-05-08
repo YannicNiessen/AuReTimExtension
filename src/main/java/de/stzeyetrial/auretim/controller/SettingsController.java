@@ -903,7 +903,7 @@ public class SettingsController extends AbstractBackSupportController {
 		TextField circleNumberTextField = createTextField(config.mackworthNCirclesProperty(), 1);
 
 		Label testLengthTextFieldLabel = createLabel(testLengthTextField, "Repetitions");
-		Label targetsTextFieldLabel = createLabel(targetsTextField, "Target (repetition number slash separated, zero indexed)");
+		Label targetsTextFieldLabel = createLabel(targetsTextField, "Targets\n (repetition number slash separated, zero indexed)");
 		Label intervalTextFieldLabel = createLabel(intervalTextField, "Interval (ms)");
 		Label circleNumberTextFieldLabel = createLabel(circleNumberTextField, "Number of circles");
 
