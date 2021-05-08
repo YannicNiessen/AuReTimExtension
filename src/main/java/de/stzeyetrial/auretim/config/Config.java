@@ -206,7 +206,7 @@ public class Config {
 	private static final String PROPERTY_SEQUENCE_RE_USE_ELEMENT_DEFAULT= Boolean.toString(true);
 	private static final String PROPERTY_USE_VOICE_RECOGNITION_DEFAULT	= Boolean.toString(false);
 	private static final String PROPERTY_MACKWORTH_LENGTH_DEFAULT		= Integer.toString(60);
-	private static final String PROPERTY_MACKWORTH_TARGETS_DEFAULT		= Integer.toString(5);
+	private static final String PROPERTY_MACKWORTH_TARGETS_DEFAULT		= "5, 10, 20, 35, 50, 55, 58";
 	private static final String PROPERTY_MACKWORTH_INTERVAL_DEFAULT		= Integer.toString(1000);
 	private static final String PROPERTY_MACKWORTH_N_CIRCLES_DEFAULT 	= Integer.toString(24);
 	private static final String PROPERTY_N_BACK_INTERVAL_DEFAULT 		= Integer.toString(1500);
