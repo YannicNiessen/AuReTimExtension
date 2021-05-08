@@ -124,7 +124,6 @@ de/stzeyetrial/auretim/controller/ExitDialogController.class
 de/stzeyetrial/auretim/tasks/NoGoInputTask.class
 de/stzeyetrial/auretim/controller/MainController.class
 de/stzeyetrial/auretim/util/Test.class
-de/stzeyetrial/auretim/controller/SettingsController$4.class
 de/stzeyetrial/auretim/output/TriggerFactory.class
 de/stzeyetrial/auretim/util/CustomScrollEvent.class
 de/stzeyetrial/auretim/controller/SettingsController.class

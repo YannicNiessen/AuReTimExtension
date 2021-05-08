@@ -377,6 +377,7 @@ public class Config {
 		configMeta.load();
 		_configFilename = configMeta.activeConfigProperty().getValue();
 
+		System.out.println("Config load called");
 		System.out.println(_configFilename);
 
 		final Properties p = new Properties();
@@ -385,6 +386,8 @@ public class Config {
 		} catch (final IOException ex) {
 			Logger.getLogger(Config.class.getName()).log(Level.WARNING, "Could not load config file.", ex);
 		}
+
+		System.out.println(p.getProperty(PROPERTY_INPUT));
 
 		directoryProperty().setValue(p.getProperty(PROPERTY_DIRECTORY, PROPERTY_DIRECTORY_DEFAULT));
 		inputProperty().setValue(Input.valueOf(p.getProperty(PROPERTY_INPUT, PROPERTY_INPUT_DEFAULT)));

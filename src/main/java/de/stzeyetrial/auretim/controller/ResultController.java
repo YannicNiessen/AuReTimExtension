@@ -5,6 +5,8 @@ import de.stzeyetrial.auretim.screens.Screens;
 import de.stzeyetrial.auretim.session.Session;
 import de.stzeyetrial.auretim.util.PreferencesMap;
 import de.stzeyetrial.auretim.util.Result;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -163,6 +165,11 @@ public class ResultController extends AbstractBackSupportController {
 	@FXML
 	private void buttonSave(final ActionEvent e) {
 		_saveButton.disableProperty().set(true);
+
+		File directory = new File("results");
+		if (! directory.exists()){
+			directory.mkdir();
+		}
 
 		String directoryName = "./results/";
 		final String subjectId = Session.getCurrentSession().getSubjectId().replaceAll("[:\\\\/*\"?|<>]", "_");

@@ -85,6 +85,10 @@ public class SettingsController extends AbstractBackSupportController {
 
 	private ScrollPane _scrollPane;
 
+	ComboBox<String> _testSelectionComboBox;
+
+	String _currentPage;
+
 
 
 	public SettingsController() {
@@ -97,7 +101,7 @@ public class SettingsController extends AbstractBackSupportController {
 
 		final Config config = Config.getInstance();
 
-		ComboBox<String> _testSelectionComboBox = new ComboBox<>();
+		_testSelectionComboBox = new ComboBox<>();
 
 		VBox contentAnchor = new VBox();
 
@@ -136,53 +140,51 @@ public class SettingsController extends AbstractBackSupportController {
 
 		_dynamicContentAnchorPane.setCenter(_scrollPane);
 
-		_testSelectionComboBox.valueProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observableValue, String previousValue, String selectedValue) {
+		_testSelectionComboBox.valueProperty().addListener((observableValue, previousValue, selectedValue) -> {
 
+			_currentPage = selectedValue;
 
-				for (int i = contentAnchor.getChildren().size()-1; i > 0; i--) {
-					contentAnchor.getChildren().remove(i);
-				}
-
-				switch(selectedValue){
-					case "General":
-						addGeneralSettings();
-						break;
-					case "PVT_AUDITORY":
-						addAuditoryPVTSettings();
-						break;
-					case "PVT_VISUAL":
-						addVisualPVTSettings();
-						break;
-					case "N_BACK_VISUAL_STIMULUS_IDENTITY":
-						addVisualIdentityNBackSettings();
-						break;
-					case "N_BACK_VISUAL_LOCATION_IDENTITY":
-						addVisualLocationNBackSettings();
-						break;
-					case "N_BACK_AUDITORY_STIMULUS_IDENTITY":
-						addAuditoryNBackSettings();
-						break;
-					case "N_BACK_DUAL_AUDITORY_VISUAL_LOCATION_IDENTITY":
-						addDualAuditoryLocationNBackSettings();
-						break;
-					case "N_BACK_DUAL_AUDITORY_VISUAL_STIMULUS_IDENTITY":
-						addDualAuditoryIdentityNBackSettings();
-						break;
-					case "N_BACK_DUAL_VISUAL_VISUAL_STIMULUS_IDENTITY_LOCATION_IDENTITY":
-						addDualIdentityLocationNBackSettings();
-						break;
-					case "MACKWORTH_CLOCK":
-						addMackworthClockSettings();
-						break;
-					case "SPATIAL_WORKING_MEMORY":
-						addSpatialWorkingMemoryUpdatingSettings();
-						break;
-				}
-				
-				
+			for (int i = contentAnchor.getChildren().size()-1; i > 0; i--) {
+				contentAnchor.getChildren().remove(i);
 			}
+
+			switch(selectedValue){
+				case "General":
+					addGeneralSettings();
+					break;
+				case "PVT_AUDITORY":
+					addAuditoryPVTSettings();
+					break;
+				case "PVT_VISUAL":
+					addVisualPVTSettings();
+					break;
+				case "N_BACK_VISUAL_STIMULUS_IDENTITY":
+					addVisualIdentityNBackSettings();
+					break;
+				case "N_BACK_VISUAL_LOCATION_IDENTITY":
+					addVisualLocationNBackSettings();
+					break;
+				case "N_BACK_AUDITORY_STIMULUS_IDENTITY":
+					addAuditoryNBackSettings();
+					break;
+				case "N_BACK_DUAL_AUDITORY_VISUAL_LOCATION_IDENTITY":
+					addDualAuditoryLocationNBackSettings();
+					break;
+				case "N_BACK_DUAL_AUDITORY_VISUAL_STIMULUS_IDENTITY":
+					addDualAuditoryIdentityNBackSettings();
+					break;
+				case "N_BACK_DUAL_VISUAL_VISUAL_STIMULUS_IDENTITY_LOCATION_IDENTITY":
+					addDualIdentityLocationNBackSettings();
+					break;
+				case "MACKWORTH_CLOCK":
+					addMackworthClockSettings();
+					break;
+				case "SPATIAL_WORKING_MEMORY":
+					addSpatialWorkingMemoryUpdatingSettings();
+					break;
+			}
+
+
 		});
 
 		_testSelectionComboBox.getItems().add("General");
@@ -194,7 +196,6 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(_testSelectionComboBox);
 
 		_testSelectionComboBox.getSelectionModel().select("General");
-
 		_testSelectionComboBox.setPrefWidth(480);
 
 
@@ -328,9 +329,13 @@ public class SettingsController extends AbstractBackSupportController {
 	public void load(ActionEvent actionEvent) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Config File");
-
+		fileChooser.setInitialDirectory(new File("config"));
 		File file = fileChooser.showOpenDialog(_dynamicContentAnchorPane.getScene().getWindow());
-		loadImplicit(file);
+
+		if (!file.getName().equals("meta.config.properties")){
+			loadImplicit(file);
+		}
+
 	}
 
 	public void loadImplicit(File file){
@@ -340,11 +345,17 @@ public class SettingsController extends AbstractBackSupportController {
 			config.auditoryPVTfrequencyProperty().unbind();
 			ConfigMeta configMeta = ConfigMeta.getInstance();
 			configMeta.activeConfigProperty().setValue(file.getName());
+			String temp = _currentPage;
+
 			try {
 				configMeta.save();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			_testSelectionComboBox.getSelectionModel().select("");
+			_testSelectionComboBox.getSelectionModel().select(temp);
+
+
 
 		}
 	}
@@ -361,6 +372,13 @@ public class SettingsController extends AbstractBackSupportController {
 		Optional<String> response = td.showAndWait();
 
 		if (response.isPresent()){
+
+
+		File directory = new File("config");
+		if (! directory.exists()){
+			directory.mkdir();
+			System.out.println("directory exists");
+		}
 
 		File file = new File("config/" + response.get() + ".config.properties");
 		saveTextToFile("", file);
