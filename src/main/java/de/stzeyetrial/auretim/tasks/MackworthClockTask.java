@@ -31,7 +31,7 @@ public class MackworthClockTask extends Task<List<Result>> {
 	private final ReadOnlyObjectWrapper<Boolean> _currentStimulus = new ReadOnlyObjectWrapper<>();
 
 	protected final int _length;
-	private final int _nMatch;
+	private final int[] _targetIndices;
 	private final int _minimumResponseTime;
 
 
@@ -43,10 +43,10 @@ public class MackworthClockTask extends Task<List<Result>> {
 	private final ScheduledExecutorService _executor;
 	public final CyclicBarrier gate = new CyclicBarrier(2);
 
-	public MackworthClockTask(final List<Result> results, final int length, final int nMatch, final int timeout, final int minimumResponseTime) {
+	public MackworthClockTask(final List<Result> results, final int length, final int[] targetIndices, final int timeout, final int minimumResponseTime) {
 		_results				= results;
 		_length					= length;
-		_nMatch					= nMatch;
+		_targetIndices			= targetIndices;
 		_timeout				= timeout;
 		_minimumResponseTime 	= minimumResponseTime;
 
@@ -70,7 +70,7 @@ public class MackworthClockTask extends Task<List<Result>> {
 		final long testStart = System.currentTimeMillis();
 		_trigger.trigger(TriggerType.START_TEST);
 
-		Boolean[] sequence = RandomSequence.getRandomSequenceMackworthClock(_length, _nMatch);
+		Boolean[] sequence = RandomSequence.getMackworthClockSequenceFromTimings(_length, _targetIndices);
 		System.out.println("length is " + _length);
 		for (int i = 0; i < sequence.length && !isCancelled(); i++) {
 
@@ -89,7 +89,7 @@ public class MackworthClockTask extends Task<List<Result>> {
 			_currentResultString.setValue(result.getType().toString());
 
 			_results.add(result);
-			final long wait = _timeout * 1000 - result.getDuration();
+			final long wait = _timeout - result.getDuration();
 			if (wait > 0) {
 				_executor.schedule(() -> {}, wait, TimeUnit.MILLISECONDS).get();
 			}

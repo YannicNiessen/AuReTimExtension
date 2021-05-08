@@ -106,7 +106,7 @@ public  class RandomSequence {
         return resultSequence;
     }
 
-    public Boolean[] getMackworthClockSequenceFromTimings(int length, int[] timings){
+    public static Boolean[] getMackworthClockSequenceFromTimings(int length, int[] timings){
 
         Boolean[] resultSequence = new Boolean[length];
         for (int i = 0; i < length; i++){

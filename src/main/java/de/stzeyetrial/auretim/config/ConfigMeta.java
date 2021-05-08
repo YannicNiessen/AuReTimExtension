@@ -18,13 +18,13 @@ import java.util.logging.Logger;
  * @author strasser
  */
 public class ConfigMeta {
-	private static final String CONFIG_FILENAME							= "meta.config.properties";
+	private static final String CONFIG_FILENAME							= "./config/meta.config.properties";
 
 	private static final String CONFIG_COMMENT							= "AuReTim configuration meta";
 
 	private static final String PROPERTY_ACTIVE_CONFIG						= "activeConfig";
 
-	private static final String PROPERTY_ACTIVE_CONFIG_DEFAULT				= "config.properties";
+	private static final String PROPERTY_ACTIVE_CONFIG_DEFAULT				= "./configs/config.properties";
 
 	private final StringProperty _activeConfig				= new SimpleStringProperty();
 

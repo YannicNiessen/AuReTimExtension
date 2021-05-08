@@ -91,9 +91,8 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 
 	protected int frameCount;
 
-	List<Integer> results;
+	List<Result> _results;
 
-	private TextField _stimulusTextField;
 	private Stimulus[] lastStimulus;
 
 	private HBox[] frames;
@@ -105,9 +104,7 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 			t.setDaemon(true);
 			return t;
 		});
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			_executor.shutdown();
-		}));
+		Runtime.getRuntime().addShutdownHook(new Thread(_executor::shutdown));
 	}
 
 	@Override
@@ -147,16 +144,17 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 	@FXML
 	protected void start() {
 		unbind();
-
+		setLayout();
 		roundCounter = 0;
-		results = new ArrayList<>();
+		final int length				= Config.getInstance().spatialWorkingMemoryRepetitionsProperty().get();
+		final int interval				= Config.getInstance().spatialWorkingMemoryIntervalProperty().get();
+		final int initialDelay 			= Config.getInstance().spatialWorkingMemoryInitialDelayProperty().get();
 
-		final int length				= Config.getInstance().visualIdentitySequenceLengthProperty().get();
 
-		final List<Result> results = Session.getCurrentSession().getResults();
-		results.clear();
+		_results = Session.getCurrentSession().getResults();
+		_results.clear();
 
-		final SpatialWorkingMemoryUpdateTask task = new SpatialWorkingMemoryUpdateTask(results, length, frameCount);
+		final SpatialWorkingMemoryUpdateTask task = new SpatialWorkingMemoryUpdateTask(_results, length, frameCount, initialDelay, interval);
 
 		//task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
 		task.setOnSucceeded(event -> getUserInput());
@@ -224,47 +222,58 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 
 
 	private void getUserInput() {
-			clearFrames();
-			((TextField)frames[0].getChildren().get(0)).setText("?");
-			TextField t = new TextField();
-			t.setOnKeyTyped(new EventHandler<KeyEvent>() {
-				@Override
-				public void handle(KeyEvent keyEvent) {
-					String userResponse = keyEvent.getCharacter();
-					results.add(Integer.valueOf(userResponse));
-					keyEvent.consume();
-					t.setText("");
-					((TextField)frames[results.size()-1].getChildren().get(0)).setText(userResponse);
 
-					if (results.size() >= frameCount) {
-						restoreVirtualKeyboard();
-						FXVK.detach();
-						System.out.println(results.toString());
-						t.getParent().getChildrenUnmodifiable().remove(t);
-					}else{
-						((TextField)frames[results.size()].getChildren().get(0)).setText("?");
-					}
+			if(roundCounter < Config.getInstance().spatialWorkingMemoryRepetitionsProperty().get() * frameCount - 1)
+				return;
+
+			List<Integer> frameProbingOrder = new LinkedList<>();
+
+			while(frameProbingOrder.size() < frameCount){
+				int index = (int) (Math.random() * frameCount);
+				if(!frameProbingOrder.contains(index)){
+					frameProbingOrder.add(index);
+				}
+			}
+
+			clearFrames();
+			((TextField)frames[frameProbingOrder.get(0)].getChildren().get(0)).setText("?");
+			TextField inputTextField = new TextField();
+			inputTextField.setOnKeyTyped(keyEvent -> {
+				String userResponse = keyEvent.getCharacter();
+
+				boolean answerCorrect = lastStimulus[frameProbingOrder.get(_results.size())].get_values()[0] + 1 == Integer.parseInt(userResponse);
+
+				_results.add(new Result(System.currentTimeMillis(), 0, answerCorrect ? Result.Type.TRUE_POSITIVE : Result.Type.FALSE_POSITIVE));
+				keyEvent.consume();
+				inputTextField.setText("");
+				((TextField)frames[frameProbingOrder.get(_results.size()-1)].getChildren().get(0)).setText(userResponse);
+
+				if (_results.size() >= frameCount) {
+					restoreVirtualKeyboard();
+					FXVK.detach();
+					_stimulusContainerBox.getChildren().remove(inputTextField);
+
+					getScreenManager().setScreen(Screens.RESULT);
+				}else{
+					((TextField)frames[frameProbingOrder.get(_results.size())].getChildren().get(0)).setText("?");
 				}
 			});
-			t.getProperties().put("vkType", 1);
-			t.setMaxHeight(0);
-			t.setMaxWidth(0);
-			t.setMinWidth(0);
-			t.setMinHeight(0);
-			t.setPrefHeight(0);
-			t.setPrefWidth(0);
-			_stimulusContainerBox.getChildren().add(t);
+			inputTextField.getProperties().put("vkType", 1);
+			inputTextField.setMaxHeight(0);
+			inputTextField.setMaxWidth(0);
+			inputTextField.setMinWidth(0);
+			inputTextField.setMinHeight(0);
+			inputTextField.setPrefHeight(0);
+			inputTextField.setPrefWidth(0);
+			_stimulusContainerBox.getChildren().add(inputTextField);
 
 
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-				    t.requestFocus();
-				    t.setVisible(true);
-					FXVK.init(t);
-					FXVK.attach(t);
-					modifyVirtualKeyboard();
-				}
+			Platform.runLater(() -> {
+				inputTextField.requestFocus();
+				inputTextField.setVisible(true);
+				FXVK.init(inputTextField);
+				FXVK.attach(inputTextField);
+				modifyVirtualKeyboard();
 			});
 
 
@@ -274,7 +283,7 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 		lastStimulus = new Stimulus[frameCount];
 		roundCounter = 0;
 		frames = new HBox[frameCount];
-		_stimulusContainerBox.getChildren().removeAll();
+		_stimulusContainerBox.getChildren().clear();
 
 		double availableSpace= Math.min(_stimulusContainerBox.getPrefWidth() / frameCount, _stimulusContainerBox.getPrefHeight());
 
@@ -402,7 +411,7 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 
 	public void setConfig(){
 		_stimulusType = Stimulus.Type.valueOf(Config.getInstance().visualIdentityStimulusTypeProperty().getValue());
-		frameCount = 3;
+		frameCount = Config.getInstance().spatialWorkingMemoryFramesProperty().getValue();
 		setLayout();
 	}
 
@@ -466,7 +475,7 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 
 			GridPane grid = (GridPane) currentFrame.getChildren().get(0);
 
-			FillTransition fillBlue = new FillTransition(Duration.millis(350),((Rectangle) grid.getChildren().get(value)) ,Color.WHITE, Color.BLUE);
+			FillTransition fillBlue = new FillTransition(Duration.millis(100),((Rectangle) grid.getChildren().get(value)) ,Color.WHITE, Color.web(Config.getInstance().spatialWorkingMemoryColorProperty().getValue()));
 
 			fillBlue.play();
 
@@ -515,7 +524,6 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 
 	private PopupWindow getPopupWindow() {
 
-		@SuppressWarnings("deprecation")
 		final ObservableList<Window> windows = Window.getWindows();
 
 		for (int i = 0; i < windows.size(); i++) {

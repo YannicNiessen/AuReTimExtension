@@ -21,6 +21,8 @@ public class InputFactory {
 	}
 
 	public static synchronized IInputSource getInstance() throws IllegalStateException {
+
+
 		switch (Config.getInstance().inputProperty().get()) {
 			case MOUSE:
 				return MouseButtonInput.getInstance();

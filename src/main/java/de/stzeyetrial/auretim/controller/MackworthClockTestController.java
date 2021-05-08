@@ -34,6 +34,7 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Stream;
 
 /**
  * FXML Controller class
@@ -131,9 +132,19 @@ public class MackworthClockTestController extends AbstractController {
 		unbind();
 
 		final int length				= Config.getInstance().mackworthLengthProperty().get();
-		final int nMatch				= Config.getInstance().mackworthTargetsProperty().get();
+
 		final int timeout				= Config.getInstance().mackworthIntervalProperty().get();
 		final int minimumResponseTime	= Config.getInstance().auditoryPVTminimumResponseTimeProperty().get();
+
+		String targets = Config.getInstance().mackworthTargetsProperty().getValue();
+		String[] targetsSeparated = targets.split("/");
+		int[] targetIndices = new int[targetsSeparated.length];
+
+		for (int i = 0; i < targetIndices.length; i++) {
+			targetIndices[i] = Integer.parseInt(targetsSeparated[i].trim());
+		}
+
+
 
 		final List<Result> results = Session.getCurrentSession().getResults();
 		results.clear();
@@ -141,8 +152,7 @@ public class MackworthClockTestController extends AbstractController {
 		_currentIndex = 0;
 		clearCircles();
 
-		final MackworthClockTask task = new MackworthClockTask(results, length, nMatch, timeout, minimumResponseTime);
-		//final AbstractNBackSpeechTask task = new NBackSpeechTask(results, length, nRepeat, nMatch, nLures, nBackLevel, timeout, reUseElements, minimumResponseTime);
+		final MackworthClockTask task = new MackworthClockTask(results, length, targetIndices, timeout, minimumResponseTime);
 
 		task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
 		//task.setOnFailed(event -> getScreenManager().showException(task.getException()));
@@ -298,7 +308,7 @@ public class MackworthClockTestController extends AbstractController {
 
 
 		((Circle) p.getChildren().get(_currentIndex)).setFill(Color.WHITE);
-		((Circle) p.getChildren().get(nextIndex)).setFill(Color.GREEN);
+		((Circle) p.getChildren().get(nextIndex)).setFill(Color.web(Config.getInstance().mackworthColorProperty().getValue()));
 
 		_currentIndex = nextIndex;
 		System.out.println(System.currentTimeMillis() - ts);
@@ -319,7 +329,6 @@ public class MackworthClockTestController extends AbstractController {
 	public void setConfig(){
 		clearCircles();
 			_nCircles = Config.getInstance().mackworthNCirclesProperty().getValue();
-
 			setLayout();
 	}
 

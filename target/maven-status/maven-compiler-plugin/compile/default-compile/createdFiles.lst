@@ -8,7 +8,6 @@ de/stzeyetrial/auretim/controller/SettingsController$2.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_feat_t.class
 de/stzeyetrial/auretim/input/SpeechDecoder.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_fsg_model_t.class
-de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$3.class
 edu/cmu/pocketsphinx/Decoder.class
 de/stzeyetrial/auretim/controller/nBack/AuditoryNBackTestController.class
 edu/cmu/pocketsphinx/Config.class
@@ -17,6 +16,7 @@ edu/cmu/pocketsphinx/LogMath.class
 edu/cmu/pocketsphinx/NBestIterator.class
 de/stzeyetrial/auretim/tests/SpeechDecoderTest$MaterialType.class
 de/stzeyetrial/auretim/audio/SpeechSynthesizer.class
+de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$2$1.class
 edu/cmu/pocketsphinx/NGramModelSet.class
 edu/cmu/pocketsphinx/FsgModel.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_p_p_mfcc_t.class
@@ -50,7 +50,6 @@ de/stzeyetrial/auretim/controller/nBack/AuditoryLocationDualNBackTestController$
 edu/cmu/pocketsphinx/NGramModel.class
 de/stzeyetrial/auretim/tasks/NBackInputTask.class
 de/stzeyetrial/auretim/config/ConfigMeta.class
-de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$4.class
 edu/cmu/pocketsphinx/NGramModelSetIterator.class
 de/stzeyetrial/auretim/audio/Tone$MyLineListener.class
 de/stzeyetrial/auretim/output/TriggerType.class
@@ -84,7 +83,6 @@ de/stzeyetrial/auretim/util/Stimulus.class
 edu/cmu/pocketsphinx/PocketSphinxJNI.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_logmath_t.class
 de/stzeyetrial/auretim/util/Test$TestType.class
-de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$4$1.class
 de/stzeyetrial/auretim/tests/InputLatencyTest.class
 de/stzeyetrial/auretim/output/gpio/GPIOTrigger.class
 de/stzeyetrial/auretim/controller/SettingsController$3.class
@@ -138,6 +136,7 @@ edu/cmu/pocketsphinx/SegmentList.class
 de/stzeyetrial/auretim/audio/ToneUtils.class
 de/stzeyetrial/auretim/output/ITrigger.class
 de/stzeyetrial/auretim/util/RandomSequence.class
+de/stzeyetrial/auretim/util/TestType.class
 de/stzeyetrial/auretim/util/PreferencesMap.class
 de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$1.class
 de/stzeyetrial/auretim/session/Session.class

@@ -1,6 +1,8 @@
 package de.stzeyetrial.auretim.session;
 
 import de.stzeyetrial.auretim.util.Result;
+import de.stzeyetrial.auretim.util.TestType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +15,17 @@ public class Session {
 	private final List<Result> _results;
 	private final String _subjectId;
 	private final String _testId;
+	private final TestType _testType;
 
-	private Session(final String subjectId, final String testId) {
+	private Session(final String subjectId, final String testId, TestType testType) {
 		_subjectId = subjectId;
 		_testId = testId;
 		_results = new ArrayList<>();
+		_testType = testType;
 	}
 
-	public static Session newSession(final String subjectId, final String testId) {
-		_instance = new Session(subjectId, testId);
+	public static Session newSession(final String subjectId, final String testId, TestType testType) {
+		_instance = new Session(subjectId, testId, testType);
 		return _instance;
 	}
 
@@ -44,6 +48,8 @@ public class Session {
 	public List<Result> getResults() {
 		return _results;
 	}
+
+	public TestType getTestType(){return _testType;}
 
 	public void clearResults() {
 		_results.clear();

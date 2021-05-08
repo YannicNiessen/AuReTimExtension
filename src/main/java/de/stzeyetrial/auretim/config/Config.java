@@ -42,7 +42,8 @@ public class Config {
 	private static final String PROPERTY_VISUAL_PVT_NO_GO_COLOR = 			"visualPVTnoGoColor";
 	private static final String PROPERTY_VISUAL_LOCATION_COLOR = 			"visualLocationSequenceColor";
 	private static final String PROPERTY_DUAL_AUDITORY_LOCATION_COLOR = 			"dualAuditoryLocationColor";
-
+	private static final String PROPERTY_MACKWORTH_COLOR = 			"mackworthColor";
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_COLOR = 			"spatialWorkingMemoryColor";
 
 	private static final String PROPERTY_AUDITORY_PVT_FREQUENCY						= "auditoryPVTfrequency";
 	private static final String PROPERTY_AUDITORY_PVT_VOLUME							= "auditoryPVTvolume";
@@ -168,6 +169,12 @@ public class Config {
 	private static final String PROPERTY_MACKWORTH_INTERVAL				= "mackworthInterval";
 	private static final String PROPERTY_MACKWORTH_N_CIRCLES			= "mackworthNCircles";
 
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_FRAMES	= "spatialWorkingMemoryFrames";
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_REPETITIONS	= "spatialWorkingMemoryRepetitions";
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_INTERVAL	= "spatialWorkingMemoryInterval";
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_INITIAL_DELAY	= "spatialWorkingMemoryInitialDelay";
+
+
 
 
 
@@ -205,6 +212,10 @@ public class Config {
 	private static final String PROPERTY_N_BACK_INTERVAL_DEFAULT 		= Integer.toString(1500);
 	private static final String PROPERTY_N_BACK_ROW_COUNT_DEFAULT 		= Integer.toString(3);
 
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_FRAMES_DEFAULT 		= Integer.toString(2);
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_REPETITIONS_DEFAULT 		= Integer.toString(5);
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_INTERVAL_DEFAULT 	= Integer.toString(1000);
+	private static final String PROPERTY_SPATIAL_WORKING_MEMORY_INITIAL_DELAY_DEFAULT 	= Integer.toString(3000);
 
 
 
@@ -221,6 +232,9 @@ public class Config {
 	private final StringProperty _visualPVTnoGoColor = new SimpleStringProperty();
 	private final StringProperty _visualLocationColor = new SimpleStringProperty();
 	private final StringProperty _dualAuditoryLocationColor = new SimpleStringProperty();
+
+	private final StringProperty _mackworthColor = new SimpleStringProperty();
+	private final StringProperty _spatialWorkingMemoryColor = new SimpleStringProperty();
 
 	private final IntegerProperty _auditoryPVTfrequency			= new SimpleIntegerProperty();
 	private final IntegerProperty _auditoryPVTvolume				= new SimpleIntegerProperty();
@@ -332,10 +346,17 @@ public class Config {
 
 	private final BooleanProperty _useVoiceRecognition 	= new SimpleBooleanProperty();
 	private final IntegerProperty _mackworthLength 		= new SimpleIntegerProperty();
-	private final IntegerProperty _mackworthTargets		= new SimpleIntegerProperty();
+	private final StringProperty _mackworthTargets		= new SimpleStringProperty();
 	private final IntegerProperty _mackworthInterval 		= new SimpleIntegerProperty();
 
 	private final IntegerProperty _mackworthNCircles 	= new SimpleIntegerProperty();
+
+	private final IntegerProperty _spatialWorkingMemoryFrames 	= new SimpleIntegerProperty();
+	private final IntegerProperty _spatialWorkingMemoryRepetitions 	= new SimpleIntegerProperty();
+	private final IntegerProperty _spatialWorkingMemoryInterval 	= new SimpleIntegerProperty();
+	private final IntegerProperty _spatialWorkingMemoryInitialDelay 	= new SimpleIntegerProperty();
+
+
 
 	private final ObjectProperty<ObservableList<Integer>> _frequencies = new SimpleObjectProperty<>(FXCollections.observableArrayList());
 
@@ -356,9 +377,11 @@ public class Config {
 		configMeta.load();
 		_configFilename = configMeta.activeConfigProperty().getValue();
 
+		System.out.println(_configFilename);
+
 		final Properties p = new Properties();
 		try {
-			p.load(new FileInputStream(_configFilename));
+			p.load(new FileInputStream("config/" + _configFilename));
 		} catch (final IOException ex) {
 			Logger.getLogger(Config.class.getName()).log(Level.WARNING, "Could not load config file.", ex);
 		}
@@ -371,6 +394,8 @@ public class Config {
 		visualPVTnoGoColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_PVT_NO_GO_COLOR, PROPERTY_NO_GO_COLOR_DEFAULT));
 		visualLocationColorProperty().setValue(p.getProperty(PROPERTY_VISUAL_LOCATION_COLOR, PROPERTY_COLOR_DEFAULT));
 		dualAuditoryLocationColorProperty().setValue(p.getProperty(PROPERTY_DUAL_AUDITORY_LOCATION_COLOR, PROPERTY_COLOR_DEFAULT));
+		mackworthColorProperty().setValue(p.getProperty(PROPERTY_MACKWORTH_COLOR, PROPERTY_COLOR_DEFAULT));
+		spatialWorkingMemoryColorProperty().setValue(p.getProperty(PROPERTY_SPATIAL_WORKING_MEMORY_COLOR, PROPERTY_COLOR_DEFAULT));
 
 		auditoryPVTfrequencyProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_FREQUENCY, PROPERTY_FREQUENCY_DEFAULT)));
 		auditoryPVTvolumeProperty().setValue(Double.valueOf(p.getProperty(PROPERTY_AUDITORY_PVT_VOLUME, PROPERTY_VOLUME_DEFAULT)));
@@ -484,9 +509,14 @@ public class Config {
 		useVoiceRecognitionProperty().setValue(Boolean.valueOf(p.getProperty(PROPERTY_USE_VOICE_RECOGNITION, PROPERTY_USE_VOICE_RECOGNITION_DEFAULT)));
 
 		mackworthLengthProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_MACKWORTH_LENGTH, PROPERTY_MACKWORTH_LENGTH_DEFAULT)));
-		mackworthTargetsProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_MACKWORTH_TARGETS, PROPERTY_MACKWORTH_TARGETS_DEFAULT)));
+		mackworthTargetsProperty().setValue(p.getProperty(PROPERTY_MACKWORTH_TARGETS, PROPERTY_MACKWORTH_TARGETS_DEFAULT));
 		mackworthIntervalProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_MACKWORTH_INTERVAL, PROPERTY_MACKWORTH_INTERVAL_DEFAULT)));
 		mackworthNCirclesProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_MACKWORTH_N_CIRCLES, PROPERTY_MACKWORTH_N_CIRCLES_DEFAULT)));
+
+		spatialWorkingMemoryFramesProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_SPATIAL_WORKING_MEMORY_FRAMES, PROPERTY_SPATIAL_WORKING_MEMORY_FRAMES_DEFAULT)));
+		spatialWorkingMemoryRepetitionsProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_SPATIAL_WORKING_MEMORY_REPETITIONS, PROPERTY_SPATIAL_WORKING_MEMORY_REPETITIONS_DEFAULT)));
+		spatialWorkingMemoryIntervalProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_SPATIAL_WORKING_MEMORY_INTERVAL, PROPERTY_SPATIAL_WORKING_MEMORY_INTERVAL_DEFAULT)));
+		spatialWorkingMemoryInitialDelayProperty().setValue(Integer.valueOf(p.getProperty(PROPERTY_SPATIAL_WORKING_MEMORY_INITIAL_DELAY, PROPERTY_SPATIAL_WORKING_MEMORY_INITIAL_DELAY_DEFAULT)));
 
 
 		Arrays.stream(p.getProperty(PROPERTY_AUDITORY_PVT_FREQUENCY, PROPERTY_FREQUENCIES_DEFAULT)
@@ -508,6 +538,8 @@ public class Config {
 		p.setProperty(PROPERTY_DUAL_AUDITORY_LOCATION_COLOR, dualAuditoryLocationColorProperty().getValue());
 		p.setProperty(PROPERTY_VISUAL_PVT_GO_COLOR, visualPVTgoColorProperty().getValue());
 		p.setProperty(PROPERTY_VISUAL_PVT_NO_GO_COLOR, visualPVTnoGoColorProperty().getValue());
+		p.setProperty(PROPERTY_MACKWORTH_COLOR, mackworthColorProperty().getValue());
+		p.setProperty(PROPERTY_SPATIAL_WORKING_MEMORY_COLOR, spatialWorkingMemoryColorProperty().getValue());
 
 		p.setProperty(PROPERTY_AUDITORY_PVT_FREQUENCY,				Integer.toString(auditoryPVTfrequencyProperty().getValue()));
 		p.setProperty(PROPERTY_AUDITORY_PVT_VOLUME,					Double.toString(auditoryPVTvolumeProperty().getValue()));
@@ -620,11 +652,17 @@ public class Config {
 
 		p.setProperty(PROPERTY_USE_VOICE_RECOGNITION, 	Boolean.toString(useVoiceRecognitionProperty().getValue()));
 		p.setProperty(PROPERTY_MACKWORTH_LENGTH, 		Integer.toString(mackworthLengthProperty().getValue()));
-		p.setProperty(PROPERTY_MACKWORTH_TARGETS, 		Integer.toString(mackworthTargetsProperty().getValue()));
+		p.setProperty(PROPERTY_MACKWORTH_TARGETS, 		mackworthTargetsProperty().getValue());
 		p.setProperty(PROPERTY_MACKWORTH_INTERVAL, 		Integer.toString(mackworthIntervalProperty().getValue()));
 		p.setProperty(PROPERTY_MACKWORTH_N_CIRCLES,		Integer.toString(mackworthNCirclesProperty().getValue()));
 
-		p.store(new FileOutputStream(_configFilename), CONFIG_COMMENT);
+		p.setProperty(PROPERTY_SPATIAL_WORKING_MEMORY_FRAMES, Integer.toString(spatialWorkingMemoryFramesProperty().getValue()));
+		p.setProperty(PROPERTY_SPATIAL_WORKING_MEMORY_REPETITIONS, Integer.toString(spatialWorkingMemoryRepetitionsProperty().getValue()));
+		p.setProperty(PROPERTY_SPATIAL_WORKING_MEMORY_INTERVAL, Integer.toString(spatialWorkingMemoryIntervalProperty().getValue()));
+		p.setProperty(PROPERTY_SPATIAL_WORKING_MEMORY_INITIAL_DELAY, Integer.toString(spatialWorkingMemoryInitialDelayProperty().getValue()));
+
+
+		p.store(new FileOutputStream("config/" + _configFilename), CONFIG_COMMENT);
 
 
 	}
@@ -634,7 +672,14 @@ public class Config {
 	public StringProperty visualPVTnoGoColorProperty(){return _visualPVTnoGoColor;}
 	public StringProperty visualLocationColorProperty(){return _visualLocationColor;}
 	public StringProperty dualAuditoryLocationColorProperty(){return _dualAuditoryLocationColor;}
+	public StringProperty mackworthColorProperty(){return _mackworthColor;}
+	public StringProperty spatialWorkingMemoryColorProperty(){return _spatialWorkingMemoryColor;}
 
+
+	public IntegerProperty spatialWorkingMemoryFramesProperty(){return _spatialWorkingMemoryFrames;}
+	public IntegerProperty spatialWorkingMemoryRepetitionsProperty(){return _spatialWorkingMemoryRepetitions;}
+	public IntegerProperty spatialWorkingMemoryIntervalProperty(){return _spatialWorkingMemoryInterval;}
+	public IntegerProperty spatialWorkingMemoryInitialDelayProperty(){return _spatialWorkingMemoryInitialDelay;}
 
 	public StringProperty directoryProperty() {
 		return _directory;
@@ -890,7 +935,7 @@ public class Config {
 
 	public IntegerProperty mackworthLengthProperty(){return _mackworthLength;}
 
-	public IntegerProperty mackworthTargetsProperty(){return _mackworthTargets;}
+	public StringProperty mackworthTargetsProperty(){return _mackworthTargets;}
 
 	public IntegerProperty mackworthIntervalProperty(){return _mackworthInterval;}
 

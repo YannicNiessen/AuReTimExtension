@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="480.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.stzeyetrial.auretim.controller.nBack.DualNBackTestController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="480.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.stzeyetrial.auretim.controller.AuditoryPVTController">
   <children>
     <BorderPane prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
@@ -25,13 +25,6 @@
               </labelFor>
             </Label>
             <fx:reference source="_progressBar" />
-
-            <HBox id="HBox" fx:id="_stimulusContainerBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="330.0" spacing="5.0">
-              <children>
-
-              </children>
-            </HBox>
-
             <Label alignment="CENTER_LEFT" text="%lbl.lastResult.text" textAlignment="LEFT">
               <font>
                 <Font size="12.0" fx:id="x2" />
@@ -52,6 +45,32 @@
                 <fx:reference source="_responseTimeTextField" />
                 <Circle fx:id="_indicator" fill="#9f9f9f" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
               </children>
+            </HBox>
+            <Label font="$x2" text="%label.volume.text">
+              <labelFor>
+                <Slider fx:id="_volumeSlider" blockIncrement="1.0" focusTraversable="false" majorTickUnit="0.25" max="1.0" maxWidth="-Infinity" min="0.25" minWidth="-Infinity" minorTickCount="0" prefWidth="330.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.25" />
+              </labelFor>
+              <VBox.margin>
+                <Insets top="10.0" fx:id="x11" />
+              </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.6" prefWidth="330.0">
+              <children>
+                <Button fx:id="_lowerVolumeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#lowerVolume" prefHeight="66.6" prefWidth="60.0" text="-">
+                  <font>
+                    <Font size="20.0" fx:id="x3" />
+                  </font>
+                </Button>
+                <TextField fx:id="_volumeTextField" alignment="CENTER_RIGHT" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.6" prefWidth="60.0">
+                  <HBox.margin>
+                    <Insets left="30.0" right="30.0" />
+                  </HBox.margin>
+                </TextField>
+                <Button fx:id="_higherVolumeButton" font="$x3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#higherVolume" prefHeight="66.6" prefWidth="60.0" text="+" />
+              </children>
+              <padding>
+                <Insets />
+              </padding>
             </HBox>
             <Button fx:id="_startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#start" prefHeight="80.0" prefWidth="330.0" text="%start.text">
               <font>
@@ -82,11 +101,10 @@
         <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="480.0">
           <items>
             <Button fx:id="_backButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonBack" prefHeight="40.0" prefWidth="80.0" text="%back.text" />
-            <Label id="title" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" styleClass="title" text="%nBackTest.title" textAlignment="CENTER" />
+            <Label id="title" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" styleClass="title" text="%test.title" textAlignment="CENTER" />
           </items>
         </ToolBar>
       </top>
     </BorderPane>
   </children>
 </AnchorPane>
-

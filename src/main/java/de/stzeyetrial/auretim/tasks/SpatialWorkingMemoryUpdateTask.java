@@ -39,16 +39,20 @@ public class SpatialWorkingMemoryUpdateTask extends Task<List<Result>> {
 	private final List<Result> _results;
 	private boolean _dual;
 	private int _frameCount;
+	private int _initialDelay;
+	private int _interval;
 
 
 
 	private final ScheduledExecutorService _executor;
 	public final CyclicBarrier gate = new CyclicBarrier(2);
 
-	public SpatialWorkingMemoryUpdateTask(final List<Result> results, final int length, final int frameCount) {
+	public SpatialWorkingMemoryUpdateTask(final List<Result> results, final int length, final int frameCount, int initialDelay, int interval) {
 		_results				= results;
 		_length					= length;
 		_frameCount 			= frameCount;
+		_initialDelay			= initialDelay;
+		_interval				= interval;
 
 
 		_executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE, r -> {
@@ -68,7 +72,7 @@ public class SpatialWorkingMemoryUpdateTask extends Task<List<Result>> {
 
 	@Override
 	protected List<Result> call() throws Exception {
-		updateProgress(0, _length * _frameCount);
+		updateProgress(0, (long) (_length-1) * _frameCount );
 
 		callImpl();
 
@@ -88,35 +92,35 @@ public class SpatialWorkingMemoryUpdateTask extends Task<List<Result>> {
 		final long testStart = System.currentTimeMillis();
 		_trigger.trigger(TriggerType.START_TEST);
 
-		System.out.println("this is started: " + _length);
-
 		Integer[][] sequences = new Integer[_frameCount][];
 
 		for (int i = 0; i < _frameCount; i++) {
-			Integer[] sequence = RandomSequence.spatialWorkingMemoryUpdateSequence(_length);
-			sequences[i] = sequence;
+			sequences[i] = RandomSequence.spatialWorkingMemoryUpdateSequence(_length);
 		}
 
-		long ts = System.currentTimeMillis();
+		//Initial presentation in all frames at the same time
+		for (int i = 0; i < _frameCount; i++) {
+			_currentStimulus.setValue(Stimulus.unrealStimulus());
 
+			_currentStimulus.setValue(new Stimulus(1, new Integer[]{sequences[i % _frameCount][(int) i / _frameCount]}));
+		}
 
-		for (int i = 0; i < _length * _frameCount && !isCancelled(); i++) {
+		//Initial presentation time
+		_executor.schedule(() -> {}, _initialDelay, TimeUnit.MILLISECONDS).get();
 
-
+		//Round based presentation of one frame at a time
+		for (int i = _frameCount; i < _length * _frameCount && !isCancelled(); i++) {
 
 			_currentStimulus.setValue(Stimulus.unrealStimulus());
 
 			_currentStimulus.setValue(new Stimulus(1, new Integer[]{sequences[i % _frameCount][(int) i / _frameCount]}));
 
-			updateProgress(i+1, _length);
+			updateProgress(i+1 - _frameCount, (long)  (_length - 1) * _frameCount);
 
-			final long wait = 1500;
+			final long wait = _interval;
 			if (wait > 0) {
 				_executor.schedule(() -> {}, wait, TimeUnit.MILLISECONDS).get();
 			}
-
-			long endTs = System.currentTimeMillis();
-
 
 		}
 		_trigger.trigger(TriggerType.END_TEST);

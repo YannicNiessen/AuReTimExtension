@@ -60,7 +60,7 @@ public class Result {
 		return String.format("[%s] %d ms (@ %d)", _type, _value, _runtime);
 	}
 
-	public static enum Type {
+	public enum Type {
 		FALSE_NEGATIVE,
 		FALSE_POSITIVE,
 		TRUE_NEGATIVE,

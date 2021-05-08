@@ -6,18 +6,20 @@ package de.stzeyetrial.auretim.screens;
 public enum Screens {
 	MAIN("/fxml/Main.fxml"),
 	SETTINGS("/fxml/SettingsLegacy.fxml"),
-	TEST("/fxml/Test.fxml"),
-	VISUAL_PVT("/fxml/VisualPVT.fxml"),
+	TEST("/fxml/pvtAuditory.fxml"),
+	VISUAL_PVT("/fxml/pvtVisual.fxml"),
 	RESULT("/fxml/Result.fxml"),
 	DIRECTORY_CHOOSER("/fxml/DirectoryChooser.fxml"),
-	N_BACK_TEST_VISUAL_IDENTITY("/fxml/nBackTestVisualIdentity.fxml"),
-	N_BACK_TEST_VISUAL_LOCATION("/fxml/nBackTestVisualLocation.fxml"),
-	N_BACK_TEST_AUDITIVE("/fxml/nBackTestAuditive.fxml"),
-	MACKWORTH_CLOCK_TEST("/fxml/MackworthClockTest.fxml"),
-	N_BACK_TEST_VISUAL_IDENTITY_AUDITIVE_DUAL("/fxml/nBackTestVisualIdentityDual.fxml"),
-	N_BACK_TEST_VISUAL_LOCATION_AUDITIVE_DUAL("/fxml/nBackTestVisualLocationDual.fxml"),
-	N_BACK_TEST_VISUAL_LOCATION_IDENTITY_DUAL("/fxml/nBackTestVisualLocationIdentityDual.fxml"),
-	SPATIAL_WORKING_MEMORY_UPDATE_TEST("/fxml/spatialWorkingMemoryUpdate.fxml");
+	PVT_AUDITORY("/fxml/pvtAuditory.fxml"),
+	PVT_VISUAL("/fxml/pvtVisual.fxml"),
+	N_BACK_VISUAL_STIMULUS_IDENTITY("/fxml/nBackVisualStimulusIdentity.fxml"),
+	N_BACK_VISUAL_LOCATION_IDENTITY("/fxml/nBackVisualLocationIdentity.fxml"),
+	N_BACK_AUDITORY_STIMULUS_IDENTITY("/fxml/nBackAuditoryStimulusIdentity.fxml"),
+	N_BACK_DUAL_AUDITORY_VISUAL_LOCATION_IDENTITY("/fxml/nBackDualAuditoryVisualLocationIdentity.fxml"),
+	N_BACK_DUAL_AUDITORY_VISUAL_STIMULUS_IDENTITY("/fxml/nBackDualAuditoryVisualStimulusIdentity.fxml"),
+	N_BACK_DUAL_VISUAL_VISUAL_STIMULUS_IDENTITY_LOCATION_IDENTITY("/fxml/nBackDualVisualVisualStimulusIdentityLocationIdentity.fxml"),
+	MACKWORTH_CLOCK("/fxml/mackworthClock.fxml"),
+	SPATIAL_WORKING_MEMORY("/fxml/spatialWorkingMemory.fxml");
 
 	private final String _fxml;
 

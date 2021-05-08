@@ -44,6 +44,7 @@ public class ResultController extends AbstractBackSupportController {
 	private final IntegerProperty _n = new SimpleIntegerProperty();
 	private final IntegerProperty _total = new SimpleIntegerProperty();
 	private final IntegerProperty _misses = new SimpleIntegerProperty();
+	private final IntegerProperty _hits = new SimpleIntegerProperty();
 	private final IntegerProperty _falsePositives = new SimpleIntegerProperty();
 	private final DoubleProperty _cv = new SimpleDoubleProperty();
 	private final DoubleProperty _reactionSpeed = new SimpleDoubleProperty();
@@ -112,12 +113,13 @@ public class ResultController extends AbstractBackSupportController {
 		double falseAlarms = 0;
 		double misses = 0;
 
-
 		final DescriptiveStatistics stats = new DescriptiveStatistics();
 		for (final Result result : results) {
 			switch (result.getType()) {
 				case TRUE_POSITIVE:
-					if ((!Config.getInstance().auditoryPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().auditoryPVTtimeoutProperty().get() * 1000)) {
+					if ((!Config.getInstance().auditoryPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().auditoryPVTtimeoutProperty().get())) {
+						stats.addValue(result.getDuration());
+					}else if((!Config.getInstance().visualPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().visualPVTtimeoutProperty().get())){
 						stats.addValue(result.getDuration());
 					}
 					hits++;
@@ -144,6 +146,7 @@ public class ResultController extends AbstractBackSupportController {
 		_total.setValue(total);
 		_cv.setValue(cv);
 		_misses.setValue(misses);
+		_hits.setValue(hits);
 		_falsePositives.setValue(falseAlarms);
 		_q10.setValue(stats.getPercentile(10));
 		_q90.setValue(stats.getPercentile(90));
@@ -161,9 +164,10 @@ public class ResultController extends AbstractBackSupportController {
 	private void buttonSave(final ActionEvent e) {
 		_saveButton.disableProperty().set(true);
 
-		String directoryName = Config.getInstance().directoryProperty().get();
+		String directoryName = "./results/";
 		final String subjectId = Session.getCurrentSession().getSubjectId().replaceAll("[:\\\\/*\"?|<>]", "_");
 		final String testId = Session.getCurrentSession().getTestId().replaceAll("[:\\\\/*\"?|<>]", "_");
+		final String testType = Session.getCurrentSession().getTestType().name();
 		final String baseFilename = String.format("%s_%s", subjectId, testId);
 
 		if (Files.notExists(FileSystems.getDefault().getPath(directoryName))) {
@@ -178,7 +182,9 @@ public class ResultController extends AbstractBackSupportController {
 		try (CSVPrinter writer = new CSVPrinter(new FileWriter(path.toFile()), CSVFormat.newFormat('\t').withCommentMarker('#').withRecordSeparator('\n'))) {
 			writer.printComment(String.format("subjectId=%s", subjectId));
 			writer.printComment(String.format("testId=%s", testId));
+			writer.printComment(String.format("testType=%s", testType));
 			writer.printComment(String.format("total=%d", _total.get()));
+			writer.printComment(String.format("hits=%d", _hits.get()));
 			writer.printComment(String.format("misses=%d", _misses.get()));
 			writer.printComment(String.format("false positives=%d", _falsePositives.get()));
 			writer.printComment(String.format("CV'=%.4f", _cv.get()));
@@ -186,10 +192,15 @@ public class ResultController extends AbstractBackSupportController {
 			writer.printComment(String.format("mean=%.2f ms", _mean.get()));
 			writer.printComment(String.format("sd=%.2f ms", _sd.get()));
 			writer.printComment(String.format("median=%.2f ms", _median.get()));
+			writer.printComment(String.format("Q10=%.2f ms", _q10.get()));
 			writer.printComment(String.format("Q25=%.2f ms", _q25.get()));
 			writer.printComment(String.format("Q75=%.2f ms", _q75.get()));
+			writer.printComment(String.format("Q90=%.2f ms", _q90.get()));
 			writer.printComment(String.format("max=%d ms", _max.get()));
 			writer.printComment(String.format("min=%d ms", _min.get()));
+			writer.printComment(String.format("reaction speed=%f", _reactionSpeed.get()));
+			writer.printComment(String.format("performance score=%f", _performanceScore.get()));
+			writer.printComment(String.format("lapse probability=%f", _lapseProbability.get()));
 
 			writer.printRecord("timepoint (ms)", "duration (ms)", "type");
 

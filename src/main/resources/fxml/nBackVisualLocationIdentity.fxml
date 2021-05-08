@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="480.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.stzeyetrial.auretim.controller.nBack.LocationNBackTestController">
+  <children>
+    <BorderPane prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="330.0">
+          <children>
+            <Label text="%progress.text">
+              <labelFor>
+                <ProgressBar fx:id="_progressBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="330.0" progress="0.0">
+                  <VBox.margin>
+                    <Insets bottom="10.0" />
+                  </VBox.margin>
+                </ProgressBar>
+              </labelFor>
+            </Label>
+            <fx:reference source="_progressBar" />
+
+            <HBox id="HBox" fx:id="_stimulusContainerBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="330.0" spacing="5.0">
+              <children>
+
+              </children>
+            </HBox>
+
+            <Label alignment="CENTER_LEFT" text="%lbl.lastResult.text" textAlignment="LEFT">
+              <font>
+                <Font size="12.0" fx:id="x2" />
+              </font>
+              <labelFor>
+                <TextField id="_durationTextField" fx:id="_responseTimeTextField" alignment="CENTER" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="66.6" prefWidth="166.6">
+                  <HBox.margin>
+                    <Insets right="37.5" />
+                  </HBox.margin>
+                </TextField>
+              </labelFor>
+              <VBox.margin>
+                <Insets top="10.0" fx:id="x1" />
+              </VBox.margin>
+            </Label>
+            <HBox id="HBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.6" prefWidth="330.0" spacing="5.0">
+              <children>
+                <fx:reference source="_responseTimeTextField" />
+                <Circle fx:id="_indicator" fill="#9f9f9f" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+              </children>
+            </HBox>
+            <Button fx:id="_startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#start" prefHeight="80.0" prefWidth="330.0" text="%start.text">
+              <font>
+                <Font size="16.0" />
+              </font>
+              <VBox.margin>
+                <Insets bottom="10.0" top="20.0" />
+              </VBox.margin>
+            </Button>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.6" prefWidth="330.0" VBox.margin="$x1">
+              <children>
+                <Button fx:id="_cancelButton" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" prefHeight="66.6" prefWidth="100.0" text="%cancel.text">
+                  <HBox.margin>
+                    <Insets right="15.0" />
+                  </HBox.margin>
+                </Button>
+                <Button fx:id="_endButton" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#end" prefHeight="66.6" prefWidth="100.0" text="%end.text">
+                  <HBox.margin>
+                    <Insets left="15.0" />
+                  </HBox.margin>
+                </Button>
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+      </center>
+      <top>
+        <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="480.0">
+          <items>
+            <Button fx:id="_backButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonBack" prefHeight="40.0" prefWidth="80.0" text="%back.text" />
+            <Label id="title" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" styleClass="title" text="%nBackTest.title" textAlignment="CENTER" />
+          </items>
+        </ToolBar>
+      </top>
+    </BorderPane>
+  </children>
+</AnchorPane>

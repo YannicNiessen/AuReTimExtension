@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import de.stzeyetrial.auretim.util.Test;
+import de.stzeyetrial.auretim.util.TestType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -35,27 +38,18 @@ public class MainController extends AbstractController {
 	private final ValidationSupport _validation = new ValidationSupport();
 
 	@FXML
-	private ComboBox<String> _testComboBox;
+	private ComboBox<TestType> _testComboBox;
     
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-		_testTextField.textProperty().set(Integer.toString(1));
 		_testTextField.getProperties().put("vkType", 1);
 		_testTextField.setOnKeyPressed(new EnterSubmitHandler());
 		_subjectTextField.getProperties().put("vkType", 0);
 		_subjectTextField.setOnKeyPressed(new EnterSubmitHandler());
 
-		_testComboBox.itemsProperty().get().add("nBack_Visual_Identity");
-		_testComboBox.itemsProperty().get().add("nBack_Visual_Location");
-		_testComboBox.itemsProperty().get().add("nBack_Auditive");
-		_testComboBox.itemsProperty().get().add("Mackworth Clock");
-		_testComboBox.itemsProperty().get().add("PVT");
-		_testComboBox.itemsProperty().get().add("Visual PVT");
-		_testComboBox.itemsProperty().get().add("Visual Identity & Auditive Dual-nBack");
-		_testComboBox.itemsProperty().get().add("Visual Location & Auditive Dual-nBack");
-		_testComboBox.itemsProperty().get().add("Visual Location & Identity Dual-nBack");
-		_testComboBox.itemsProperty().get().add("Spatial Working Memory Update Test");
-		_testComboBox.getSelectionModel().select("nBack_Visual_Identity");
+		_testComboBox.getItems().addAll(TestType.values());
+
+		_testComboBox.getSelectionModel().select(TestType.PVT_AUDITORY);
 
 
 		_validation.registerValidator(_testTextField, false, Validator.createEmptyValidator(rb.getString("emptyTestId.text")));
@@ -82,31 +76,12 @@ public class MainController extends AbstractController {
 	@FXML
 	private void test(final ActionEvent e) {
 		if (!_validation.isInvalid()) {
-			Session.newSession(_subjectTextField.getText(), _testTextField.getText());
-			String testType = _testComboBox.getValue();
 
-			if (testType.equals("nBack_Visual_Location")){
-				getScreenManager().setScreen(Screens.N_BACK_TEST_VISUAL_LOCATION);
-			}else if (testType.equals("nBack_Visual_Identity")){
-				getScreenManager().setScreen(Screens.N_BACK_TEST_VISUAL_IDENTITY);
-			} else if (testType.equals("nBack_Auditive")) {
-				getScreenManager().setScreen(Screens.N_BACK_TEST_AUDITIVE);
-			}else if (testType.equals("Mackworth Clock")) {
-				getScreenManager().setScreen(Screens.MACKWORTH_CLOCK_TEST);
-			}else if (testType.equals("Visual Identity & Auditive Dual-nBack")){
-				getScreenManager().setScreen(Screens.N_BACK_TEST_VISUAL_IDENTITY_AUDITIVE_DUAL);
-			}else if (testType.equals("Visual Location & Auditive Dual-nBack")){
-				getScreenManager().setScreen(Screens.N_BACK_TEST_VISUAL_LOCATION_AUDITIVE_DUAL);
-			}else if (testType.equals("Visual Location & Identity Dual-nBack")){
-				getScreenManager().setScreen(Screens.N_BACK_TEST_VISUAL_LOCATION_IDENTITY_DUAL);
-			}else if (testType.equals("Spatial Working Memory Update Test")){
-				getScreenManager().setScreen(Screens.SPATIAL_WORKING_MEMORY_UPDATE_TEST);
-			}
-			else if (testType.equals("PVT")){
-				getScreenManager().setScreen(Screens.TEST);
-			}else if (testType.equals("Visual PVT")){
-				getScreenManager().setScreen(Screens.VISUAL_PVT);
-			}
+			TestType testType = _testComboBox.getValue();
+
+			Session.newSession(_subjectTextField.getText(), _testTextField.getText(),testType );
+
+			getScreenManager().setScreen(Screens.valueOf(testType.toString()));
 
 		} else {
 			_validation.initInitialDecoration();

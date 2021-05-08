@@ -6,23 +6,31 @@ import de.stzeyetrial.auretim.audio.ToneUtils;
 import de.stzeyetrial.auretim.config.Config;
 import de.stzeyetrial.auretim.config.ConfigMeta;
 import de.stzeyetrial.auretim.controller.nBack.*;
+import de.stzeyetrial.auretim.input.Input;
+import de.stzeyetrial.auretim.input.InputFactory;
 import de.stzeyetrial.auretim.screens.Screens;
-import de.stzeyetrial.auretim.util.CustomScrollEvent;
-import de.stzeyetrial.auretim.util.EnterSubmitHandler;
-import de.stzeyetrial.auretim.util.NullSafeNumberStringConverter;
+import de.stzeyetrial.auretim.util.*;
 
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.NumberFormat;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import de.stzeyetrial.auretim.util.Stimulus;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -35,12 +43,17 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
 import javax.sound.sampled.LineUnavailableException;
+
+import javafx.util.Duration;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
@@ -68,9 +81,6 @@ public class SettingsController extends AbstractBackSupportController {
 
 	private double _lastYposition = 0;
 
-
-	private Paint _indicatorDefaultColor;
-
 	private boolean _positive = true;
 
 	private ScrollPane _scrollPane;
@@ -84,124 +94,8 @@ public class SettingsController extends AbstractBackSupportController {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		_rb = resources;
-		//_indicatorDefaultColor = _indicator.getFill();
 
 		final Config config = Config.getInstance();
-
-		/*
-		_directoryTextField.textProperty().bindBidirectional(config.directoryProperty());
-		_validation.registerValidator(_directoryTextField, false, Validator.createEmptyValidator(""));
-		_directoryTextField.setOnKeyPressed(new EnterSubmitHandler());
-		_useAutoCompletionCheckbox.selectedProperty().bindBidirectional(config.useAutoCompletionProperty());
-		_useNoGoCheckbox.selectedProperty().bindBidirectional(config.useNoGoProperty());
-		_volumeTextField.textProperty().bindBidirectional(config.volumeProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_validation.registerValidator(_volumeTextField, false, Validator.createEmptyValidator(""));
-		
-		_pulseDurationTextField.getProperties().put("vkType", "numeric");
-		_pulseDurationTextField.textProperty().bindBidirectional(config.pulseDurationProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_pulseDurationTextField.setOnKeyPressed(new EnterSubmitHandler());
-		_validation.registerValidator(_pulseDurationTextField, false, Validator.createEmptyValidator(""));
-		_timeoutTextField.textProperty().bindBidirectional(config.timeoutProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_timeoutTextField.getProperties().put("vkType", "numeric");
-		_timeoutTextField.setOnKeyPressed(new EnterSubmitHandler());
-		_validation.registerValidator(_timeoutTextField, false, Validator.createEmptyValidator(""));
-		_minimumDelayTextField.textProperty().bindBidirectional(config.minimumDelayProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_minimumDelayTextField.getProperties().put("vkType", "numeric");
-		_minimumDelayTextField.setOnKeyPressed(new EnterSubmitHandler());
-		_validation.registerValidator(_minimumDelayTextField, false, Validator.createEmptyValidator(""));
-		_maximumDelayTextField.textProperty().bindBidirectional(config.maximumDelayProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_maximumDelayTextField.getProperties().put("vkType", "numeric");
-		_maximumDelayTextField.setOnKeyPressed(new EnterSubmitHandler());
-		config.useNoGoProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, Boolean newValue) -> _maximumDelayTextField.setDisable(newValue));
-		_maximumDelayTextField.setDisable(config.useNoGoProperty().get());
-
-		_validation.registerValidator(_maximumDelayTextField, false, Validator.createEmptyValidator(""));
-		_repetitionsTextField.textProperty().bindBidirectional(config.repetitionsProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_repetitionsTextField.getProperties().put("vkType", "numeric");
-		_repetitionsTextField.setOnKeyPressed(new EnterSubmitHandler());
-		_validation.registerValidator(_repetitionsTextField, false, Validator.createEmptyValidator(""));
-		_minimumResponseTimeTextField.textProperty().bindBidirectional(config.minimumResponseTimeProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_minimumResponseTimeTextField.getProperties().put("vkType", "numeric");
-		_minimumResponseTimeTextField.setOnKeyPressed(new EnterSubmitHandler());
-		_validation.registerValidator(_minimumResponseTimeTextField, false, Validator.createEmptyValidator(""));
-
-		_radioButtonFemale.selectedProperty().bindBidirectional(config.voiceFemaleProperty());
-		_radioButtonMale.selectedProperty().bindBidirectional(config.voiceMaleProperty());
-		_radioButtonGerman.selectedProperty().bindBidirectional(config.voiceGermanProperty());
-		_radioButtonEnglish.selectedProperty().bindBidirectional(config.voiceEnglishProperty());
-
-		_stimulusTypeComboBox.getItems().add(Stimulus.Type.DIGIT.toString());
-		_stimulusTypeComboBox.getItems().add(Stimulus.Type.LETTER.toString());
-		_stimulusTypeComboBox.getItems().add(Stimulus.Type.COLOR.toString());
-		_stimulusTypeComboBox.getItems().add(Stimulus.Type.IMAGE.toString());
-
-
-		_stimulusTypeComboBox.valueProperty().bindBidirectional(config.visualIdentityStimulusTypeProperty());
-
-		_sequenceLengthTextField.textProperty().bindBidirectional(config.visualIdentitySequenceLengthProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_sequenceLengthTextField.getProperties().put("vkType", 1);
-		_sequenceLengthTextField.setOnKeyPressed(new EnterSubmitHandler());
-
-		_sequenceNRepeatTextField.textProperty().bindBidirectional(config.visualIdentitySequenceNRepeatProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_sequenceNRepeatTextField.getProperties().put("vkType", 1);
-		_sequenceNRepeatTextField.setOnKeyPressed(new EnterSubmitHandler());
-
-		_sequenceNMatchTextField.textProperty().bindBidirectional(config.visualIdentitySequenceNMatchProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_sequenceNMatchTextField.getProperties().put("vkType", 1);
-		_sequenceNMatchTextField.setOnKeyPressed(new EnterSubmitHandler());
-
-		_sequenceNLuresTextField.textProperty().bindBidirectional(config.visualIdentitySequenceNLuresProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_sequenceNLuresTextField.getProperties().put("vkType", 1);
-		_sequenceNLuresTextField.setOnKeyPressed(new EnterSubmitHandler());
-
-		_sequenceNBackLevelTextField.textProperty().bindBidirectional(config.visualIdentitySequenceNBackLevelProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_sequenceNBackLevelTextField.getProperties().put("vkType", 1);
-		_sequenceNBackLevelTextField.setOnKeyPressed(new EnterSubmitHandler());
-
-		_sequenceReUseElementsCheckbox.selectedProperty().bindBidirectional(config.visualIdentitySequenceReUseElementProperty());
-
-		_useVoiceRecognitionCheckbox.selectedProperty().bindBidirectional(config.useVoiceRecognitionProperty());
-
-		System.out.println(config.mackworthLengthProperty().getValue());
-
-		_mackworthLengthTextField.textProperty().bindBidirectional(config.mackworthLengthProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_mackworthLengthTextField.getProperties().put("vkType", 1);
-		_mackworthTargetsTextField.setOnKeyPressed(new EnterSubmitHandler());
-		System.out.println(config.mackworthLengthProperty().getValue());
-
-		_mackworthTargetsTextField.textProperty().bindBidirectional(config.mackworthTargetsProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_mackworthTargetsTextField.getProperties().put("vkType", 1);
-		_mackworthIntervalTextField.setOnKeyPressed(new EnterSubmitHandler());
-
-		_mackworthIntervalTextField.textProperty().bindBidirectional(config.mackworthIntervalProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_mackworthIntervalTextField.getProperties().put("vkType", 1);
-		_mackworthIntervalTextField.setOnKeyPressed(new EnterSubmitHandler());
-
-		_mackworthNCirclesTextField.textProperty().bindBidirectional(config.mackworthNCirclesProperty(), new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
-		_mackworthNCirclesTextField.getProperties().put("vkType", 1);
-		_mackworthNCirclesTextField.setOnKeyPressed(new EnterSubmitHandler());
-
-
-		_frequencyChoiceBox.setConverter(new StringConverter<Integer>() {
-			@Override
-			public String toString(final Integer object) {
-				return String.format("%d Hz", object);
-			}
-
-			@Override
-			public Integer fromString(final String string) {
-				return Integer.valueOf(string.split(" ")[0]);
-			}
-		});
-		_frequencyChoiceBox.getSelectionModel().select(config.frequencyProperty().getValue());
-		config.frequencyProperty().bind(_frequencyChoiceBox.getSelectionModel().selectedItemProperty());
-		_frequencyChoiceBox.itemsProperty().bind(config.frequenciesProperty());
-
-		_inputComboBox.getSelectionModel().select(config.inputProperty().getValue());
-		config.inputProperty().bind(_inputComboBox.getSelectionModel().selectedItemProperty());
-		_inputComboBox.itemsProperty().get().addAll(Input.values());
-
-*/
 
 		ComboBox<String> _testSelectionComboBox = new ComboBox<>();
 
@@ -250,31 +144,40 @@ public class SettingsController extends AbstractBackSupportController {
 				for (int i = contentAnchor.getChildren().size()-1; i > 0; i--) {
 					contentAnchor.getChildren().remove(i);
 				}
-				
+
 				switch(selectedValue){
-					case "PVT":
+					case "General":
+						addGeneralSettings();
+						break;
+					case "PVT_AUDITORY":
 						addAuditoryPVTSettings();
 						break;
-					case "Visual PVT":
+					case "PVT_VISUAL":
 						addVisualPVTSettings();
 						break;
-					case "nBack_Visual_Identity":
+					case "N_BACK_VISUAL_STIMULUS_IDENTITY":
 						addVisualIdentityNBackSettings();
 						break;
-					case "nBack_Visual_Location":
+					case "N_BACK_VISUAL_LOCATION_IDENTITY":
 						addVisualLocationNBackSettings();
 						break;
-					case "nBack_Auditory":
+					case "N_BACK_AUDITORY_STIMULUS_IDENTITY":
 						addAuditoryNBackSettings();
 						break;
-					case "Visual Identity & Auditory Dual-nBack":
-						addDualAuditoryIdentityNBackSettings();
-						break;
-					case "Visual Location & Auditory Dual-nBack":
+					case "N_BACK_DUAL_AUDITORY_VISUAL_LOCATION_IDENTITY":
 						addDualAuditoryLocationNBackSettings();
 						break;
-					case "Visual Location & Identity Dual-nBack":
+					case "N_BACK_DUAL_AUDITORY_VISUAL_STIMULUS_IDENTITY":
+						addDualAuditoryIdentityNBackSettings();
+						break;
+					case "N_BACK_DUAL_VISUAL_VISUAL_STIMULUS_IDENTITY_LOCATION_IDENTITY":
 						addDualIdentityLocationNBackSettings();
+						break;
+					case "MACKWORTH_CLOCK":
+						addMackworthClockSettings();
+						break;
+					case "SPATIAL_WORKING_MEMORY":
+						addSpatialWorkingMemoryUpdatingSettings();
 						break;
 				}
 				
@@ -282,21 +185,15 @@ public class SettingsController extends AbstractBackSupportController {
 			}
 		});
 
-		_testSelectionComboBox.itemsProperty().get().add("nBack_Visual_Identity");
-		_testSelectionComboBox.itemsProperty().get().add("nBack_Visual_Location");
-		_testSelectionComboBox.itemsProperty().get().add("nBack_Auditory");
-		_testSelectionComboBox.itemsProperty().get().add("Mackworth Clock");
-		_testSelectionComboBox.itemsProperty().get().add("PVT");
-		_testSelectionComboBox.itemsProperty().get().add("Visual PVT");
-		_testSelectionComboBox.itemsProperty().get().add("Visual Identity & Auditory Dual-nBack");
-		_testSelectionComboBox.itemsProperty().get().add("Visual Location & Auditory Dual-nBack");
-		_testSelectionComboBox.itemsProperty().get().add("Visual Location & Identity Dual-nBack");
-		_testSelectionComboBox.itemsProperty().get().add("Spatial Working Memory Update Test");
+		_testSelectionComboBox.getItems().add("General");
 
+		for (int i = 0; i < TestType.values().length; i++) {
+			_testSelectionComboBox.getItems().add(TestType.values()[i].name());
+		}
 
 		contentAnchor.getChildren().add(_testSelectionComboBox);
 
-		_testSelectionComboBox.getSelectionModel().select("nBack_Visual_Identity");
+		_testSelectionComboBox.getSelectionModel().select("General");
 
 		_testSelectionComboBox.setPrefWidth(480);
 
@@ -311,24 +208,33 @@ public class SettingsController extends AbstractBackSupportController {
 	@FXML
 	private void save(final ActionEvent e) {
 		if (!_validation.isInvalid()) {
-			try {
-				Config.getInstance().save();
-				((IdentityNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_IDENTITY)).setConfig();
-				((LocationNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_LOCATION)).setConfig();
-				((AuditoryNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_AUDITIVE)).setConfig();
-				((MackworthClockTestController) getScreenManager().getController(Screens.MACKWORTH_CLOCK_TEST)).setConfig();
-				((AuditoryIdentityDualNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_IDENTITY_AUDITIVE_DUAL)).setConfig();
-				((AuditoryLocationDualNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_LOCATION_AUDITIVE_DUAL)).setConfig();
-				((IdentityLocationDualNBackTestController) getScreenManager().getController(Screens.N_BACK_TEST_VISUAL_LOCATION_IDENTITY_DUAL)).setConfig();
+				saveImplicit();
+
 				SpeechSynthesizer.setup();
 				getScreenManager().showMessage(_rb.getString("settingsSaved.text"));
-			} catch (IOException ex) {
-				getScreenManager().showException(ex);
-			}
 		} else {
 			_validation.initInitialDecoration();
 		}
 	}
+
+	private void saveImplicit(){
+		try {
+			Config.getInstance().save();
+
+
+			((IdentityNBackTestController) getScreenManager().getController(Screens.N_BACK_VISUAL_STIMULUS_IDENTITY)).setConfig();
+			((LocationNBackTestController) getScreenManager().getController(Screens.N_BACK_VISUAL_LOCATION_IDENTITY)).setConfig();
+			((AuditoryNBackTestController) getScreenManager().getController(Screens.N_BACK_AUDITORY_STIMULUS_IDENTITY)).setConfig();
+			((MackworthClockTestController) getScreenManager().getController(Screens.MACKWORTH_CLOCK)).setConfig();
+			((SpatialWorkingMemoryUpdatingTestController) getScreenManager().getController(Screens.SPATIAL_WORKING_MEMORY)).setConfig();
+			((AuditoryIdentityDualNBackTestController) getScreenManager().getController(Screens.N_BACK_DUAL_AUDITORY_VISUAL_STIMULUS_IDENTITY)).setConfig();
+			((AuditoryLocationDualNBackTestController) getScreenManager().getController(Screens.N_BACK_DUAL_AUDITORY_VISUAL_LOCATION_IDENTITY)).setConfig();
+			((IdentityLocationDualNBackTestController) getScreenManager().getController(Screens.N_BACK_DUAL_VISUAL_VISUAL_STIMULUS_IDENTITY_LOCATION_IDENTITY)).setConfig();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+
 
 
 
@@ -374,19 +280,19 @@ public class SettingsController extends AbstractBackSupportController {
 	}
 
 	@FXML
-	private void inputTest(final ActionEvent e) {
+	private void inputTest(final ActionEvent e, Button inputTestButton, Circle indicator) {
 		e.consume();
-		/*
+
 		final AtomicInteger time = new AtomicInteger(WAIT_TIME);
 
-		_inputTestButton.setDisable(true);
-		_inputTestButton.setText(String.format(_rb.getString("inputTestButtonWait.text"), time.getAndDecrement()));
-		_indicator.setFill(Color.web("#9f9f9f"));
+		inputTestButton.setDisable(true);
+		inputTestButton.setText(String.format(_rb.getString("inputTestButtonWait.text"), time.getAndDecrement()));
+		indicator.setFill(Color.web("#9f9f9f"));
 
 		final Timeline timeline = new Timeline(
 			new KeyFrame(
-				Duration.seconds(1), 
-				ae -> _inputTestButton.setText(String.format(_rb.getString("inputTestButtonWait.text"), time.getAndDecrement()))
+				Duration.seconds(1),
+				ae -> inputTestButton.setText(String.format(_rb.getString("inputTestButtonWait.text"), time.getAndDecrement()))
 			)
 		);
 		timeline.setCycleCount(WAIT_TIME);
@@ -394,24 +300,24 @@ public class SettingsController extends AbstractBackSupportController {
 		
 		_executor.submit(() -> {
 			final CountDownLatch latch = new CountDownLatch(1);
-			InputFactory.getInstance().setInputCallback(() -> latch.countDown());
+			InputFactory.getInstance().setInputCallback(latch::countDown);
 
 			try {
 				if (latch.await(WAIT_TIME, TimeUnit.SECONDS)) {
-					Platform.runLater(() -> _indicator.fillProperty().setValue(Color.GREEN));
+					Platform.runLater(() -> indicator.fillProperty().setValue(Color.GREEN));
 				} else {
-					Platform.runLater(() -> _indicator.fillProperty().setValue(Color.RED));
+					Platform.runLater(() -> indicator.fillProperty().setValue(Color.RED));
 				}				
 			} catch (InterruptedException ex) {
 			}
 
 			timeline.stop();
 			Platform.runLater(() -> {
-				_inputTestButton.setDisable(false);
-				_inputTestButton.setText(_rb.getString("inputTestButton.text"));
+				inputTestButton.setDisable(false);
+				inputTestButton.setText(_rb.getString("inputTestButton.text"));
 			});
 		});
-				*/
+
 
 
 	}
@@ -420,11 +326,14 @@ public class SettingsController extends AbstractBackSupportController {
 
 
 	public void load(ActionEvent actionEvent) {
-		System.out.println("Load called");
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Config File");
 
 		File file = fileChooser.showOpenDialog(_dynamicContentAnchorPane.getScene().getWindow());
+		loadImplicit(file);
+	}
+
+	public void loadImplicit(File file){
 		if (file != null){
 			Config config = Config.getInstance();
 			config.inputProperty().unbind();
@@ -442,13 +351,38 @@ public class SettingsController extends AbstractBackSupportController {
 
 
 	public void createNew(ActionEvent actionEvent) {
+
+		TextInputDialog td = new TextInputDialog("Create Config");
+
+		// setHeaderText
+		td.setHeaderText("Enter config name");
+		td.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+
+		Optional<String> response = td.showAndWait();
+
+		if (response.isPresent()){
+
+			Runnable r = () -> {
+				File file = new File("config/" + response.get() + ".config.properties");
+				saveTextToFile("", file);
+				loadImplicit(file);
+				saveImplicit();
+			};
+			new Thread(r).start();
+
+
+		}else{
+			System.out.println("no response");
+		}
+
+		/*
 		FileChooser fileChooser = new FileChooser();
 		//Show save file dialog
 		File file = fileChooser.showSaveDialog(_dynamicContentAnchorPane.getScene().getWindow());
-
 		if (file != null) {
 			saveTextToFile("", file);
 		}
+		*/
 	}
 
 	private void saveTextToFile(String content, File file) {
@@ -472,10 +406,14 @@ public class SettingsController extends AbstractBackSupportController {
 
 	}
 
-	private TextField createTextField(IntegerProperty valueProperty, int vkType){
+	private TextField createTextField(Property valueProperty, int vkType){
 
 		TextField textField = new TextField();
-		textField.textProperty().bindBidirectional(valueProperty, new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
+		if (valueProperty instanceof IntegerProperty){
+			textField.textProperty().bindBidirectional(valueProperty, new NullSafeNumberStringConverter(NumberFormat.getIntegerInstance()));
+		}else{
+			textField.textProperty().bindBidirectional(valueProperty);
+		}
 		textField.getProperties().put("vkType", vkType);
 		textField.setOnKeyPressed(new EnterSubmitHandler());
 		textField.setPrefWidth(380);
@@ -485,10 +423,10 @@ public class SettingsController extends AbstractBackSupportController {
 
 	private void createAndAddStimulusComboBox(VBox parentElement, Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, String label){
 		if (availableStimulusTypes.length > 0){
-			ComboBox<String> stimulusTypeComboBox = new ComboBox();
+			ComboBox<String> stimulusTypeComboBox = new ComboBox<>();
 
-			for (int i = 0; i < availableStimulusTypes.length; i++) {
-				stimulusTypeComboBox.getItems().add(String.valueOf(availableStimulusTypes[i]));
+			for (Stimulus.Type availableStimulusType : availableStimulusTypes) {
+				stimulusTypeComboBox.getItems().add(String.valueOf(availableStimulusType));
 			}
 			stimulusTypeComboBox.valueProperty().bindBidirectional(stimulusTypeProperty);
 			stimulusTypeComboBox.setPrefWidth(380);
@@ -937,7 +875,148 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(noGoColorPicker);
 	}
 
+	private void addMackworthClockSettings(){
 
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+
+		TextField testLengthTextField = createTextField(config.mackworthLengthProperty(), 1);
+		TextField targetsTextField = createTextField(config.mackworthTargetsProperty(), 1);
+		TextField intervalTextField = createTextField(config.mackworthIntervalProperty(), 1);
+		TextField circleNumberTextField = createTextField(config.mackworthNCirclesProperty(), 1);
+
+		Label testLengthTextFieldLabel = createLabel(testLengthTextField, "Repetitions");
+		Label targetsTextFieldLabel = createLabel(targetsTextField, "Target (repetition number slash separated, zero indexed)");
+		Label intervalTextFieldLabel = createLabel(intervalTextField, "Interval (ms)");
+		Label circleNumberTextFieldLabel = createLabel(circleNumberTextField, "Number of circles");
+
+		ColorPicker colorPicker = createColorPicker(config.mackworthColorProperty());
+		Label colorPickerLabel = createLabel(colorPicker, "Color");
+
+		targetsTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+			if (t1)
+				return;
+			try {
+
+
+				String targets = targetsTextField.getText();
+				String[] targetsSeparated = targets.split("/");
+
+				for (String s : targetsSeparated) {
+					Integer.parseInt(s.trim());
+				}
+
+
+				targetsTextField.setText(targets.replaceAll("\\s+",
+						""));
+
+
+			}catch (Exception e){
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("");
+				alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+				alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+				alert.setContentText("The target indices you entered are not valid. A valid example is 3/15/30/45/60/63/70");
+				alert.show();
+			}
+		});
+
+
+
+		contentAnchor.getChildren().add(testLengthTextFieldLabel);
+		contentAnchor.getChildren().add(testLengthTextField);
+		contentAnchor.getChildren().add(targetsTextFieldLabel);
+		contentAnchor.getChildren().add(targetsTextField);
+		contentAnchor.getChildren().add(intervalTextFieldLabel);
+		contentAnchor.getChildren().add(intervalTextField);
+		contentAnchor.getChildren().add(circleNumberTextFieldLabel);
+		contentAnchor.getChildren().add(circleNumberTextField);
+		contentAnchor.getChildren().add(colorPickerLabel);
+		contentAnchor.getChildren().add(colorPicker);
+
+
+	}
+
+
+	private void addSpatialWorkingMemoryUpdatingSettings(){
+
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+
+		TextField frameCountTextField = createTextField(config.spatialWorkingMemoryFramesProperty(), 1);
+		TextField repetitionsTextField = createTextField(config.spatialWorkingMemoryRepetitionsProperty(), 1);
+		TextField intervalTextField = createTextField(config.spatialWorkingMemoryIntervalProperty(), 1);
+		TextField initialDelayTextField = createTextField(config.spatialWorkingMemoryInitialDelayProperty(), 1);
+
+		Label frameCountTextFieldLabel = createLabel(frameCountTextField, "Number of Frames");
+		Label repetitionsTextFieldLabel = createLabel(repetitionsTextField, "Repetitions including start values");
+		Label intervalTextFieldLabel = createLabel(intervalTextField, "Interval (ms)");
+		Label initialDelayTextFieldLabel = createLabel(initialDelayTextField, "Initial Delay (ms)");
+
+		ColorPicker colorPicker = createColorPicker(config.spatialWorkingMemoryColorProperty());
+		Label colorPickerLabel = createLabel(colorPicker, "Color");
+
+		contentAnchor.getChildren().add(frameCountTextFieldLabel);
+		contentAnchor.getChildren().add(frameCountTextField);
+		contentAnchor.getChildren().add(repetitionsTextFieldLabel);
+		contentAnchor.getChildren().add(repetitionsTextField);
+		contentAnchor.getChildren().add(intervalTextFieldLabel);
+		contentAnchor.getChildren().add(intervalTextField);
+		contentAnchor.getChildren().add(initialDelayTextFieldLabel);
+		contentAnchor.getChildren().add(initialDelayTextField);
+		contentAnchor.getChildren().add(colorPickerLabel);
+		contentAnchor.getChildren().add(colorPicker);
+
+
+	}
+
+	private void addGeneralSettings(){
+
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+
+
+		CheckBox useAutoCompletionCheckBox = new CheckBox();
+		useAutoCompletionCheckBox.selectedProperty().bindBidirectional(config.useAutoCompletionProperty());
+		VBox.setMargin(useAutoCompletionCheckBox, new Insets(0, 50, 10, 50));
+
+		Label useAutoCompletionCheckBoxLabel = createLabel(useAutoCompletionCheckBox, "Use Autocompletion");
+
+
+		ComboBox<Input> inputComboBox = new ComboBox<>();
+		inputComboBox.itemsProperty().get().addAll(Input.values());
+
+		inputComboBox.getSelectionModel().select(config.inputProperty().getValue());
+		config.inputProperty().bind(inputComboBox.getSelectionModel().selectedItemProperty());
+
+		VBox.setMargin(inputComboBox, new Insets(0, 50, 10, 50));
+		Label inputComboBoxLabel = createLabel(inputComboBox, "Input Device");
+
+		Circle indicatorCircle = new Circle();
+		indicatorCircle.setFill(Paint.valueOf("white"));
+		VBox.setMargin(indicatorCircle, new Insets(0, 50, 10, 50));
+		indicatorCircle.setRadius(30);
+
+		Button testInputButton = new Button();
+		testInputButton.setText("Test Input");
+		testInputButton.setOnAction(e -> inputTest(e, testInputButton, indicatorCircle));
+		VBox.setMargin(testInputButton, new Insets(0, 50, 10, 50));
+
+
+		contentAnchor.getChildren().add(useAutoCompletionCheckBoxLabel);
+		contentAnchor.getChildren().add(useAutoCompletionCheckBox);
+		contentAnchor.getChildren().add(inputComboBoxLabel);
+		contentAnchor.getChildren().add(inputComboBox);
+		contentAnchor.getChildren().add(testInputButton);
+		contentAnchor.getChildren().add(indicatorCircle);
+
+
+
+	}
 
 
 
