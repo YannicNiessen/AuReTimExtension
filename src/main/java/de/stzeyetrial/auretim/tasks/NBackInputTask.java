@@ -19,6 +19,7 @@ public class NBackInputTask extends AbstractInputTask {
 
 	@Override
 	protected Result evaluate(long startStep, long duration, boolean timeout, int minimumResponseTime) {
+
 		if (timeout) {
 			return new Result(startStep, duration, (_positive) ? FALSE_NEGATIVE : TRUE_NEGATIVE);
 		} else {

@@ -52,8 +52,7 @@ public class NoGoRunnerTask extends AbstractRunnerTask {
 	protected Stimulus getStimulus() {
 		final int index = ThreadLocalRandom.current().nextInt(2);
 		_positive = (index == 0);
-
-		return (index == 0) ? Stimulus.goStimulus() : Stimulus.noGoStimulus();
+		return (_positive) ? Stimulus.goStimulus() : Stimulus.noGoStimulus();
 	}
 
 	@Override

@@ -92,12 +92,13 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 			final int delay = getDelay();
 
 			final Tone tone = getTone();
+			final Stimulus stimulus = getStimulus();
 			final AbstractInputTask inputTask = getInputTask(gate, testStart, _timeout, _minimumResponseTime);
 
 			final Result result;
 
 			if (_visual){
-				_currentStimulus.setValue(getStimulus());
+				_currentStimulus.setValue(stimulus);
 				result = _executor.submit(inputTask).get();
 
 				_currentStimulus.setValue(Stimulus.unrealStimulus());
