@@ -116,7 +116,7 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 
 
 
-			final long wait = _timeout * 1000 - result.getDuration();
+			final long wait = _timeout - result.getDuration();
 			if (wait > 0) {
 				_executor.schedule(() -> {}, wait, TimeUnit.MILLISECONDS).get();
 			}
