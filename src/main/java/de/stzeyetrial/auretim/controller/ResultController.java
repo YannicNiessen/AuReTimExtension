@@ -49,6 +49,7 @@ public class ResultController extends AbstractBackSupportController {
 	private final IntegerProperty _total = new SimpleIntegerProperty();
 	private final IntegerProperty _misses = new SimpleIntegerProperty();
 	private final IntegerProperty _hits = new SimpleIntegerProperty();
+	private final IntegerProperty _correctRejections = new SimpleIntegerProperty();
 	private final IntegerProperty _falsePositives = new SimpleIntegerProperty();
 	private final DoubleProperty _cv = new SimpleDoubleProperty();
 	private final DoubleProperty _reactionSpeed = new SimpleDoubleProperty();
@@ -91,7 +92,7 @@ public class ResultController extends AbstractBackSupportController {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		_meanSDTextfield.textProperty().bind(Bindings.concat(_mean.asString("%.1f"), " ± ", _sd.asString("%.1f"), " ms"));
-		_totalTextfield.textProperty().bind(Bindings.concat(_total.asString(), " / ", _n.asString(), " / ", _misses.asString(), " / ", _falsePositives.asString()));
+		_totalTextfield.textProperty().bind(Bindings.concat(_total.asString(), " / ", _hits.asString()," / ", _correctRejections.asString(), " / ", _misses.asString(), " / ", _falsePositives.asString()));
 		_minMaxTextField.textProperty().bind(Bindings.concat("[", _min.asString(), ", ", _max.asString(), "] ms"));
 		_percentilesTextField.textProperty().bind(Bindings.concat(_median.asString("%.1f"), " [", _q25.asString("%.1f"), ", ", _q75.asString("%.1f"), "] ms"));
 		_q10TextField.textProperty().bind(_q10.asString());
@@ -156,6 +157,7 @@ public class ResultController extends AbstractBackSupportController {
 		_cv.setValue(cv);
 		_misses.setValue(misses);
 		_hits.setValue(hits);
+		_correctRejections.setValue(correctRejections);
 		_falsePositives.setValue(falseAlarms);
 		_q10.setValue(stats.getPercentile(10));
 		_q90.setValue(stats.getPercentile(90));
@@ -182,7 +184,7 @@ public class ResultController extends AbstractBackSupportController {
 		final String subjectId = Session.getCurrentSession().getSubjectId().replaceAll("[:\\\\/*\"?|<>]", "_");
 		final String testId = Session.getCurrentSession().getTestId().replaceAll("[:\\\\/*\"?|<>]", "_");
 		final String testType = Session.getCurrentSession().getTestType().name();
-		final String baseFilename = String.format("%s_%s", subjectId, testId);
+		final String baseFilename = String.format("%s_%s_%s", testType, subjectId, testId);
 
 		if (Files.notExists(FileSystems.getDefault().getPath(directoryName))) {
 			directoryName = ".";
@@ -199,10 +201,10 @@ public class ResultController extends AbstractBackSupportController {
 			writer.printComment(String.format("testType=%s", testType));
 			writer.printComment(String.format("total=%d", _total.get()));
 			writer.printComment(String.format("hits=%d", _hits.get()));
+			writer.printComment(String.format("correct rejections=%d", _correctRejections.get()));
 			writer.printComment(String.format("misses=%d", _misses.get()));
 			writer.printComment(String.format("false positives=%d", _falsePositives.get()));
 			writer.printComment(String.format("CV'=%.4f", _cv.get()));
-			writer.printComment(String.format("n=%d", _n.get()));
 			writer.printComment(String.format("mean=%.2f ms", _mean.get()));
 			writer.printComment(String.format("sd=%.2f ms", _sd.get()));
 			writer.printComment(String.format("median=%.2f ms", _median.get()));

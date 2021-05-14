@@ -99,7 +99,7 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 			}else{
 				tone = getTone();
 			}
-			
+
 			final AbstractInputTask inputTask = getInputTask(gate, testStart, _timeout, _minimumResponseTime);
 
 			final Result result;

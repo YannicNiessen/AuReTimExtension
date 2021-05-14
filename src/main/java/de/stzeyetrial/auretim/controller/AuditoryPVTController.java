@@ -218,7 +218,9 @@ public class AuditoryPVTController extends AbstractController {
 					} else if (Result.Type.FALSE_POSITIVE == result.getType()) {
 						_timelineRed.play();
 						return _resources.getString("false_positive");
-					} else {
+					} else if (Result.Type.TRUE_NEGATIVE == result.getType()){
+						return _resources.getString("true_negative");
+					}else {
 						_timelineGreen.play();
 						return String.format("%d ms", result.getDuration());
 					}

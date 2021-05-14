@@ -14,24 +14,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62bbde6f-770b-405c-ad97-e7898d97b85b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/StimulusSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/default.config.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/meta.config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config/meta.config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/AuReTim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/AuReTim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/AuditoryPVTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/AuditoryPVTController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/ResultController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/ResultController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/Stimulus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/Stimulus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NoGoInputTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NoGoInputTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/bundles/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bundles/strings.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/SettingsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bundles/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bundles/strings.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/AuditoryPVTController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/AuditoryPVTController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/AuditoryPVTController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/AuditoryPVTController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/ResultController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/ResultController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/ResultController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/controller/ResultController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NoGoInputTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NoGoInputTask.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
