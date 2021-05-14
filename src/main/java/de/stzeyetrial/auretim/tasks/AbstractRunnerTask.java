@@ -112,16 +112,12 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 
 			}else{
 				final ScheduledFuture<?> futureTone = _executor.schedule(new ToneTask(tone, gate, _volumeProperty.get()), delay, TimeUnit.SECONDS);
-				System.out.println("reached");
 				result = _executor.submit(inputTask).get();
-				System.out.println("reached2");
 				futureTone.get();
-				System.out.println("reached3");
 
 			}
 
 
-			System.out.println(result.getDuration());
 			updateProgress(i, _repetitions);
 			_results.add(result);
 			Platform.runLater(() -> _currentResult.setValue(result));
