@@ -91,8 +91,15 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 
 			final int delay = getDelay();
 
-			final Tone tone = getTone();
-			final Stimulus stimulus = getStimulus();
+			Tone tone = null;
+			Stimulus stimulus = null;
+
+			if (_visual){
+				stimulus = getStimulus();
+			}else{
+				tone = getTone();
+			}
+			
 			final AbstractInputTask inputTask = getInputTask(gate, testStart, _timeout, _minimumResponseTime);
 
 			final Result result;
@@ -105,12 +112,16 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 
 			}else{
 				final ScheduledFuture<?> futureTone = _executor.schedule(new ToneTask(tone, gate, _volumeProperty.get()), delay, TimeUnit.SECONDS);
+				System.out.println("reached");
 				result = _executor.submit(inputTask).get();
+				System.out.println("reached2");
 				futureTone.get();
+				System.out.println("reached3");
+
 			}
 
 
-
+			System.out.println(result.getDuration());
 			updateProgress(i, _repetitions);
 			_results.add(result);
 			Platform.runLater(() -> _currentResult.setValue(result));

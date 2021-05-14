@@ -197,7 +197,7 @@ public abstract class AbstractNBackTestController extends AbstractController {
 
 
 	public void setConfig(){
-		_stimulusType = Stimulus.Type.valueOf(Config.getInstance().visualIdentityStimulusTypeProperty().getValue());
+		_stimulusType = Stimulus.Type.valueOf(Config.getInstance().auditoryStimulusTypeProperty().getValue());
 		setLayout();
 	}
 

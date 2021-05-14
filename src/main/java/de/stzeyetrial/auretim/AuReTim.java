@@ -8,12 +8,19 @@ import static javafx.application.Application.launch;
 import com.guigarage.flatterfx.FlatterFX;
 import de.stzeyetrial.auretim.input.InputFactory;
 import de.stzeyetrial.auretim.tests.InputLatencyTest;
+import de.stzeyetrial.auretim.util.Stimulus;
+import de.stzeyetrial.auretim.util.StimulusSet;
 import javafx.application.Application;
 import javafx.application.Preloader.StateChangeNotification;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.LinkedList;
 
 public class AuReTim extends Application {
     @Override
@@ -41,6 +48,18 @@ public class AuReTim extends Application {
 		InputFactory.init(scene);
 
         stage.show();
+
+
+		StimulusSet.loadAllSetsFromDisk();
+
+		System.out.println(String.valueOf(StimulusSet.getSet("mySet")));
+		System.out.println(String.valueOf(StimulusSet.getSet("mySet2")));
+		System.out.println(String.valueOf(StimulusSet.getSet("myColorSet")));
+
+
+
+
+
 
     }
 

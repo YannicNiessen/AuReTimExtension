@@ -90,7 +90,7 @@ public class Stimulus {
         return imagePathSet[value];
     }
 
-    public static enum Type{
+    public enum Type{
         DIGIT,
         LETTER,
         COLOR,

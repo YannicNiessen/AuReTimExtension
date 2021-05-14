@@ -18,6 +18,8 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
@@ -25,6 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -39,16 +42,18 @@ import javafx.event.EventHandler;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -152,6 +157,9 @@ public class SettingsController extends AbstractBackSupportController {
 				case "General":
 					addGeneralSettings();
 					break;
+				case "Stimulus Sets":
+					addStimulusSetSettings();
+					break;
 				case "PVT_AUDITORY":
 					addAuditoryPVTSettings();
 					break;
@@ -188,10 +196,13 @@ public class SettingsController extends AbstractBackSupportController {
 		});
 
 		_testSelectionComboBox.getItems().add("General");
+		_testSelectionComboBox.getItems().add("Stimulus Sets");
 
 		for (int i = 0; i < TestType.values().length; i++) {
 			_testSelectionComboBox.getItems().add(TestType.values()[i].name());
 		}
+
+
 		_testSelectionComboBox.setVisibleRowCount(_testSelectionComboBox.getItems().size());
 
 		contentAnchor.getChildren().add(_testSelectionComboBox);
@@ -222,7 +233,7 @@ public class SettingsController extends AbstractBackSupportController {
 	private void saveImplicit(){
 		try {
 			Config.getInstance().save();
-
+			StimulusSet.saveAllSetsToDisk();
 
 			((IdentityNBackTestController) getScreenManager().getController(Screens.N_BACK_VISUAL_STIMULUS_IDENTITY)).setConfig();
 			((LocationNBackTestController) getScreenManager().getController(Screens.N_BACK_VISUAL_LOCATION_IDENTITY)).setConfig();
@@ -1031,10 +1042,178 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(testInputButton);
 		contentAnchor.getChildren().add(indicatorCircle);
 
+	}
+
+	private void addStimulusSetSettings(){
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		Config config = Config.getInstance();
+
+
+		ComboBox<String> stimulusSetComboBox = new ComboBox<>();
+		VBox.setMargin(stimulusSetComboBox, new Insets(0, 50, 10, 50));
+
+		stimulusSetComboBox.getItems().addAll((StimulusSet.getLoadedSets()).stream().map(StimulusSet::get_name).collect(Collectors.toList()));
+
+		ComboBox<Stimulus.Type> stimulusSetTypeComboBox = new ComboBox<>();
+
+		stimulusSetTypeComboBox.getItems().addAll(Stimulus.Type.values());
+		stimulusSetTypeComboBox.valueProperty().addListener((observableValue, s, t1) -> {
+			Objects.requireNonNull(StimulusSet.getSet(stimulusSetComboBox.getValue())).set_type(t1);
+		});
+
+
+		VBox.setMargin(stimulusSetTypeComboBox, new Insets(0, 50 , 10 , 50));
+
+		VBox elementVBox = new VBox();
+		VBox.setMargin(elementVBox, new Insets(0 , 50, 10,50));
+		elementVBox.setPrefWidth(contentAnchor.getPrefWidth() - 100);
+
+		Button deleteButton = new Button();
+		VBox.setMargin(deleteButton, new Insets(0, 50 , 10 , 50));
+		deleteButton.setText("Delete current Set");
+		deleteButton.setStyle("-fx-background-color: red;");
+		deleteButton.setOnAction(actionEvent -> {
+
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("Confirmation");
+			alert.setHeaderText("");
+			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+			alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+			alert.setContentText("Are you sure that you want to delete the set: " + stimulusSetComboBox.getValue() + " ?");
+			Optional<ButtonType> response = alert.showAndWait();
+
+			if (response.isEmpty()) return;
+			if (response.get().getButtonData().equals(ButtonBar.ButtonData.CANCEL_CLOSE)) return;
+
+			Objects.requireNonNull(StimulusSet.getSet(stimulusSetComboBox.getValue())).deleteSetFromDisk();
+			_testSelectionComboBox.getSelectionModel().select("");
+			_testSelectionComboBox.getSelectionModel().select("Stimulus Sets");
+
+		});
+
+		Button addButton = new Button();
+		VBox.setMargin(addButton, new Insets(30, 50 , 10 , 50));
+		addButton.setText("Add new Set");
+		addButton.setOnAction(actionEvent -> {
+
+			TextInputDialog alert = new TextInputDialog();
+			alert.setTitle("Prompt");
+			alert.setHeaderText("");
+			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+			alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+			alert.setContentText("Please enter the name of the new set");
+			Optional<String> response = alert.showAndWait();
+
+			if (response.isEmpty()) return;
+		 	if (response.get().equals("")) return;
+			StimulusSet.getLoadedSets().add(new StimulusSet(Stimulus.Type.DIGIT, new ArrayList<>(), response.get()));
+			stimulusSetComboBox.getItems().add(response.get());
+			stimulusSetComboBox.getSelectionModel().select(response.get());
+		});
+
+		stimulusSetComboBox.valueProperty().addListener((observableValue, s, t1) -> {
+			StimulusSet currentSet = StimulusSet.getSet(t1);
+			if (currentSet == null) return;
+			elementVBox.getChildren().clear();
+
+
+			HBox addItemHBox = new HBox();
+			TextField addItemTextField = new TextField();
+			addItemTextField.setPromptText("Enter new Item here");
+
+
+
+			//addItemTextField.getParent().requestFocus();
+			Button addItemButton = new Button();
+			addItemButton.setText("➕");
+			addItemButton.setStyle("-fx-background-color: green;");
+			addItemButton.setMaxHeight(50);
+			addItemButton.setOnAction(actionEvent -> {
+				if (addItemTextField.getText().equals(""))
+					return;
+
+
+				currentSet.get_elements().add(addItemTextField.getText());
+				getElementHBox(currentSet, elementVBox, addItemTextField.getText());
+				addItemTextField.setText("");
+
+			});
+
+			addItemTextField.setOnKeyPressed(keyEvent -> {
+				if (keyEvent.getCode().equals(KeyCode.ENTER)){
+					addItemButton.fire();
+				}
+			});
+
+			addItemHBox.getChildren().add(addItemTextField);
+			addItemHBox.getChildren().add(addItemButton);
+
+			addItemHBox.setPrefWidth(elementVBox.getPrefWidth());
+			HBox.setHgrow(addItemTextField, Priority.ALWAYS);
+			VBox.setMargin(addItemHBox, new Insets(25, 0, 10 , 0));
+
+
+			elementVBox.getChildren().add(addItemHBox);
+
+
+			stimulusSetTypeComboBox.valueProperty().setValue(currentSet.get_type());
+			for(String text : currentSet.get_elements()){
+				getElementHBox(currentSet, elementVBox, text);
+			}
+
+		});
+
+
+		stimulusSetComboBox.getSelectionModel().select(0);
+
+		Label stimulusSetComboBoxLabel = createLabel(stimulusSetComboBox, "Stimulus Set");
+		Label stimulusSetTypeComboBoxLabel = createLabel(stimulusSetTypeComboBox, "Set Type");
+		Label elementVBoxLabel = createLabel(elementVBox, "Items in Set");
+
+		contentAnchor.getChildren().add(stimulusSetComboBoxLabel);
+		contentAnchor.getChildren().add(stimulusSetComboBox);
+		contentAnchor.getChildren().add(stimulusSetTypeComboBoxLabel);
+		contentAnchor.getChildren().add(stimulusSetTypeComboBox);
+		contentAnchor.getChildren().add(elementVBoxLabel);
+		contentAnchor.getChildren().add(elementVBox);
+		contentAnchor.getChildren().add(deleteButton);
+		contentAnchor.getChildren().add(addButton);
+
+
+
 
 
 	}
 
+	private void getElementHBox(StimulusSet currentSet, VBox anchorNode, String text){
+		HBox elementHBox = new HBox();
+		elementHBox.setPrefWidth(anchorNode.getPrefWidth());
+		Text t = new Text(text);
+		t.setFont(new Font(30));
 
+		Button b = new Button();
+		b.setOnAction(actionEvent -> {
+			currentSet.get_elements().remove(text);
+			anchorNode.getChildren().remove(elementHBox);
+		});
+		b.setText("❌");
+		b.setStyle("-fx-background-color: red;");
+		b.setAlignment(Pos.CENTER_RIGHT);
+		b.setMaxHeight(50);
+
+		elementHBox.setFillHeight(true);
+		Region region1 = new Region();
+		HBox.setHgrow(region1, Priority.ALWAYS);
+
+		elementHBox.getChildren().add(t);
+		elementHBox.getChildren().add(region1);
+		elementHBox.getChildren().add(b);
+		elementHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+		VBox.setMargin(elementHBox, new Insets(10, 0 ,0, 0));
+
+
+		anchorNode.getChildren().add(anchorNode.getChildren().size() - 1, elementHBox);
+	}
 
 }

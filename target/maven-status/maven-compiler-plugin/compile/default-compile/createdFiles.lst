@@ -88,6 +88,7 @@ de/stzeyetrial/auretim/output/gpio/GPIOTrigger.class
 de/stzeyetrial/auretim/controller/SettingsController$3.class
 de/stzeyetrial/auretim/tasks/AbstractInputTask.class
 de/stzeyetrial/auretim/tasks/MackworthClockTask.class
+de/stzeyetrial/auretim/util/StimulusSet.class
 de/stzeyetrial/auretim/input/Input.class
 de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$2.class
 de/stzeyetrial/auretim/controller/MackworthClockTestController$1.class

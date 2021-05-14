@@ -4,6 +4,7 @@
 /home/x/AuReTim/src/main/java/edu/cmu/pocketsphinx/NBest.java
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/output/ITrigger.java
 /home/x/AuReTim/src/main/java/edu/cmu/pocketsphinx/SphinxBase.java
+/home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/util/StimulusSet.java
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/input/InputFactory.java
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/tasks/NoGoInputTask.java
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechInputTask.java

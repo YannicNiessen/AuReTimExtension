@@ -116,6 +116,7 @@ public class ResultController extends AbstractBackSupportController {
 		double hits = 0;
 		double falseAlarms = 0;
 		double misses = 0;
+		double correctRejections = 0;
 
 		final DescriptiveStatistics stats = new DescriptiveStatistics();
 		for (final Result result : results) {
@@ -128,6 +129,9 @@ public class ResultController extends AbstractBackSupportController {
 						stats.addValue(result.getDuration());
 					}
 					hits++;
+					break;
+				case TRUE_NEGATIVE:
+					correctRejections++;
 					break;
 				case FALSE_POSITIVE:
 					falseAlarms++;
