@@ -9,6 +9,7 @@ import de.stzeyetrial.auretim.session.Session;
 import de.stzeyetrial.auretim.tasks.*;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
+import de.stzeyetrial.auretim.util.StimulusSet;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -67,6 +68,8 @@ public abstract class AbstractNBackTestController extends AbstractController {
 	
 	@FXML
 	protected AnchorPane anchorPane;
+
+	StimulusSet _stimulusSet;
 
 	Stimulus.Type _stimulusType;
 
@@ -196,13 +199,10 @@ public abstract class AbstractNBackTestController extends AbstractController {
 	}
 
 
-	public void setConfig(){
-		_stimulusType = Stimulus.Type.valueOf(Config.getInstance().auditoryStimulusTypeProperty().getValue());
-		setLayout();
-	}
-
 	protected abstract void setLayout();
 
 	protected abstract void outputStimulus(Stimulus stimulus) throws Exception;
+
+	protected abstract void setConfig();
 
 }

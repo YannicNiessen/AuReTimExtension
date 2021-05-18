@@ -7,6 +7,7 @@ import de.stzeyetrial.auretim.session.Session;
 import de.stzeyetrial.auretim.tasks.DualNBackTask;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
+import de.stzeyetrial.auretim.util.StimulusSet;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -24,6 +25,10 @@ public class AuditoryIdentityDualNBackTestController extends AbstractNBackTestCo
 
 
     private Node _stimulusNode;
+
+    private StimulusSet _auditoryStimulusSet;
+
+    private Stimulus.Type _auditoryStimulusType;
 
 
     @FXML
@@ -63,8 +68,8 @@ public class AuditoryIdentityDualNBackTestController extends AbstractNBackTestCo
 
         final int timeout				= Config.getInstance().dualAuditoryIdentityIntervalProperty().get();
 
-        final int nOptionsAuditorySequence = 10;
-        final int nOptionsIdentitySequence = 10;
+        final int nOptionsAuditorySequence = _auditoryStimulusSet.get_elements().size();
+        final int nOptionsIdentitySequence = _stimulusSet.get_elements().size();
 
         final List<Result> results = Session.getCurrentSession().getResults();
         results.clear();
@@ -88,11 +93,9 @@ public class AuditoryIdentityDualNBackTestController extends AbstractNBackTestCo
         int value;
         int audioValue;
 
-        System.out.println("output");
-        System.out.println(stimulus.get_values().length);
         if (stimulus.get_values().length == 2){
-            value = stimulus.get_values()[0];
-            audioValue = stimulus.get_values()[1];
+            audioValue = stimulus.get_values()[0];
+            value = stimulus.get_values()[1];
         }else{
             return;
         }
@@ -100,30 +103,26 @@ public class AuditoryIdentityDualNBackTestController extends AbstractNBackTestCo
         switch (_stimulusType){
 
             case DIGIT:
-                ((TextField) _stimulusNode).setText(Stimulus.getComputedDigit(value));
-                break;
             case LETTER:
-                ((TextField) _stimulusNode).setText(Stimulus.getComputedLetter(value));
+                ((TextField) _stimulusNode).setText(_stimulusSet.get_elements().get(value));
                 break;
             case COLOR:
-                String hexColor = Stimulus.getComputedHexColor(value);
+                String hexColor = _stimulusSet.get_elements().get(value);
                 ((Rectangle) _stimulusNode).setFill(Paint.valueOf(hexColor));
                 break;
             case IMAGE:
-                String imagePath = Stimulus.getComputedImagePath(value);
+                String imagePath = _stimulusSet.get_elements().get(value);
                 Image image = new Image("file:" + imagePath);
                 ((ImageView) _stimulusNode).setImage(image);
         }
 
         String output;
 
-        switch (_stimulusType){
+        switch (_auditoryStimulusType){
 
             case DIGIT:
-                output = Stimulus.getComputedDigit(audioValue);
-                break;
             case LETTER:
-                output = Stimulus.getComputedLetter(audioValue);
+                output = _auditoryStimulusSet.get_elements().get(audioValue);
                 break;
             default:
                 throw new Exception("Stimulus type is not audio compatible");
@@ -144,6 +143,15 @@ public class AuditoryIdentityDualNBackTestController extends AbstractNBackTestCo
         _stimulusNode = Stimulus.getContainerNode(_stimulusType, availableSpace, availableSpace);
 
         _stimulusContainerBox.getChildren().add(_stimulusNode);
+    }
+
+    public void setConfig(){
+        _auditoryStimulusSet = StimulusSet.getSet(Config.getInstance().dualAuditoryIdentityFirstStimulusTypeProperty().getValue());
+        _stimulusSet = StimulusSet.getSet(Config.getInstance().dualAuditoryIdentitySecondStimulusTypeProperty().getValue());
+        _auditoryStimulusType = _auditoryStimulusSet.get_type();
+        _stimulusType = _stimulusSet.get_type();
+
+        setLayout();
     }
 
 }

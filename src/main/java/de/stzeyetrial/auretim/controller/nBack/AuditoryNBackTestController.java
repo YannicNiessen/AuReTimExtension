@@ -9,6 +9,7 @@ import de.stzeyetrial.auretim.tasks.AbstractNBackTask;
 import de.stzeyetrial.auretim.tasks.MonoNBackTask;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
+import de.stzeyetrial.auretim.util.StimulusSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -59,7 +60,7 @@ public class AuditoryNBackTestController extends AbstractNBackTestController {
 
         final boolean useVoiceRecognition = Config.getInstance().useVoiceRecognitionProperty().get();
 
-        final int nOptions = 10;
+        final int nOptions = _stimulusSet.get_elements().size();
         final List<Result> results = Session.getCurrentSession().getResults();
         results.clear();
 
@@ -91,10 +92,8 @@ public class AuditoryNBackTestController extends AbstractNBackTestController {
         switch (_stimulusType){
 
             case DIGIT:
-                output = Stimulus.getComputedDigit(value);
-                break;
             case LETTER:
-                output = Stimulus.getComputedLetter(value);
+                output = _stimulusSet.get_elements().get(value);
                 break;
             default:
                 throw new Exception("Stimulus type is not audio compatible");
@@ -142,5 +141,10 @@ public class AuditoryNBackTestController extends AbstractNBackTestController {
     @Override
     protected void setLayout() {
 
+    }
+
+    public void setConfig(){
+        _stimulusSet = StimulusSet.getSet(Config.getInstance().auditoryStimulusTypeProperty().getValue());
+        _stimulusType = _stimulusSet.get_type();
     }
 }

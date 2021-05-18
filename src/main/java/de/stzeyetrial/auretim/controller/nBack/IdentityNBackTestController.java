@@ -6,6 +6,7 @@ import de.stzeyetrial.auretim.session.Session;
 import de.stzeyetrial.auretim.tasks.MonoNBackTask;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
+import de.stzeyetrial.auretim.util.StimulusSet;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -53,7 +54,7 @@ public class IdentityNBackTestController extends AbstractNBackTestController {
         final int timeout				= Config.getInstance().visualIdentityIntervalProperty().get();
         final boolean reUseElements		= Config.getInstance().visualIdentitySequenceReUseElementProperty().get();
 
-        final int nOptions = 10;
+        final int nOptions = _stimulusSet.get_elements().size();
 
         final List<Result> results = Session.getCurrentSession().getResults();
         results.clear();
@@ -83,20 +84,27 @@ public class IdentityNBackTestController extends AbstractNBackTestController {
         switch (_stimulusType){
 
             case DIGIT:
-                ((TextField) _stimulusNode).setText(Stimulus.getComputedDigit(value));
-                break;
             case LETTER:
-                ((TextField) _stimulusNode).setText(Stimulus.getComputedLetter(value));
+                ((TextField) _stimulusNode).setText(_stimulusSet.get_elements().get(value));
                 break;
             case COLOR:
-                String hexColor = Stimulus.getComputedHexColor(value);
+                String hexColor = _stimulusSet.get_elements().get(value);
                 ((Rectangle) _stimulusNode).setFill(Paint.valueOf(hexColor));
                 break;
             case IMAGE:
-                String imagePath = Stimulus.getComputedImagePath(value);
+                String imagePath = _stimulusSet.get_elements().get(value);
+                System.out.println(imagePath);
                 Image image = new Image("file:" + imagePath);
                 ((ImageView) _stimulusNode).setImage(image);
         }
+    }
+
+    public void setConfig(){
+        _stimulusSet = StimulusSet.getSet(Config.getInstance().visualIdentityStimulusTypeProperty().getValue());
+
+        _stimulusType = _stimulusSet.get_type();
+
+        setLayout();
     }
 
 

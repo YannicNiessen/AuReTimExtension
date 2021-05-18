@@ -7,6 +7,7 @@ import de.stzeyetrial.auretim.tasks.DualNBackTask;
 import de.stzeyetrial.auretim.tasks.MonoNBackTask;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
+import de.stzeyetrial.auretim.util.StimulusSet;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -59,7 +60,7 @@ public class IdentityLocationDualNBackTestController extends AbstractNBackTestCo
 
         final int timeout				= Config.getInstance().dualIdentityLocationIntervalProperty().get();
 
-        final int nOptionsIdentitySequence = 10;
+        final int nOptionsIdentitySequence = _stimulusSet.get_elements().size();
 
         int rowNumber = Config.getInstance().dualIdentityLocationRowCountProperty().get();
 
@@ -147,21 +148,26 @@ public class IdentityLocationDualNBackTestController extends AbstractNBackTestCo
             switch (_stimulusType){
 
                 case DIGIT:
-                    ((TextField) stimulusNode).setText(Stimulus.getComputedDigit(identityValue));
-                    break;
                 case LETTER:
-                    ((TextField) stimulusNode).setText(Stimulus.getComputedLetter(identityValue));
+                    ((TextField) stimulusNode).setText(_stimulusSet.get_elements().get(identityValue));
                     break;
                 case COLOR:
-                    String hexColor = Stimulus.getComputedHexColor(identityValue);
+                    String hexColor = _stimulusSet.get_elements().get(identityValue);
                     ((Rectangle) stimulusNode).setFill(Paint.valueOf(hexColor));
                     break;
                 case IMAGE:
-                    String imagePath = Stimulus.getComputedImagePath(identityValue);
+                    String imagePath = _stimulusSet.get_elements().get(identityValue);
                     Image image = new Image("file:" + imagePath);
                     ((ImageView) stimulusNode).setImage(image);
             }
 
+    }
+
+    public void setConfig(){
+        _stimulusSet = StimulusSet.getSet(Config.getInstance().dualIdentityLocationStimulusTypeProperty().getValue());
+        _stimulusType = _stimulusSet.get_type();
+
+        setLayout();
     }
 
 }

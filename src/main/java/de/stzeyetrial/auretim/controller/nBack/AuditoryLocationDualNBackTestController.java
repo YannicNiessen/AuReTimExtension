@@ -7,6 +7,7 @@ import de.stzeyetrial.auretim.session.Session;
 import de.stzeyetrial.auretim.tasks.DualNBackTask;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
+import de.stzeyetrial.auretim.util.StimulusSet;
 import javafx.animation.FillTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -61,7 +62,7 @@ public class AuditoryLocationDualNBackTestController extends AbstractNBackTestCo
 
         final int timeout				= Config.getInstance().dualAuditoryLocationIntervalProperty().get();
 
-        final int nOptionsAuditorySequence = 10;
+        final int nOptionsAuditorySequence = _stimulusSet.get_elements().size();
 
         _hexColor = Config.getInstance().dualAuditoryLocationColorProperty().getValue();
 
@@ -136,10 +137,8 @@ public class AuditoryLocationDualNBackTestController extends AbstractNBackTestCo
             switch (_stimulusType){
 
                 case DIGIT:
-                    output = Stimulus.getComputedDigit(audioValue);
-                    break;
                 case LETTER:
-                    output = Stimulus.getComputedLetter(audioValue);
+                    output = _stimulusSet.get_elements().get(audioValue);
                     break;
                 default:
                     throw new Exception("Stimulus type is not audio compatible");
@@ -147,6 +146,13 @@ public class AuditoryLocationDualNBackTestController extends AbstractNBackTestCo
 
             SpeechSynthesizer.speak(output);
 
+    }
+
+    public void setConfig(){
+        _stimulusSet = StimulusSet.getSet(Config.getInstance().dualAuditoryLocationStimulusTypeProperty().getValue());
+        _stimulusType = _stimulusSet.get_type();
+
+        setLayout();
     }
 
 }

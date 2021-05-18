@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -50,11 +51,17 @@ public class Stimulus {
             case COLOR :
                 return new Rectangle(prefWidth, prefHeight);
             case IMAGE:
-                return new ImageView();
+                ImageView imageView = new ImageView();
+                imageView.maxHeight(prefHeight);
+                imageView.maxWidth(prefWidth);
+                imageView.setFitHeight(prefHeight);
+                imageView.setFitWidth(prefWidth);
+                return imageView;
             default:
                 TextField textField= new TextField();
                 textField.setPrefHeight(prefHeight);
                 textField.setPrefWidth(prefWidth);
+
                 textField.setEditable(false);
                 textField.setFont(new Font((int) (prefHeight / 3)));
                 textField.setAlignment(Pos.CENTER);

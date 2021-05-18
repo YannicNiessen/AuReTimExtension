@@ -18,10 +18,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -450,19 +447,24 @@ public class SettingsController extends AbstractBackSupportController {
 	}
 
 	private void createAndAddStimulusComboBox(VBox parentElement, Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, String label){
-		if (availableStimulusTypes.length > 0){
-			ComboBox<String> stimulusTypeComboBox = new ComboBox<>();
+		if (availableStimulusTypes.length == 0) return;
 
-			for (Stimulus.Type availableStimulusType : availableStimulusTypes) {
-				stimulusTypeComboBox.getItems().add(String.valueOf(availableStimulusType));
+		ComboBox<String> stimulusTypeComboBox = new ComboBox<>();
+
+
+		for(StimulusSet s : StimulusSet.getLoadedSets()){
+			if (Arrays.asList(availableStimulusTypes).contains(s.get_type())){
+				stimulusTypeComboBox.getItems().add(s.get_name());
 			}
-			stimulusTypeComboBox.valueProperty().bindBidirectional(stimulusTypeProperty);
-			stimulusTypeComboBox.setPrefWidth(380);
-			VBox.setMargin(stimulusTypeComboBox, new Insets(0, 50, 10, 50));
-			Label stimulusTypeLabel = createLabel(stimulusTypeComboBox, label);
-			parentElement.getChildren().add(stimulusTypeLabel);
-			parentElement.getChildren().add(stimulusTypeComboBox);
 		}
+
+		stimulusTypeComboBox.valueProperty().bindBidirectional(stimulusTypeProperty);
+		stimulusTypeComboBox.setPrefWidth(380);
+		VBox.setMargin(stimulusTypeComboBox, new Insets(0, 50, 10, 50));
+		Label stimulusTypeLabel = createLabel(stimulusTypeComboBox, label);
+		parentElement.getChildren().add(stimulusTypeLabel);
+		parentElement.getChildren().add(stimulusTypeComboBox);
+
 	}
 
 	private ColorPicker createColorPicker(StringProperty colorProperty){
@@ -1060,6 +1062,9 @@ public class SettingsController extends AbstractBackSupportController {
 		stimulusSetTypeComboBox.getItems().addAll(Stimulus.Type.values());
 		stimulusSetTypeComboBox.valueProperty().addListener((observableValue, s, t1) -> {
 			Objects.requireNonNull(StimulusSet.getSet(stimulusSetComboBox.getValue())).set_type(t1);
+			String currentSetName = stimulusSetComboBox.getValue();
+			stimulusSetComboBox.getSelectionModel().select("-1");
+		 	stimulusSetComboBox.getSelectionModel().select(currentSetName);
 		});
 
 
@@ -1114,30 +1119,59 @@ public class SettingsController extends AbstractBackSupportController {
 
 		stimulusSetComboBox.valueProperty().addListener((observableValue, s, t1) -> {
 			StimulusSet currentSet = StimulusSet.getSet(t1);
-			if (currentSet == null) return;
 			elementVBox.getChildren().clear();
-
+			if (currentSet == null) return;
 
 			HBox addItemHBox = new HBox();
-			TextField addItemTextField = new TextField();
+
+			TextField addItemTextField =  new TextField();
 			addItemTextField.setPromptText("Enter new Item here");
 
 
+			ColorPicker addItemColorPicker = new ColorPicker();
+			addItemColorPicker.setPromptText("Enter new Color here");
 
-			//addItemTextField.getParent().requestFocus();
+			FileChooser addItemFileChooser = new FileChooser();
+
+
+			Button addItemChooseFileButton = new Button();
+			addItemChooseFileButton.setText("Choose Image");
+			addItemChooseFileButton.setOnAction(actionEvent -> {
+
+				File file = addItemFileChooser.showOpenDialog(_dynamicContentAnchorPane.getScene().getWindow());
+				addItemTextField.setText(file.getAbsolutePath());
+			});
+
 			Button addItemButton = new Button();
 			addItemButton.setText("➕");
 			addItemButton.setStyle("-fx-background-color: green;");
 			addItemButton.setMaxHeight(50);
 			addItemButton.setOnAction(actionEvent -> {
-				if (addItemTextField.getText().equals(""))
-					return;
 
+				String textValue = null;
+				if(currentSet.get_type() == Stimulus.Type.LETTER || currentSet.get_type() == Stimulus.Type.DIGIT){
+					if (addItemTextField.getText().equals(""))
+						return;
+					textValue = addItemTextField.getText();
+				}else if(currentSet.get_type() == Stimulus.Type.COLOR){
+					Color c = addItemColorPicker.getValue();
 
-				currentSet.get_elements().add(addItemTextField.getText());
-				getElementHBox(currentSet, elementVBox, addItemTextField.getText());
+					textValue = String.format( "#%02X%02X%02X",
+							(int)( c.getRed() * 255 ),
+							(int)( c.getGreen() * 255 ),
+							(int)( c.getBlue() * 255 ) );
+				}else if(currentSet.get_type() == Stimulus.Type.IMAGE){
+					if (addItemTextField.getText().equals(""))
+						return;
+					textValue = addItemTextField.getText();
+				}
+				if(textValue == null) return;
+
+				currentSet.get_elements().add(textValue);
+
+				getElementHBox(currentSet, elementVBox, textValue);
 				addItemTextField.setText("");
-
+				addItemColorPicker.setValue(Color.WHITE);
 			});
 
 			addItemTextField.setOnKeyPressed(keyEvent -> {
@@ -1146,21 +1180,40 @@ public class SettingsController extends AbstractBackSupportController {
 				}
 			});
 
-			addItemHBox.getChildren().add(addItemTextField);
+			if (currentSet.get_type() == Stimulus.Type.COLOR){
+				addItemHBox.getChildren().add(addItemColorPicker);
+			}else if(currentSet.get_type() == Stimulus.Type.IMAGE){
+				addItemHBox.getChildren().add(addItemChooseFileButton);
+			}else{
+				addItemHBox.getChildren().add(addItemTextField);
+			}
+
 			addItemHBox.getChildren().add(addItemButton);
 
 			addItemHBox.setPrefWidth(elementVBox.getPrefWidth());
 			HBox.setHgrow(addItemTextField, Priority.ALWAYS);
+			HBox.setHgrow(addItemColorPicker, Priority.ALWAYS);
 			VBox.setMargin(addItemHBox, new Insets(25, 0, 10 , 0));
 
 
 			elementVBox.getChildren().add(addItemHBox);
 
-
-			stimulusSetTypeComboBox.valueProperty().setValue(currentSet.get_type());
+			Platform.runLater(() -> {
+				stimulusSetTypeComboBox.valueProperty().setValue(currentSet.get_type());
+			});
 			for(String text : currentSet.get_elements()){
 				getElementHBox(currentSet, elementVBox, text);
 			}
+
+			if (currentSet.get_name().equals("DIGIT") || currentSet.get_name().equals("LETTER") || currentSet.get_name().equals("COLOR")){
+				addItemButton.setDisable(true);
+				Text noDefaultEditText = new Text("Editing default sets: DIGIT, LETTER, COLOR is not allowed");
+				noDefaultEditText.setFill(Color.RED);
+				elementVBox.getChildren().add(noDefaultEditText);
+			}
+
+
+
 
 		});
 
@@ -1175,10 +1228,14 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(stimulusSetComboBox);
 		contentAnchor.getChildren().add(stimulusSetTypeComboBoxLabel);
 		contentAnchor.getChildren().add(stimulusSetTypeComboBox);
+
+
 		contentAnchor.getChildren().add(elementVBoxLabel);
 		contentAnchor.getChildren().add(elementVBox);
 		contentAnchor.getChildren().add(deleteButton);
 		contentAnchor.getChildren().add(addButton);
+
+
 
 
 
@@ -1190,7 +1247,11 @@ public class SettingsController extends AbstractBackSupportController {
 		HBox elementHBox = new HBox();
 		elementHBox.setPrefWidth(anchorNode.getPrefWidth());
 		Text t = new Text(text);
-		t.setFont(new Font(30));
+		if(currentSet.get_type() != Stimulus.Type.IMAGE){
+			t.setFont(new Font(30));
+		}else{
+			t.setFont(new Font(10));
+		}
 
 		Button b = new Button();
 		b.setOnAction(actionEvent -> {
@@ -1202,14 +1263,35 @@ public class SettingsController extends AbstractBackSupportController {
 		b.setAlignment(Pos.CENTER_RIGHT);
 		b.setMaxHeight(50);
 
+		if (currentSet.get_name().equals("DIGIT") || currentSet.get_name().equals("LETTER") || currentSet.get_name().equals("COLOR")) {
+			b.setDisable(true);
+		}
+
 		elementHBox.setFillHeight(true);
 		Region region1 = new Region();
+
 		HBox.setHgrow(region1, Priority.ALWAYS);
 
 		elementHBox.getChildren().add(t);
 		elementHBox.getChildren().add(region1);
+		if (currentSet.get_type() == Stimulus.Type.COLOR) {
+
+			Circle colorCircle = new Circle();
+			colorCircle.setRadius(15);
+			try{
+				colorCircle.setFill(Color.web(text));
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			HBox.setMargin(colorCircle, new Insets(2.5, 10, 0, 0));
+			elementHBox.getChildren().add(colorCircle);
+
+		}
+
 		elementHBox.getChildren().add(b);
 		elementHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+
 		VBox.setMargin(elementHBox, new Insets(10, 0 ,0, 0));
 
 

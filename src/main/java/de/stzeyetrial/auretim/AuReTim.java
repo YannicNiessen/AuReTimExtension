@@ -30,6 +30,9 @@ public class AuReTim extends Application {
 		final Config config = Config.getInstance();
 		config.load();
 
+		StimulusSet.loadAllSetsFromDisk();
+
+
 		final ScreenManager manager = new ScreenManager();
 		manager.setScreen(Screens.MAIN);
 
@@ -50,11 +53,7 @@ public class AuReTim extends Application {
         stage.show();
 
 
-		StimulusSet.loadAllSetsFromDisk();
 
-		System.out.println(String.valueOf(StimulusSet.getSet("mySet")));
-		System.out.println(String.valueOf(StimulusSet.getSet("mySet2")));
-		System.out.println(String.valueOf(StimulusSet.getSet("myColorSet")));
 
 
 

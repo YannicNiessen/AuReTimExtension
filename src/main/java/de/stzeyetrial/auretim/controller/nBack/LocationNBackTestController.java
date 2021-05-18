@@ -111,9 +111,7 @@ public class LocationNBackTestController extends AbstractNBackTestController {
 
     }
 
-    @Override
     public void setConfig() {
-        super.setConfig();
 
         if (_rowNumber != Config.getInstance().visualLocationRowCountProperty().getValue()){
             _rowNumber = Config.getInstance().visualLocationRowCountProperty().getValue();

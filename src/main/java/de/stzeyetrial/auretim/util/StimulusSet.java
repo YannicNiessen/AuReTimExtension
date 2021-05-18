@@ -4,8 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class StimulusSet implements Serializable {
@@ -18,6 +17,10 @@ public class StimulusSet implements Serializable {
     private final List<String> _elements;
     private final String _name;
 
+    private static String[] digitSet = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private static String[] letterSet = {"b", "f", "h", "i", "j", "l", "m", "o", "r", "s"};
+    private static String[] colorSet = {"#000000", "#FF0000", "#00FF00", "#0000FF", "#FFFFFF", "#00FFFF", "#FFFF00", "#FF00FF", "#964B00", "#FFC0CB"};
+
 
     public StimulusSet(Stimulus.Type type, List<String> elements, String name){
         _name = name;
@@ -26,6 +29,18 @@ public class StimulusSet implements Serializable {
     }
 
     public static void loadAllSetsFromDisk(){
+
+
+
+
+        StimulusSet defaultDIGIT = new StimulusSet(Stimulus.Type.DIGIT, Arrays.asList(digitSet), "DIGIT");
+        StimulusSet defaultLETTER = new StimulusSet(Stimulus.Type.LETTER, Arrays.asList(letterSet), "LETTER");
+        StimulusSet defaultCOLOR = new StimulusSet(Stimulus.Type.COLOR, Arrays.asList(colorSet), "COLOR");
+
+        loadedSets.add(defaultDIGIT);
+        loadedSets.add(defaultLETTER);
+        loadedSets.add(defaultCOLOR);
+
         try (Stream<Path> paths = Files.walk(Paths.get("stimulusSets"))) {
             paths
                     .filter(Files::isRegularFile)
@@ -48,6 +63,9 @@ public class StimulusSet implements Serializable {
             StimulusSet s = (StimulusSet) oi.readObject();
             oi.close();
             fi.close();
+            if (s.get_name().equals("DIGIT") || s.get_name().equals("LETTER") || s.get_name().equals("COLOR")){
+                return;
+            }
             loadedSets.add(s);
         }catch (Exception e){
             e.printStackTrace();
@@ -82,6 +100,10 @@ public class StimulusSet implements Serializable {
 
     public void deleteSetFromDisk(){
 
+
+        if (this.get_name().equals("DIGIT") || this.get_name().equals("LETTER") || this.get_name().equals("COLOR")){
+            return;
+        }
         File setFile = new File("stimulusSets/" + this._name + ".stimulus.set");
         setFile.delete();
         loadedSets.remove(this);

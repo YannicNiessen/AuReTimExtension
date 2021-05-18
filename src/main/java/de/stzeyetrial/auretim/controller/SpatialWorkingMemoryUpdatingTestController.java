@@ -410,7 +410,6 @@ public class SpatialWorkingMemoryUpdatingTestController extends AbstractControll
 
 
 	public void setConfig(){
-		_stimulusType = Stimulus.Type.valueOf(Config.getInstance().visualIdentityStimulusTypeProperty().getValue());
 		frameCount = Config.getInstance().spatialWorkingMemoryFramesProperty().getValue();
 		setLayout();
 	}
