@@ -124,9 +124,10 @@ public class ResultController extends AbstractBackSupportController {
 			switch (result.getType()) {
 				case TRUE_POSITIVE:
 					if ((Session.getCurrentSession().getTestType() == TestType.PVT_AUDITORY) && ((!Config.getInstance().auditoryPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().auditoryPVTtimeoutProperty().get()))) {
-
 						stats.addValue(result.getDuration());
 					}else if((Session.getCurrentSession().getTestType() == TestType.PVT_VISUAL) && ((!Config.getInstance().visualPVTuseNoGoProperty().get()) || (result.getDuration() < Config.getInstance().visualPVTtimeoutProperty().get()))){
+						stats.addValue(result.getDuration());
+					}else if(Session.getCurrentSession().getTestType() != TestType.PVT_VISUAL || Session.getCurrentSession().getTestType() != TestType.PVT_AUDITORY){
 						stats.addValue(result.getDuration());
 					}
 					hits++;
