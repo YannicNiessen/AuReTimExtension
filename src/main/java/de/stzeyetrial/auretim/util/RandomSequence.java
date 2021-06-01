@@ -1,5 +1,6 @@
 package de.stzeyetrial.auretim.util;
 
+import java.sql.Array;
 import java.util.*;
 
 public  class RandomSequence {
@@ -167,25 +168,133 @@ public  class RandomSequence {
         int[] matchIndices = new int[nMatch];
 
         for (int i = 0; i < nMatch; i++) {
-            matchIndices[i] = nBackLevel + ((int) (Math.random() * (length - nBackLevel)));
+
+            int newIndex = nBackLevel + ((int) (Math.random() * (length - nBackLevel)));
+            while (sequence[newIndex] != null || sequence[newIndex - nBackLevel] != null) {
+                newIndex = nBackLevel + ((int) (Math.random() * (length - nBackLevel)));
+            }
+            matchIndices[i] = newIndex;
             int digit = digits.get((int) (Math.random() * digits.size()));
             sequence[matchIndices[i]] = digit;
             sequence[matchIndices[i]-nBackLevel] = digit;
         }
 
-        return sequence;
+        List<Integer> availableDigits = new ArrayList<>(digits);
+
+        int refillIndex = 0;
+
+        for (int i =0; i < length; i++){
+            if (sequence[i] != null) continue;
+            if(availableDigits.isEmpty()){
+                refillIndex = i;
+                availableDigits.addAll(digits);
+            }
+
+            int randomDigit = availableDigits.get((int) (Math.random() * availableDigits.size()));
+
+            if (i > nBackLevel) {
+                int counter = 0;
+
+                while ((randomDigit == sequence[i - nBackLevel]) || ((i + nBackLevel < length) && (Integer.valueOf(randomDigit).equals(sequence[i + nBackLevel])))) {
+                    if (counter == availableDigits.size()){
+                        for (int j = i; j >= refillIndex; j--) {
+                            int finalJ = j;
+                            if (Arrays.stream(matchIndices).anyMatch(x -> x == finalJ))continue;
+                            sequence[j] = null;
+                        }
+                        availableDigits.clear();
+                        availableDigits.addAll(digits);
+                        i = refillIndex;
+                        counter = 0;
+                    }
+
+                    randomDigit = availableDigits.get((int) (Math.random() * availableDigits.size()));
+                    counter++;
+
+                }
+            }
+
+            sequence[i] = randomDigit;
+            availableDigits.remove((Integer) randomDigit);
+
+        }
+
+
+     return sequence;
 
 
 
 
     }
 
+    private static Integer[] verifySequence(Integer[] sequence, int nBackLevel, int length, int nMatch, int nRepeat) throws Exception {
+        int detectedLures = 0;
+        int detectedMatches = 0;
+
+        List<Integer> firstN = Arrays.asList(Arrays.copyOfRange(sequence, 0, nBackLevel));
+
+        for (int i = 0; i < nBackLevel; i++) {
+            if (firstN.lastIndexOf(sequence[i]) != i)
+                detectedLures++;
+        }
+
+        for (int i = nBackLevel; i < length; i++) {
+            int currentValue = sequence[i];
+            Integer[] relevantSlice = Arrays.copyOfRange(sequence, i - nBackLevel, i);
+            if (relevantSlice[0] == currentValue){
+                detectedMatches++;
+                continue;
+            }
+
+            for (int j = 1; j < relevantSlice.length; j++) {
+                if (relevantSlice[j] == currentValue){
+                    detectedLures++;
+                    break;
+                }
+
+            }
+
+        }
+
+        Set<Integer> uniqueNumbers = new LinkedHashSet<>(Arrays.asList(sequence));
+
+        if (length != sequence.length){
+            throw new Exception("Lengths do not match. Generated sequence has length " + sequence.length);
+        }
+        if (detectedMatches != nMatch){
+            throw new Exception("Matches to not match. Generated sequence has " + detectedMatches + " matches");
+        }
+        if(nRepeat != uniqueNumbers.size()){
+            throw new Exception("nRepeat is not correct. Generated Sequence has " + uniqueNumbers.size() + " repeats");
+        }
+
+        return sequence;
+    }
+
 
     public static void main(String[] args) {
-        Integer[] s = randomNBackSequence(20, 10, 10, 3, 0, 2, false);
-        for (int i = 0; i < s.length; i++) {
-            System.out.print(s[i] + " ");
+
+
+        int nBackLevel = 2;
+        int length = 20;
+        int matches = 3;
+        int nRepeat = 10;
+
+        for (int i = 0; i < 100000; i++) {
+
+            Integer[] s = randomNBackSequence(length, 10, nRepeat, matches, 0, nBackLevel, false);
+
+
+            try {
+                verifySequence(s, nBackLevel, length, matches, nRepeat);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
+
+
+
     }
 
 }

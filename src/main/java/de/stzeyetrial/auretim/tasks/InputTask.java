@@ -13,7 +13,6 @@ class InputTask extends AbstractInputTask {
 
 	@Override
 	protected Result evaluate(final long startStep, final long duration, final boolean timeout, final int minimumResponseTime) {
-
 		if (timeout) {
 			return new Result(startStep, duration, Result.Type.FALSE_NEGATIVE);
 		} else if (duration < minimumResponseTime) {

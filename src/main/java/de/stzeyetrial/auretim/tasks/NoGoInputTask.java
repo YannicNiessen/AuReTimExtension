@@ -19,7 +19,9 @@ public class NoGoInputTask extends AbstractInputTask {
 	protected Result evaluate(long startStep, long duration, boolean timeout, int minimumResponseTime) {
 		if (timeout) {
 			return new Result(startStep, duration, (_positive) ? FALSE_NEGATIVE : TRUE_NEGATIVE);
-		} else {
+		} else if (duration < minimumResponseTime) {
+			return new Result(startStep, duration, Result.Type.FALSE_POSITIVE);
+		}else {
 			return new Result(startStep, duration, (_positive) ? TRUE_POSITIVE : FALSE_POSITIVE);
 		}
 	}	

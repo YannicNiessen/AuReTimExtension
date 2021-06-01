@@ -105,7 +105,8 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 			final Result result;
 
 			if (_visual){
-				_currentStimulus.setValue(stimulus);
+				Stimulus finalStimulus = stimulus;
+				_executor.schedule(() -> {_currentStimulus.setValue(finalStimulus);}, delay, TimeUnit.SECONDS).get();
 				result = _executor.submit(inputTask).get();
 
 				_currentStimulus.setValue(Stimulus.unrealStimulus());
