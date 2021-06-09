@@ -128,7 +128,7 @@ public class SpeechDecoder {
             speechDecoder.processRaw(s, nbytes/2, false, false);
             if (!speechDecoder.getInSpeech()){
                 String currentWord = getCurrentWord();
-
+                if (currentWord != null){
                 if (_currentType == MaterialType.DIGITS){
                     if (_currentLanguage == Language.GERMAN){
                         currentWord = String.valueOf(germanWordToInt(currentWord));
@@ -136,7 +136,6 @@ public class SpeechDecoder {
                         currentWord = String.valueOf(englishWordToInt(currentWord));
                     }
                 }
-                if (currentWord != null){
                     currentWords.add(currentWord);
                 }
 
