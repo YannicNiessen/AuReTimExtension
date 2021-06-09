@@ -1,6 +1,7 @@
 package de.stzeyetrial.auretim.controller;
 
 import de.stzeyetrial.auretim.config.Config;
+import de.stzeyetrial.auretim.config.ConfigMeta;
 import de.stzeyetrial.auretim.screens.Screens;
 import de.stzeyetrial.auretim.session.Session;
 import de.stzeyetrial.auretim.util.PreferencesMap;
@@ -181,7 +182,7 @@ public class ResultController extends AbstractBackSupportController {
 			directory.mkdir();
 		}
 
-		String directoryName = "./results/";
+		String directoryName = ConfigMeta.getInstance().resultDirectoryProperty().getValue();
 		final String subjectId = Session.getCurrentSession().getSubjectId().replaceAll("[:\\\\/*\"?|<>]", "_");
 		final String testId = Session.getCurrentSession().getTestId().replaceAll("[:\\\\/*\"?|<>]", "_");
 		final String testType = Session.getCurrentSession().getTestType().name();

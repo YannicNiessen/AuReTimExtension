@@ -382,12 +382,11 @@ public class Config {
 
 		final Properties p = new Properties();
 		try {
-			p.load(new FileInputStream("config/" + _configFilename));
+			p.load(new FileInputStream(ConfigMeta.getInstance().configDirectoryProperty().getValue() + _configFilename));
 		} catch (final IOException ex) {
 			Logger.getLogger(Config.class.getName()).log(Level.WARNING, "Could not load config file.", ex);
 		}
 
-		System.out.println(p.getProperty(PROPERTY_INPUT));
 
 		directoryProperty().setValue(p.getProperty(PROPERTY_DIRECTORY, PROPERTY_DIRECTORY_DEFAULT));
 		inputProperty().setValue(Input.valueOf(p.getProperty(PROPERTY_INPUT, PROPERTY_INPUT_DEFAULT)));
@@ -665,7 +664,7 @@ public class Config {
 		p.setProperty(PROPERTY_SPATIAL_WORKING_MEMORY_INITIAL_DELAY, Integer.toString(spatialWorkingMemoryInitialDelayProperty().getValue()));
 
 
-		p.store(new FileOutputStream("config/" + _configFilename), CONFIG_COMMENT);
+		p.store(new FileOutputStream(ConfigMeta.getInstance().configDirectoryProperty().getValue() + _configFilename), CONFIG_COMMENT);
 
 
 	}

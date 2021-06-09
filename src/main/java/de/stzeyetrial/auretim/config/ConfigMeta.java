@@ -19,17 +19,27 @@ import java.util.logging.Logger;
  * @author strasser
  */
 public class ConfigMeta {
-	private static final String CONFIG_FILENAME							= "config/meta.config.properties";
+	private static final String CONFIG_FILENAME								= "config/meta.config.properties";
 
-	private static final String CONFIG_COMMENT							= "AuReTim configuration meta";
+	private static final String CONFIG_COMMENT								= "AuReTim configuration meta";
+
+	private static final String PROPERTY_CONFIG_DIRECTORY					= "configDirectory";
+
+	private static final String PROPERTY_RESULT_DIRECTORY					= "resultDirectory";
 
 	private static final String PROPERTY_ACTIVE_CONFIG						= "activeConfig";
 
 	private static final String PROPERTY_ACTIVE_CONFIG_DEFAULT				= "default.config.properties";
 
-	private final StringProperty _activeConfig				= new SimpleStringProperty();
+	private static final String PROPERTY_CONFIG_DIRECTORY_DEFAULT 			= "config/";
 
+	private static final String PROPERTY_RESULT_DIRECTORY_DEFAULT 			= "results/";
 
+	private final StringProperty _activeConfig								= new SimpleStringProperty();
+
+	private final StringProperty _configDirectory							= new SimpleStringProperty();
+
+	private final StringProperty _resultDirectory 							= new SimpleStringProperty();
 
 	private static ConfigMeta _instance;
 
@@ -70,6 +80,8 @@ public class ConfigMeta {
 		}
 
 		activeConfigProperty().setValue(p.getProperty(PROPERTY_ACTIVE_CONFIG, PROPERTY_ACTIVE_CONFIG_DEFAULT));
+		configDirectoryProperty().setValue(p.getProperty(PROPERTY_CONFIG_DIRECTORY, PROPERTY_CONFIG_DIRECTORY_DEFAULT));
+		resultDirectoryProperty().setValue(p.getProperty(PROPERTY_RESULT_DIRECTORY, PROPERTY_RESULT_DIRECTORY_DEFAULT));
 
 	}
 
@@ -77,17 +89,25 @@ public class ConfigMeta {
 		final Properties p = new Properties();
 
 		p.setProperty(PROPERTY_ACTIVE_CONFIG,activeConfigProperty().getValue());
+		p.setProperty(PROPERTY_CONFIG_DIRECTORY,configDirectoryProperty().getValue());
+		p.setProperty(PROPERTY_RESULT_DIRECTORY,resultDirectoryProperty().getValue());
 
 		p.store(new FileOutputStream(CONFIG_FILENAME), CONFIG_COMMENT);
-
-		Config.getInstance().load();
-
 
 	}
 
 	public StringProperty activeConfigProperty() {
 		return _activeConfig;
 	}
+
+	public StringProperty configDirectoryProperty() {
+		return _configDirectory;
+	}
+
+	public StringProperty resultDirectoryProperty() {
+		return _resultDirectory;
+	}
+
 
 
 

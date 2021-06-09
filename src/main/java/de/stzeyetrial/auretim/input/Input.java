@@ -6,5 +6,6 @@ package de.stzeyetrial.auretim.input;
 public enum Input {
 	BUTTON,
 	MOUSE,
-	KEYBOARD
+	KEYBOARD,
+	SPEECH
 }

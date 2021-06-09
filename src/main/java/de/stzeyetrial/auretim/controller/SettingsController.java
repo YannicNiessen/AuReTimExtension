@@ -8,6 +8,7 @@ import de.stzeyetrial.auretim.config.ConfigMeta;
 import de.stzeyetrial.auretim.controller.nBack.*;
 import de.stzeyetrial.auretim.input.Input;
 import de.stzeyetrial.auretim.input.InputFactory;
+import de.stzeyetrial.auretim.input.SpeechDecoder;
 import de.stzeyetrial.auretim.screens.Screens;
 import de.stzeyetrial.auretim.util.*;
 
@@ -51,6 +52,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -65,7 +67,7 @@ import org.controlsfx.validation.Validator;
  * @author strasser
  */
 public class SettingsController extends AbstractBackSupportController {
-	private static final int WAIT_TIME = 5;
+	private static final int WAIT_TIME = 10;
 
 	private final ValidationSupport _validation = new ValidationSupport();
 	private final ExecutorService _executor = Executors.newSingleThreadExecutor( r -> {
@@ -230,6 +232,7 @@ public class SettingsController extends AbstractBackSupportController {
 	private void saveImplicit(){
 		try {
 			Config.getInstance().save();
+			ConfigMeta.getInstance().save();
 			StimulusSet.saveAllSetsToDisk();
 
 			((IdentityNBackTestController) getScreenManager().getController(Screens.N_BACK_VISUAL_STIMULUS_IDENTITY)).setConfig();
@@ -290,7 +293,7 @@ public class SettingsController extends AbstractBackSupportController {
 	}
 
 	@FXML
-	private void inputTest(final ActionEvent e, Button inputTestButton, Circle indicator) {
+	private void inputTest(final ActionEvent e, Button inputTestButton, Circle indicator, Input inputType) {
 		e.consume();
 
 		final AtomicInteger time = new AtomicInteger(WAIT_TIME);
@@ -307,6 +310,23 @@ public class SettingsController extends AbstractBackSupportController {
 		);
 		timeline.setCycleCount(WAIT_TIME);
 		timeline.play();
+		if (inputType == Input.SPEECH){
+			Runnable r = new Runnable() {
+				@Override
+				public void run() {
+					try {
+						SpeechDecoder.getInstance().clearWords();
+						SpeechDecoder.getInstance().initialize(SpeechDecoder.Language.GERMAN, Stimulus.Type.DIGIT);
+						SpeechDecoder.getInstance().startRecording();
+					} catch (InterruptedException | IOException | LineUnavailableException interruptedException) {
+						interruptedException.printStackTrace();
+					}
+				}
+			};
+			Thread t = new Thread(r);
+			t.start();
+		}
+
 		
 		_executor.submit(() -> {
 			final CountDownLatch latch = new CountDownLatch(1);
@@ -322,7 +342,28 @@ public class SettingsController extends AbstractBackSupportController {
 			}
 
 			timeline.stop();
+
+			SpeechDecoder.getInstance().stopRecording();
+			List<String> recognizedWords = SpeechDecoder.getInstance().currentWords;
+
+
 			Platform.runLater(() -> {
+				if(!recognizedWords.isEmpty()){
+
+					String recognizedWordsString = "";
+					for (int i = 0; i < recognizedWords.size(); i++) {
+						recognizedWordsString += recognizedWords.get(i) + " ";
+					}
+
+
+					Alert alert = new Alert(Alert.AlertType.INFORMATION);
+					alert.setTitle("Recognized Words");
+					alert.setHeaderText("");
+					alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+					alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+					alert.setContentText("The following digits were recognized: " + recognizedWordsString);
+					alert.show();
+				}
 				inputTestButton.setDisable(false);
 				inputTestButton.setText(_rb.getString("inputTestButton.text"));
 			});
@@ -338,7 +379,7 @@ public class SettingsController extends AbstractBackSupportController {
 	public void load(ActionEvent actionEvent) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Config File");
-		fileChooser.setInitialDirectory(new File("config"));
+		fileChooser.setInitialDirectory(new File(ConfigMeta.getInstance().configDirectoryProperty().getValue()));
 		File file = fileChooser.showOpenDialog(_dynamicContentAnchorPane.getScene().getWindow());
 
 		if (!file.getName().equals("meta.config.properties")){
@@ -358,6 +399,7 @@ public class SettingsController extends AbstractBackSupportController {
 
 			try {
 				configMeta.save();
+				config.load();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -389,7 +431,7 @@ public class SettingsController extends AbstractBackSupportController {
 			System.out.println("directory exists");
 		}
 
-		File file = new File("config/" + response.get() + ".config.properties");
+		File file = new File(ConfigMeta.getInstance().configDirectoryProperty().getValue() + response.get() + ".config.properties");
 		saveTextToFile("", file);
 		loadImplicit(file);
 		saveImplicit();
@@ -1016,7 +1058,6 @@ public class SettingsController extends AbstractBackSupportController {
 
 		Label useAutoCompletionCheckBoxLabel = createLabel(useAutoCompletionCheckBox, "Use Autocompletion");
 
-
 		ComboBox<Input> inputComboBox = new ComboBox<>();
 		inputComboBox.itemsProperty().get().addAll(Input.values());
 
@@ -1033,9 +1074,36 @@ public class SettingsController extends AbstractBackSupportController {
 
 		Button testInputButton = new Button();
 		testInputButton.setText("Test Input");
-		testInputButton.setOnAction(e -> inputTest(e, testInputButton, indicatorCircle));
+		testInputButton.setOnAction(e -> inputTest(e, testInputButton, indicatorCircle, inputComboBox.getValue()));
 		VBox.setMargin(testInputButton, new Insets(0, 50, 10, 50));
 
+		DirectoryChooser configDirectoryChooser = new DirectoryChooser();
+		configDirectoryChooser.setTitle("Choose Config Directory");
+
+		Button configDirectoryButton = new Button(ConfigMeta.getInstance().configDirectoryProperty().getValue());
+		configDirectoryButton.setOnAction(actionEvent -> {
+			File configDirectory = configDirectoryChooser.showDialog(_dynamicContentAnchorPane.getScene().getWindow());
+			if (configDirectory != null){
+				ConfigMeta.getInstance().configDirectoryProperty().setValue(configDirectory.getAbsolutePath() + "/");
+				configDirectoryButton.setText(configDirectory.getAbsolutePath() + "/");
+			}
+		});
+		Label configDirectoryLabel = createLabel(configDirectoryButton, "Config Directory");
+		VBox.setMargin(configDirectoryButton, new Insets(0, 50, 10, 50));
+
+		DirectoryChooser resultDirectoryChooser = new DirectoryChooser();
+		resultDirectoryChooser.setTitle("Choose Result Directory");
+
+		Button resultDirectoryButton = new Button(ConfigMeta.getInstance().resultDirectoryProperty().getValue());
+		resultDirectoryButton.setOnAction(actionEvent -> {
+			File resultDirectory = resultDirectoryChooser.showDialog(_dynamicContentAnchorPane.getScene().getWindow());
+			if (resultDirectory != null){
+				ConfigMeta.getInstance().resultDirectoryProperty().setValue(resultDirectory.getAbsolutePath() + "/");
+				resultDirectoryButton.setText(resultDirectory.getAbsolutePath() + "/");
+			}
+		});
+		Label resultDirectoryLabel = createLabel(resultDirectoryButton, "Result Directory");
+		VBox.setMargin(resultDirectoryButton, new Insets(0, 50, 10, 50));
 
 		contentAnchor.getChildren().add(useAutoCompletionCheckBoxLabel);
 		contentAnchor.getChildren().add(useAutoCompletionCheckBox);
@@ -1043,6 +1111,12 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(inputComboBox);
 		contentAnchor.getChildren().add(testInputButton);
 		contentAnchor.getChildren().add(indicatorCircle);
+
+		contentAnchor.getChildren().add(configDirectoryLabel);
+		contentAnchor.getChildren().add(configDirectoryButton);
+
+		contentAnchor.getChildren().add(resultDirectoryLabel);
+		contentAnchor.getChildren().add(resultDirectoryButton);
 
 	}
 

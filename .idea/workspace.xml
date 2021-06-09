@@ -14,7 +14,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62bbde6f-770b-405c-ad97-e7898d97b85b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/SpeechDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/SpeechDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/default.config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config/default.config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/meta.config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config/meta.config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/ConfigMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/config/ConfigMeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/ResultController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/ResultController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/Input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
