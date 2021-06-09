@@ -1,5 +1,6 @@
 package de.stzeyetrial.auretim.controller;
 
+import com.sun.glass.ui.PlatformFactory;
 import de.stzeyetrial.auretim.audio.SpeechSynthesizer;
 import de.stzeyetrial.auretim.audio.Tone;
 import de.stzeyetrial.auretim.audio.ToneUtils;
@@ -20,10 +21,7 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -308,12 +306,12 @@ public class SettingsController extends AbstractBackSupportController {
 				ae -> inputTestButton.setText(String.format(_rb.getString("inputTestButtonWait.text"), time.getAndDecrement()))
 			)
 		);
+
 		timeline.setCycleCount(WAIT_TIME);
 		timeline.play();
 		if (inputType == Input.SPEECH){
 			Runnable r = () -> {
 				try {
-					SpeechDecoder.getInstance().clearWords();
 					SpeechDecoder.getInstance().initialize(SpeechDecoder.Language.GERMAN, Stimulus.Type.DIGIT);
 					SpeechDecoder.getInstance().startRecording();
 				} catch (InterruptedException | IOException | LineUnavailableException interruptedException) {
@@ -322,7 +320,51 @@ public class SettingsController extends AbstractBackSupportController {
 			};
 			Thread t = new Thread(r);
 			t.start();
-		}
+
+			Runnable r2 = () -> {
+				for (int i = 0; i < WAIT_TIME; i++) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException interruptedException) {
+						interruptedException.printStackTrace();
+					}
+				}
+				SpeechDecoder.getInstance().stopRecording();
+
+				List<String> recognizedWords = SpeechDecoder.getInstance().currentWords;
+
+				if(!recognizedWords.isEmpty()){
+					String recognizedWordsString = "";
+					for (int i = 0; i < recognizedWords.size(); i++) {
+						recognizedWordsString += recognizedWords.get(i) + " ";
+					}
+					String finalRecognizedWordsString = recognizedWordsString;
+					Platform.runLater(() ->{
+						Alert alert = new Alert(Alert.AlertType.INFORMATION);
+						alert.setTitle("Recognized Words");
+						alert.setHeaderText("");
+						alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+						alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+						alert.setContentText("The following digits were recognized: " + finalRecognizedWordsString);
+						alert.show();
+					});
+
+				}
+
+				timeline.stop();
+				Platform.runLater(() ->{
+					inputTestButton.setDisable(false);
+					inputTestButton.setText(_rb.getString("inputTestButton.text"));
+				});
+
+			};
+			new Thread(r2).start();
+
+
+
+
+		}else{
+
 
 		
 		_executor.submit(() -> {
@@ -336,40 +378,21 @@ public class SettingsController extends AbstractBackSupportController {
 					Platform.runLater(() -> indicator.fillProperty().setValue(Color.RED));
 				}				
 			} catch (InterruptedException ex) {
+				ex.printStackTrace();
 			}
+
 
 			timeline.stop();
 
-			SpeechDecoder.getInstance().stopRecording();
-			List<String> recognizedWords = SpeechDecoder.getInstance().currentWords;
 
-			for (int i = 0; i < recognizedWords.size(); i++) {
-				System.out.println(recognizedWords.get(i));
-			}
-			
 
 
 			Platform.runLater(() -> {
-				if(!recognizedWords.isEmpty()){
-
-					String recognizedWordsString = "";
-					for (int i = 0; i < recognizedWords.size(); i++) {
-						recognizedWordsString += recognizedWords.get(i) + " ";
-					}
-
-
-					Alert alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setTitle("Recognized Words");
-					alert.setHeaderText("");
-					alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-					alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
-					alert.setContentText("The following digits were recognized: " + recognizedWordsString);
-					alert.show();
-				}
 				inputTestButton.setDisable(false);
 				inputTestButton.setText(_rb.getString("inputTestButton.text"));
 			});
 		});
+		}
 
 
 

@@ -97,9 +97,9 @@ public class SpeechDecoder {
         c.setString("-logfn", "/dev/null");
         c.setFloat("-silprob", 1.0);
         c.setFloat("-wip", 1e-25);
-        //c.setFloat("-samprate", 48000);
         speechDecoder = new Decoder(c);
         recognizedWordsList = new ArrayList<String>();
+        currentWords = new ArrayList<>();
 
         instance = this;
 
@@ -180,6 +180,7 @@ public class SpeechDecoder {
     }
 
     public void stopRecording() {
+        System.out.println("stopping recording...");
             recording = false;
     }
 
