@@ -126,6 +126,7 @@ public class SpeechDecoder {
                 String currentWord = getCurrentWord();
                 if (currentWord != null){
                     currentWords.add(currentWord);
+                    System.out.println(currentWord);
                 }
 
             }
