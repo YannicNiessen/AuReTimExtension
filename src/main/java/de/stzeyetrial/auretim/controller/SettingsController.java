@@ -344,7 +344,7 @@ public class SettingsController extends AbstractBackSupportController {
 						alert.setTitle("Recognized Words");
 						alert.setHeaderText("");
 						alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-						alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+						alert.getDialogPane().setStyle("-fx-font-size: 0.7em;");
 						alert.setContentText("The following digits were recognized: " + finalRecognizedWordsString);
 						alert.show();
 					});
