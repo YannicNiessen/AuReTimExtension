@@ -151,6 +151,8 @@ public class SpeechDecoder {
         System.out.println("line ended");
         speechDecoder.endUtt();
         speechDecoder.delete();
+        line.close();
+
     }
 
 
