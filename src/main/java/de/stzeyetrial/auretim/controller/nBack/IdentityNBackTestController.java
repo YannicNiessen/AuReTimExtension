@@ -63,7 +63,7 @@ public class IdentityNBackTestController extends AbstractNBackTestController {
         final MonoNBackTask task;
         try {
             //task = new MonoNBackTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, false);
-            MonoNBackSpeechTask _task = new MonoNBackSpeechTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, false);
+            MonoNBackSpeechTask _task = new MonoNBackSpeechTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, false, _stimulusSet);
             _task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
             //task.setOnFailed(event -> getScreenManager().showException(task.getException()));
             bind(_task);

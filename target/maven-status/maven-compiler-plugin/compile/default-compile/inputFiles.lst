@@ -62,7 +62,7 @@
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/tasks/MackworthClockTask.java
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/tasks/AbstractInputTask.java
 /home/x/AuReTim/src/main/java/edu/cmu/pocketsphinx/SWIGTYPE_p_float32.java
-/home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechTask.java
+/home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/tasks/AbstractNBackSpeechTask.java
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/controller/AbstractController.java
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/config/Config.java
 /home/x/AuReTim/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java

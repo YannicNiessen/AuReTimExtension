@@ -2,6 +2,7 @@
 package de.stzeyetrial.auretim.input;
 
 import de.stzeyetrial.auretim.tests.SpeechDecoderTest;
+import de.stzeyetrial.auretim.util.Stimulus;
 import edu.cmu.pocketsphinx.Config;
 import edu.cmu.pocketsphinx.Decoder;
 import edu.cmu.pocketsphinx.*;
@@ -27,7 +28,7 @@ public class SpeechDecoder {
     private static boolean recording = false;
     public static SpeechDecoder instance;
     private static Language _currentLanguage;
-    private static MaterialType _currentType;
+    private static Stimulus.Type _currentType;
 
     public enum Language {
         GERMAN,
@@ -64,7 +65,7 @@ public class SpeechDecoder {
         return format;
     }
 
-    public void initialize(SpeechDecoder.Language language, SpeechDecoder.MaterialType materialType) throws InterruptedException, IOException, LineUnavailableException {
+    public void initialize(Language language, Stimulus.Type materialType) throws InterruptedException, IOException, LineUnavailableException {
 
         if (speechDecoder != null){
             speechDecoder.delete();
@@ -94,7 +95,6 @@ public class SpeechDecoder {
         c.setString("-logfn", "/dev/null");
         c.setFloat("-silprob", 1.0);
         c.setFloat("-wip", 1e-25);
-
         speechDecoder = new Decoder(c);
         recognizedWordsList = new ArrayList<String>();
 
@@ -133,7 +133,7 @@ public class SpeechDecoder {
             if (!speechDecoder.getInSpeech()){
                 String currentWord = getCurrentWord();
                 if (currentWord != null){
-                if (_currentType == MaterialType.DIGITS){
+                if (_currentType == Stimulus.Type.DIGIT){
                     if (_currentLanguage == Language.GERMAN){
                         currentWord = String.valueOf(germanWordToInt(currentWord));
                     }else{

@@ -5,6 +5,7 @@ import de.stzeyetrial.auretim.output.TriggerType;
 import de.stzeyetrial.auretim.util.RandomSequence;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
+import de.stzeyetrial.auretim.util.StimulusSet;
 import javafx.beans.property.ReadOnlyObjectProperty;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -22,7 +23,9 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 
 	private Integer[] _sequence;
 
-	public MonoNBackSpeechTask(final List<Result> results, final int length, final int nOptions, final int nRepeat, final int nMatch, final int nLures, final int nBackLevel, final int timeout, final boolean reUseElements) throws Exception {
+	private StimulusSet _stimulusSet;
+
+	public MonoNBackSpeechTask(final List<Result> results, final int length, final int nOptions, final int nRepeat, final int nMatch, final int nLures, final int nBackLevel, final int timeout, final boolean reUseElements, StimulusSet stimulusSet) throws Exception {
 		super(results, length, nBackLevel, timeout);
 
 		_executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE, r -> {
@@ -33,6 +36,7 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 		Runtime.getRuntime().addShutdownHook(new Thread(() ->_executor.shutdown()));
 
 		_sequence = RandomSequence.getRandomSequenceNBack(_length, nOptions, nRepeat, nMatch, nLures, _nBackLevel, true);
+		_stimulusSet = stimulusSet;
 
 	}
 
@@ -53,7 +57,7 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 			@Override
 			public void run() {
 				try {
-					SpeechDecoder.getInstance().initialize(SpeechDecoder.Language.GERMAN, SpeechDecoder.MaterialType.DIGITS);
+					SpeechDecoder.getInstance().initialize(SpeechDecoder.Language.GERMAN, _stimulusSet.get_type());
 					SpeechDecoder.getInstance().startRecording();
 				} catch (InterruptedException | IOException | LineUnavailableException e) {
 					e.printStackTrace();

@@ -15,7 +15,21 @@
   <component name="ChangeListManager">
     <list default="true" id="62bbde6f-770b-405c-ad97-e7898d97b85b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/SpeechDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/SpeechDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechInputTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechInputTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/input/SpeechDecoder$Language.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/input/SpeechDecoder$MaterialType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/input/SpeechDecoder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NBackSpeechInputTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NBackSpeechInputTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tests/SpeechDecoderTest$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tests/SpeechDecoderTest$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tests/SpeechDecoderTest$Language.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tests/SpeechDecoderTest$Language.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tests/SpeechDecoderTest$MaterialType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tests/SpeechDecoderTest$MaterialType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tests/SpeechDecoderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tests/SpeechDecoderTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
