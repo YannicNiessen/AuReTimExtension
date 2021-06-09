@@ -54,7 +54,6 @@ public class NBackSpeechInputTask implements Callable<Result> {
 
 		final long start = System.currentTimeMillis();
 		final boolean timeout = !_latch.await(_maximumTime, TimeUnit.MILLISECONDS);
-		System.out.println("here");
 		final long now = System.currentTimeMillis();
 
 		final long startStep = start - _testStart;
@@ -64,6 +63,7 @@ public class NBackSpeechInputTask implements Callable<Result> {
 			_trigger.trigger(TriggerType.RESPONSE);
 		}
 		List<String> currentWords = SpeechDecoder.getInstance().currentWords;
+		System.out.println("expected: " + _expectedValue);
 
 		for (int i = 0; i < currentWords.size(); i++) {
 			System.out.println("recognized: " + currentWords.get(i));
