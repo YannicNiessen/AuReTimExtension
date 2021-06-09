@@ -63,7 +63,7 @@ public class NBackSpeechInputTask implements Callable<Result> {
 		if (!timeout) {
 			_trigger.trigger(TriggerType.RESPONSE);
 		}
-		List<String> currentWords = SpeechDecoder.currentWords;
+		List<String> currentWords = SpeechDecoder.getInstance().currentWords;
 
 		for (int i = 0; i < currentWords.size(); i++) {
 			System.out.println("recognized: " + currentWords.get(i));

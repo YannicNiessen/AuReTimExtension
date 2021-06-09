@@ -23,7 +23,7 @@ public class SpeechDecoder {
     private static TargetDataLine line;
     private static Decoder speechDecoder;
     private static List<String> recognizedWordsList = new ArrayList<>();
-    public static volatile List<String> currentWords;
+    public volatile List<String> currentWords;
     private static boolean recording = false;
     public static SpeechDecoder instance;
 
@@ -126,7 +126,6 @@ public class SpeechDecoder {
                 String currentWord = getCurrentWord();
                 if (currentWord != null){
                     currentWords.add(currentWord);
-                    System.out.println(currentWord);
                 }
 
             }
