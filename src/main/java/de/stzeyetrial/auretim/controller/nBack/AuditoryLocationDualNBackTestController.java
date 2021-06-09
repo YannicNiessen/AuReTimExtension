@@ -75,7 +75,7 @@ public class AuditoryLocationDualNBackTestController extends AbstractNBackTestCo
 
         final DualNBackTask task;
         try {
-            task = new DualNBackTask(results, length, nOptionsAuditorySequence, nRepeatAuditorySequence, nMatchAuditorySequence, nLuresAuditorySequence, nOptionsLocationSequence, nRepeatLocationSequence, nMatchLocationSequence, nLuresLocationSequence, nBackLevel, timeout);
+            task = new DualNBackTask(results, length, nOptionsAuditorySequence, nRepeatAuditorySequence, nMatchAuditorySequence, nLuresAuditorySequence,reUseElementsAuditorySequence, nOptionsLocationSequence, nRepeatLocationSequence, nMatchLocationSequence, nLuresLocationSequence, reUseElementsLocationSequence, nBackLevel, timeout);
             task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
             //task.setOnFailed(event -> getScreenManager().showException(task.getException()));
             bind(task);

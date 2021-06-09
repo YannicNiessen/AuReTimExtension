@@ -1,8 +1,10 @@
 package de.stzeyetrial.auretim.controller.nBack;
 
 import de.stzeyetrial.auretim.config.Config;
+import de.stzeyetrial.auretim.input.Input;
 import de.stzeyetrial.auretim.screens.Screens;
 import de.stzeyetrial.auretim.session.Session;
+import de.stzeyetrial.auretim.tasks.AbstractNBackTask;
 import de.stzeyetrial.auretim.tasks.MonoNBackSpeechTask;
 import de.stzeyetrial.auretim.tasks.MonoNBackTask;
 import de.stzeyetrial.auretim.util.Result;
@@ -60,15 +62,18 @@ public class IdentityNBackTestController extends AbstractNBackTestController {
         final List<Result> results = Session.getCurrentSession().getResults();
         results.clear();
 
-        final MonoNBackTask task;
+        final AbstractNBackTask task;
         try {
-            //task = new MonoNBackTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, false);
-            MonoNBackSpeechTask _task = new MonoNBackSpeechTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, false, _stimulusSet);
-            _task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
+            if(Config.getInstance().inputProperty().get() == Input.SPEECH){
+                task = new MonoNBackSpeechTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, reUseElements, _stimulusSet);
+            }else{
+                task = new MonoNBackTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, reUseElements);
+            }
+            task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
             //task.setOnFailed(event -> getScreenManager().showException(task.getException()));
-            bind(_task);
+            bind(task);
 
-            _future = _executor.submit(_task);
+            _future = _executor.submit(task);
         } catch (Exception e) {
             e.printStackTrace();
         }

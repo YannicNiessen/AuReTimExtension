@@ -35,7 +35,7 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 		});
 		Runtime.getRuntime().addShutdownHook(new Thread(() ->_executor.shutdown()));
 
-		_sequence = RandomSequence.getRandomSequenceNBack(_length, nOptions, nRepeat, nMatch, nLures, _nBackLevel, true);
+		_sequence = RandomSequence.getRandomSequenceNBack(_length, nOptions, nRepeat, nMatch, nLures, _nBackLevel, reUseElements);
 		_stimulusSet = stimulusSet;
 
 	}

@@ -1,6 +1,7 @@
 package de.stzeyetrial.auretim.controller;
 
 import com.sun.glass.ui.PlatformFactory;
+import com.sun.jdi.BooleanValue;
 import de.stzeyetrial.auretim.audio.SpeechSynthesizer;
 import de.stzeyetrial.auretim.audio.Tone;
 import de.stzeyetrial.auretim.audio.ToneUtils;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
@@ -467,14 +469,6 @@ public class SettingsController extends AbstractBackSupportController {
 			System.out.println("no response");
 		}
 
-		/*
-		FileChooser fileChooser = new FileChooser();
-		//Show save file dialog
-		File file = fileChooser.showSaveDialog(_dynamicContentAnchorPane.getScene().getWindow());
-		if (file != null) {
-			saveTextToFile("", file);
-		}
-		*/
 	}
 
 	private void saveTextToFile(String content, File file) {
@@ -511,6 +505,13 @@ public class SettingsController extends AbstractBackSupportController {
 		textField.setPrefWidth(380);
 		VBox.setMargin(textField, new Insets(0, 50, 10, 50));
 		return textField;
+	}
+
+	private CheckBox createCheckBox(BooleanProperty valueProperty){
+		CheckBox checkBox = new CheckBox();
+		checkBox.selectedProperty().bindBidirectional(valueProperty);
+		VBox.setMargin(checkBox, new Insets(0, 50, 10, 50));
+		return checkBox;
 	}
 
 	private void createAndAddStimulusComboBox(VBox parentElement, Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, String label){
@@ -558,7 +559,7 @@ public class SettingsController extends AbstractBackSupportController {
 
 
 
-	private void addSequenceSettings(Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, IntegerProperty sequenceLengthProperty, IntegerProperty sequenceRepeatProperty, IntegerProperty sequenceMatchesProperty , IntegerProperty sequenceLuresProperty, IntegerProperty sequenceNBackLevelProperty){
+	private void addSequenceSettings(Stimulus.Type[] availableStimulusTypes, StringProperty stimulusTypeProperty, IntegerProperty sequenceLengthProperty, IntegerProperty sequenceRepeatProperty, IntegerProperty sequenceMatchesProperty , IntegerProperty sequenceLuresProperty, IntegerProperty sequenceNBackLevelProperty, BooleanProperty reUseElementsProperty){
 		VBox contentAnchor = (VBox) _scrollPane.getContent();
 
 		createAndAddStimulusComboBox(contentAnchor, availableStimulusTypes, stimulusTypeProperty, "Stimulus Type");
@@ -568,12 +569,14 @@ public class SettingsController extends AbstractBackSupportController {
 		TextField sequenceMatchesTextField = createTextField(sequenceMatchesProperty, 1);
 		TextField sequenceLuresTextField = createTextField(sequenceLuresProperty, 1);
 		TextField sequenceNBackLevelTextField = createTextField(sequenceNBackLevelProperty, 1);
+		CheckBox reUseElementsCheckbox = createCheckBox(reUseElementsProperty);
 
 		Label sequenceLengthLabel = createLabel(sequenceLengthTextField, "Length");
 		Label sequenceRepeatingLabel = createLabel(sequenceRepeatingTextField, "Repeating Elements");
 		Label sequenceMatchesLabel = createLabel(sequenceMatchesTextField, "Matches");
 		Label sequenceLuresLabel = createLabel(sequenceLuresTextField, "Lures");
 		Label sequenceNBackLevelLabel = createLabel(sequenceNBackLevelTextField, "n-Back Level");
+		Label reUseElementsLabel = createLabel(reUseElementsCheckbox, "Re-Use Elements");
 
 		contentAnchor.getChildren().add(sequenceLengthLabel);
 		contentAnchor.getChildren().add(sequenceLengthTextField);
@@ -585,9 +588,11 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(sequenceLuresTextField);
 		contentAnchor.getChildren().add(sequenceNBackLevelLabel);
 		contentAnchor.getChildren().add(sequenceNBackLevelTextField);
+		contentAnchor.getChildren().add(reUseElementsLabel);
+		contentAnchor.getChildren().add(reUseElementsCheckbox);
 	}
 
-	private void addDualSequenceSettings(String firstSequenceName, String secondSequenceName, Stimulus.Type[] availableStimulusTypesFirstSequence, Stimulus.Type[] availableStimulusTypesSecondSequence, StringProperty stimulusTypePropertyFirstSequence, StringProperty stimulusTypePropertySecondSequence, IntegerProperty sequenceLengthProperty, IntegerProperty firstSequenceRepeatProperty, IntegerProperty secondSequenceRepeatProperty, IntegerProperty firstSequenceMatchesProperty , IntegerProperty secondSequenceMatchesProperty ,IntegerProperty firstSequenceLuresProperty, IntegerProperty secondSequenceLuresProperty, IntegerProperty sequenceNBackLevelProperty){
+	private void addDualSequenceSettings(String firstSequenceName, String secondSequenceName, Stimulus.Type[] availableStimulusTypesFirstSequence, Stimulus.Type[] availableStimulusTypesSecondSequence, StringProperty stimulusTypePropertyFirstSequence, StringProperty stimulusTypePropertySecondSequence, IntegerProperty sequenceLengthProperty, IntegerProperty firstSequenceRepeatProperty, IntegerProperty secondSequenceRepeatProperty, IntegerProperty firstSequenceMatchesProperty , IntegerProperty secondSequenceMatchesProperty ,IntegerProperty firstSequenceLuresProperty, IntegerProperty secondSequenceLuresProperty, BooleanProperty firstSequenceReUseElementsProperty, BooleanProperty secondSequenceReUseElementsProperty, IntegerProperty sequenceNBackLevelProperty){
 		VBox contentAnchor = (VBox) _scrollPane.getContent();
 
 		TextField sequenceNBackLevelTextField = createTextField(sequenceNBackLevelProperty, 1);
@@ -601,20 +606,27 @@ public class SettingsController extends AbstractBackSupportController {
 		TextField firstSequenceRepeatingTextField = createTextField(firstSequenceRepeatProperty, 1);
 		TextField firstSequenceMatchesTextField = createTextField(firstSequenceMatchesProperty, 1);
 		TextField firstSequenceLuresTextField = createTextField(firstSequenceLuresProperty, 1);
+		CheckBox firstSequenceReUseElementsCheckBox = createCheckBox(firstSequenceReUseElementsProperty);
 
 		Label firstSequenceRepeatingLabel = createLabel(firstSequenceRepeatingTextField, firstSequenceName + " Sequence Repeating Elements");
 		Label firstSequenceMatchesLabel = createLabel(firstSequenceMatchesTextField, firstSequenceName + " Sequence Matches");
 		Label firstSequenceLuresLabel = createLabel(firstSequenceLuresTextField, firstSequenceName + " Sequence Lures");
+		Label firstSequenceReUseElementsLabel = createLabel(firstSequenceReUseElementsCheckBox, firstSequenceName + "Sequence Re-Use Elements");
 
 		createAndAddStimulusComboBox(contentAnchor, availableStimulusTypesSecondSequence, stimulusTypePropertySecondSequence, secondSequenceName + " Stimulus Type");
 
 		TextField secondSequenceRepeatingTextField = createTextField(secondSequenceRepeatProperty, 1);
 		TextField secondSequenceMatchesTextField = createTextField(secondSequenceMatchesProperty, 1);
 		TextField secondSequenceLuresTextField = createTextField(secondSequenceLuresProperty, 1);
+		CheckBox secondSequenceReUseElementsCheckBox = createCheckBox(secondSequenceReUseElementsProperty);
+
 
 		Label secondSequenceRepeatingLabel = createLabel(secondSequenceRepeatingTextField, secondSequenceName + " Sequence Repeating Elements");
 		Label secondSequenceMatchesLabel = createLabel(secondSequenceMatchesTextField, secondSequenceName + " Sequence Matches");
 		Label secondSequenceLuresLabel = createLabel(secondSequenceLuresTextField, secondSequenceName + " Sequence Lures");
+		Label secondSequenceReUseElementsLabel = createLabel(secondSequenceReUseElementsCheckBox, secondSequenceName + "Sequence Re-Use Elements");
+
+
 
 		contentAnchor.getChildren().add(sequenceLengthLabel);
 		contentAnchor.getChildren().add(sequenceLengthTextField);
@@ -628,6 +640,8 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(firstSequenceMatchesTextField);
 		contentAnchor.getChildren().add(firstSequenceLuresLabel);
 		contentAnchor.getChildren().add(firstSequenceLuresTextField);
+		contentAnchor.getChildren().add(firstSequenceReUseElementsLabel);
+		contentAnchor.getChildren().add(firstSequenceReUseElementsCheckBox);
 
 
 		contentAnchor.getChildren().add(secondSequenceRepeatingLabel);
@@ -636,6 +650,8 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(secondSequenceMatchesTextField);
 		contentAnchor.getChildren().add(secondSequenceLuresLabel);
 		contentAnchor.getChildren().add(secondSequenceLuresTextField);
+		contentAnchor.getChildren().add(secondSequenceReUseElementsLabel);
+		contentAnchor.getChildren().add(secondSequenceReUseElementsCheckBox);
 
 	}
 
@@ -651,13 +667,14 @@ public class SettingsController extends AbstractBackSupportController {
 		IntegerProperty sequenceLuresProperty = config.visualIdentitySequenceNLuresProperty();
 		IntegerProperty sequenceNBackLevelProperty = config.visualIdentitySequenceNBackLevelProperty();
 		IntegerProperty intervalProperty  = config.visualIdentityIntervalProperty();
+		BooleanProperty reUseElementsProperty = config.visualIdentitySequenceReUseElementProperty();
 
 
 		StringProperty selectedStimulusProperty = config.visualIdentityStimulusTypeProperty();
 
 		Stimulus.Type[] availableTypes = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER, Stimulus.Type.COLOR, Stimulus.Type.IMAGE};
 
-		addSequenceSettings(availableTypes, selectedStimulusProperty, sequenceLengthProperty, sequenceRepeatProperty, sequenceMatchProperty, sequenceLuresProperty, sequenceNBackLevelProperty);
+		addSequenceSettings(availableTypes, selectedStimulusProperty, sequenceLengthProperty, sequenceRepeatProperty, sequenceMatchProperty, sequenceLuresProperty, sequenceNBackLevelProperty, reUseElementsProperty);
 
 		TextField intervalTextField = createTextField(intervalProperty, 1);
 		Label intervalLabel = createLabel(intervalTextField, "Interval (ms)");
@@ -679,12 +696,13 @@ public class SettingsController extends AbstractBackSupportController {
 		IntegerProperty sequenceNBackLevelProperty = config.visualLocationSequenceNBackLevelProperty();
 		IntegerProperty intervalProperty   = config.visualLocationIntervalProperty();
 		IntegerProperty rowCountProperty   = config.visualLocationRowCountProperty();
+		BooleanProperty reUseElementsProperty = config.visualLocationSequenceReUseElementProperty();
 
 		StringProperty selectedStimulusProperty = config.visualIdentityStimulusTypeProperty();
 
 		Stimulus.Type[] availableTypes = {};
 
-		addSequenceSettings(availableTypes, selectedStimulusProperty, sequenceLengthProperty, sequenceRepeatProperty, sequenceMatchProperty, sequenceLuresProperty, sequenceNBackLevelProperty);
+		addSequenceSettings(availableTypes, selectedStimulusProperty, sequenceLengthProperty, sequenceRepeatProperty, sequenceMatchProperty, sequenceLuresProperty, sequenceNBackLevelProperty, reUseElementsProperty);
 
 		TextField intervalTextField = createTextField(intervalProperty, 1);
 		Label intervalLabel = createLabel(intervalTextField, "Interval (ms)");
@@ -723,13 +741,14 @@ public class SettingsController extends AbstractBackSupportController {
 		IntegerProperty sequenceLuresProperty = config.auditorySequenceNLuresProperty();
 		IntegerProperty sequenceNBackLevelProperty = config.auditorySequenceNBackLevelProperty();
 		IntegerProperty intervalProperty  = config.auditoryIntervalProperty();
+		BooleanProperty reUseElementsProperty = config.auditorySequenceReUseElementProperty();
 
 
 		StringProperty selectedStimulusProperty = config.auditoryStimulusTypeProperty();
 
 		Stimulus.Type[] availableTypes = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER};
 
-		addSequenceSettings(availableTypes, selectedStimulusProperty, sequenceLengthProperty, sequenceRepeatProperty, sequenceMatchProperty, sequenceLuresProperty, sequenceNBackLevelProperty);
+		addSequenceSettings(availableTypes, selectedStimulusProperty, sequenceLengthProperty, sequenceRepeatProperty, sequenceMatchProperty, sequenceLuresProperty, sequenceNBackLevelProperty, reUseElementsProperty);
 
 		TextField intervalTextField = createTextField(intervalProperty, 1);
 		Label intervalLabel = createLabel(intervalTextField, "Interval (ms)");
@@ -759,6 +778,10 @@ public class SettingsController extends AbstractBackSupportController {
 
 		StringProperty auditorySequenceSelectedStimulusProperty = config.dualAuditoryLocationStimulusTypeProperty();
 
+		BooleanProperty firstSequenceReUseElementsProperty = config.dualAuditoryLocationFirstSequenceReUseElementProperty();
+		BooleanProperty secondSequenceReUseElementsProperty = config.dualAuditoryLocationSecondSequenceReUseElementProperty();
+
+
 		Stimulus.Type[] availableTypes = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER};
 
 		TextField intervalTextField = createTextField(intervalProperty, 1);
@@ -778,7 +801,7 @@ public class SettingsController extends AbstractBackSupportController {
 
 
 
-		addDualSequenceSettings("Auditory", "Location", availableTypes, new Stimulus.Type[]{}, auditorySequenceSelectedStimulusProperty, null, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, sequenceNBackLevelProperty);
+		addDualSequenceSettings("Auditory", "Location", availableTypes, new Stimulus.Type[]{}, auditorySequenceSelectedStimulusProperty, null, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, firstSequenceReUseElementsProperty, secondSequenceReUseElementsProperty, sequenceNBackLevelProperty);
 
 	}
 
@@ -802,6 +825,9 @@ public class SettingsController extends AbstractBackSupportController {
 		StringProperty auditorySequenceSelectedStimulusProperty = config.dualAuditoryIdentityFirstStimulusTypeProperty();
 		StringProperty identitySequenceSelectedStimulusProperty = config.dualAuditoryIdentitySecondStimulusTypeProperty();
 
+		BooleanProperty firstSequenceReUseElementsProperty = config.dualAuditoryIdentityFirstSequenceReUseElementProperty();
+		BooleanProperty secondSequenceReUseElementsProperty = config.dualAuditoryIdentitySecondSequenceReUseElementProperty();
+
 		Stimulus.Type[] availableTypesAuditory = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER};
 		Stimulus.Type[] availableTypesIdentity = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER, Stimulus.Type.COLOR, Stimulus.Type.IMAGE};
 
@@ -810,7 +836,7 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(intervalLabel);
 		contentAnchor.getChildren().add(intervalTextField);
 
-		addDualSequenceSettings("Auditory", "Identity", availableTypesAuditory, availableTypesIdentity, auditorySequenceSelectedStimulusProperty, identitySequenceSelectedStimulusProperty, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, sequenceNBackLevelProperty);
+		addDualSequenceSettings("Auditory", "Identity", availableTypesAuditory, availableTypesIdentity, auditorySequenceSelectedStimulusProperty, identitySequenceSelectedStimulusProperty, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, firstSequenceReUseElementsProperty, secondSequenceReUseElementsProperty, sequenceNBackLevelProperty);
 	}
 
 	private void addDualIdentityLocationNBackSettings(){
@@ -830,6 +856,9 @@ public class SettingsController extends AbstractBackSupportController {
 		IntegerProperty secondSequenceMatchProperty = config.dualIdentityLocationSecondSequenceNMatchProperty();
 		IntegerProperty secondSequenceLuresProperty = config.dualIdentityLocationSecondSequenceNLuresProperty();
 
+		BooleanProperty firstSequenceReUseElementsProperty = config.dualIdentityLocationFirstSequenceReUseElementProperty();
+		BooleanProperty secondSequenceReUseElementsProperty = config.dualIdentityLocationSecondSequenceReUseElementProperty();
+
 		StringProperty identitySequenceSelectedStimulusProperty = config.dualIdentityLocationStimulusTypeProperty();
 
 		Stimulus.Type[] availableTypes = {Stimulus.Type.DIGIT, Stimulus.Type.LETTER, Stimulus.Type.COLOR, Stimulus.Type.IMAGE};
@@ -846,7 +875,7 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(rowCountLabel);
 		contentAnchor.getChildren().add(rowCountTextField);
 
-		addDualSequenceSettings("Identity", "Location", availableTypes, new Stimulus.Type[]{}, identitySequenceSelectedStimulusProperty, null, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, sequenceNBackLevelProperty);
+		addDualSequenceSettings("Identity", "Location", availableTypes, new Stimulus.Type[]{}, identitySequenceSelectedStimulusProperty, null, sequenceLengthProperty, firstSequenceRepeatProperty,secondSequenceRepeatProperty, firstSequenceMatchProperty, secondSequenceMatchProperty,firstSequenceLuresProperty, secondSequenceLuresProperty, firstSequenceReUseElementsProperty, secondSequenceReUseElementsProperty, sequenceNBackLevelProperty);
 	}
 
 

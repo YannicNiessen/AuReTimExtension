@@ -76,7 +76,7 @@ public class AuditoryIdentityDualNBackTestController extends AbstractNBackTestCo
 
         final DualNBackTask task;
         try {
-            task = new DualNBackTask(results, length, nOptionsAuditorySequence, nRepeatAuditorySequence, nMatchAuditorySequence, nLuresAuditorySequence, nOptionsIdentitySequence, nRepeatIdentitySequence, nMatchIdentitySequence, nLuresIdentitySequence, nBackLevel, timeout);
+            task = new DualNBackTask(results, length, nOptionsAuditorySequence, nRepeatAuditorySequence, nMatchAuditorySequence, nLuresAuditorySequence, reUseElementsAuditorySequence,  nOptionsIdentitySequence, nRepeatIdentitySequence, nMatchIdentitySequence, nLuresIdentitySequence, reUseElementsIdentitySequence, nBackLevel, timeout);
             task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
             //task.setOnFailed(event -> getScreenManager().showException(task.getException()));
             bind(task);

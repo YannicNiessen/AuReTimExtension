@@ -71,7 +71,7 @@ public class IdentityLocationDualNBackTestController extends AbstractNBackTestCo
 
         final DualNBackTask task;
         try {
-            task = new DualNBackTask(results, length, nOptionsIdentitySequence, nRepeatIdentitySequence, nMatchIdentitySequence, nLuresIdentitySequence, nOptionsLocationSequence, nRepeatLocationSequence, nMatchLocationSequence, nLuresLocationSequence, nBackLevel, timeout);
+            task = new DualNBackTask(results, length, nOptionsIdentitySequence, nRepeatIdentitySequence, nMatchIdentitySequence, nLuresIdentitySequence, reUseElementsIdentitySequence, nOptionsLocationSequence, nRepeatLocationSequence, nMatchLocationSequence, nLuresLocationSequence, reUseElementsLocationSequence, nBackLevel, timeout);
             task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
             //task.setOnFailed(event -> getScreenManager().showException(task.getException()));
             bind(task);

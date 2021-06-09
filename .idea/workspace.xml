@@ -14,7 +14,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62bbde6f-770b-405c-ad97-e7898d97b85b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryIdentityDualNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryIdentityDualNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryLocationDualNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryLocationDualNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/AuditoryNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityLocationDualNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityLocationDualNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/DualNBackTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/DualNBackTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/RandomSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/RandomSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

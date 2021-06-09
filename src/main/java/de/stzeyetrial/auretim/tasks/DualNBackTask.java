@@ -31,10 +31,12 @@ public class DualNBackTask extends AbstractNBackTask{
 							final int nRepeatFirstSequence,
 							final int nMatchFirstSequence,
 							final int nLuresFirstSequence,
+							final boolean reUseElementsFirstSequence,
 							final int nOptionsSecondSequence,
 							final int nRepeatSecondSequence,
 							final int nMatchSecondSequence,
 							final int nLuresSecondSequence,
+							final boolean reUseElementsSecondSequence,
 							final int nBackLevel,
 							final int timeout
 							) throws Exception {
@@ -47,8 +49,8 @@ public class DualNBackTask extends AbstractNBackTask{
 		});
 		Runtime.getRuntime().addShutdownHook(new Thread(() ->_executor.shutdown()));
 
-		_firstSequence = RandomSequence.getRandomSequenceNBack(length, nOptionsFirstSequence, nRepeatFirstSequence, nMatchFirstSequence, nLuresFirstSequence, nBackLevel, true);
-		_secondSequence = RandomSequence.getRandomSequenceNBack(length, nOptionsSecondSequence, nRepeatSecondSequence, nMatchSecondSequence, nLuresSecondSequence, nBackLevel, true);
+		_firstSequence = RandomSequence.getRandomSequenceNBack(length, nOptionsFirstSequence, nRepeatFirstSequence, nMatchFirstSequence, nLuresFirstSequence, nBackLevel, reUseElementsFirstSequence);
+		_secondSequence = RandomSequence.getRandomSequenceNBack(length, nOptionsSecondSequence, nRepeatSecondSequence, nMatchSecondSequence, nLuresSecondSequence, nBackLevel, reUseElementsSecondSequence);
 
 	}
 

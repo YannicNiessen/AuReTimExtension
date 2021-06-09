@@ -9,7 +9,12 @@ public  class RandomSequence {
 
 
 
-    public static Integer[] getRandomSequenceNBack(int length, int nOptions, int nRepeat, int nMatch, int nLures, int nBackLevel, boolean reUseDigit) throws Exception {
+    public static Integer[] getRandomSequenceNBackOld(int length, int nOptions, int nRepeat, int nMatch, int nLures, int nBackLevel, boolean reUseDigit) throws Exception {
+
+        if (reUseDigit){
+          //  return randomNBackSequence(length, nOptions, nRepeat, nMatch, nLures , nBackLevel, true);
+        }
+
         List<Integer> digits = new ArrayList<>();
         while(digits.size() < nRepeat){
             int newDigit = (int) (Math.random() * nOptions);
@@ -154,7 +159,7 @@ public  class RandomSequence {
         return result;
     }
 
-    public static Integer[] randomNBackSequence(int length, int nOptions, int nRepeat, int nMatch, int nLures, int nBackLevel, boolean reUseDigit){
+    public static Integer[] getRandomSequenceNBack(int length, int nOptions, int nRepeat, int nMatch, int nLures, int nBackLevel, boolean reUseDigit) {
 
         List<Integer> digits = new ArrayList<>();
         while(digits.size() < nRepeat){
@@ -231,7 +236,9 @@ public  class RandomSequence {
                 continue;
             }
             sequence[i] = randomDigit;
-            availableDigits.remove((Integer) randomDigit);
+            if (!reUseDigit){
+                availableDigits.remove((Integer) randomDigit);
+            }
 
         }
 
@@ -287,7 +294,7 @@ public  class RandomSequence {
         if (detectedMatches != nMatch){
             throw new Exception("Matches do not match. Generated sequence has " + detectedMatches + " matches. Sequence is: " + sequenceString);
         }
-        if(nRepeat != uniqueNumbers.size()){
+        if(nRepeat < uniqueNumbers.size()){
             throw new Exception("nRepeat is not correct. Generated Sequence has " + uniqueNumbers.size() + " repeats");
         }
 
@@ -295,18 +302,17 @@ public  class RandomSequence {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
 
         int nBackLevel = 2;
-        int length = 20;
+        int length = 10;
         int matches = 3;
         int nRepeat = 10;
 
         for (int i = 0; i < 100000; i++) {
 
-            Integer[] s = randomNBackSequence(length, 10, nRepeat, matches, 0, nBackLevel, false);
-
+            Integer[] s = getRandomSequenceNBack(length, 10, nRepeat, matches, 0, nBackLevel, true);
 
             try {
                 verifySequence(s, nBackLevel, length, matches, nRepeat);

@@ -6,6 +6,7 @@ import de.stzeyetrial.auretim.input.Input;
 import de.stzeyetrial.auretim.screens.Screens;
 import de.stzeyetrial.auretim.session.Session;
 import de.stzeyetrial.auretim.tasks.AbstractNBackTask;
+import de.stzeyetrial.auretim.tasks.MonoNBackSpeechTask;
 import de.stzeyetrial.auretim.tasks.MonoNBackTask;
 import de.stzeyetrial.auretim.util.Result;
 import de.stzeyetrial.auretim.util.Stimulus;
@@ -14,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.apache.commons.math3.analysis.function.Abs;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -57,16 +59,17 @@ public class AuditoryNBackTestController extends AbstractNBackTestController {
         final int timeout				= Config.getInstance().auditoryIntervalProperty().get();
         final boolean reUseElements		= Config.getInstance().auditorySequenceReUseElementProperty().get();
 
-
-        final boolean useVoiceRecognition = Config.getInstance().useVoiceRecognitionProperty().get();
-
         final int nOptions = _stimulusSet.get_elements().size();
         final List<Result> results = Session.getCurrentSession().getResults();
         results.clear();
 
-        final MonoNBackTask task;
+        final AbstractNBackTask task;
         try {
-            task = new MonoNBackTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, false);
+            if(Config.getInstance().inputProperty().get() == Input.SPEECH){
+                task = new MonoNBackSpeechTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, reUseElements, _stimulusSet);
+            }else{
+                task = new MonoNBackTask(results, length, nOptions, nRepeat, nMatch, nLures, nBackLevel,  timeout, reUseElements);
+            }
             task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
             //task.setOnFailed(event -> getScreenManager().showException(task.getException()));
             bind(task);
