@@ -68,7 +68,7 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 			if (i >= _nBackLevel)
 				positive = (_sequence[i - _nBackLevel].equals(_sequence[i]));
 
-			final AbstractInputTask inputTask = getInputTask(gate, testStart, positive);
+			final NBackSpeechInputTask inputTask = getSpeechInputTask(gate, testStart, positive, "");
 
 			_currentStimulus.setValue(Stimulus.unrealStimulus());
 
@@ -90,7 +90,7 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 		return Collections.unmodifiableList(_results);
 	}
 
-	protected NBackSpeechInputTask getInputTask(final CyclicBarrier gate, final long testStart, boolean result, String expectedValue){
+	protected NBackSpeechInputTask getSpeechInputTask(final CyclicBarrier gate, final long testStart, boolean result, String expectedValue){
 		return new NBackSpeechInputTask(gate, testStart, _timeout,0 , result, expectedValue);
 	};
 }
