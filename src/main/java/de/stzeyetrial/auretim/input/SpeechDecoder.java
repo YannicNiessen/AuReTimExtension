@@ -66,6 +66,10 @@ public class SpeechDecoder {
 
     public void initialize(SpeechDecoder.Language language, SpeechDecoder.MaterialType materialType) throws InterruptedException, IOException, LineUnavailableException {
 
+        if (speechDecoder != null){
+            speechDecoder.delete();
+        }
+
         Config c = Decoder.defaultConfig();
 
         String languageString = (language == SpeechDecoder.Language.GERMAN) ? "german" : "english";
