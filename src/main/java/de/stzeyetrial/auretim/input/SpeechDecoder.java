@@ -65,7 +65,7 @@ public class SpeechDecoder {
         return format;
     }
 
-    public void initialize(Language language, Stimulus.Type materialType) throws InterruptedException, IOException, LineUnavailableException {
+    public void initialize(SpeechDecoder.Language language, Stimulus.Type materialType) throws InterruptedException, IOException, LineUnavailableException {
 
         if (speechDecoder != null){
             speechDecoder.delete();
@@ -74,10 +74,12 @@ public class SpeechDecoder {
         Config c = Decoder.defaultConfig();
 
         String languageString = (language == SpeechDecoder.Language.GERMAN) ? "german" : "english";
-        String typeString =  materialType.toString().toLowerCase();
+        String typeString =  materialType.toString().toLowerCase() + "s";
 
         _currentLanguage= language;
         _currentType = materialType;
+
+        System.out.println(typeString);
 
         String acousticModel = "speechRecognition/acousticModels/" + languageString + "/";
         String languageModels = "speechRecognition/languageModels/" + typeString + "/" + languageString + ".arpa";
@@ -95,6 +97,7 @@ public class SpeechDecoder {
         c.setString("-logfn", "/dev/null");
         c.setFloat("-silprob", 1.0);
         c.setFloat("-wip", 1e-25);
+        //c.setFloat("-samprate", 48000);
         speechDecoder = new Decoder(c);
         recognizedWordsList = new ArrayList<String>();
 
