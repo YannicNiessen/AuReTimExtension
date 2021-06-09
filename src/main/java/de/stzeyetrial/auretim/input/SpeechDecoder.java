@@ -83,7 +83,7 @@ public class SpeechDecoder {
 
         c.setInt("-vad_postspeech", 15);
         c.setFloat("-vad_threshold", 2.0);
-       // c.setString("-logfn", "/dev/null");
+        c.setString("-logfn", "/dev/null");
         c.setFloat("-silprob", 1.0);
         c.setFloat("-wip", 1e-25);
 
