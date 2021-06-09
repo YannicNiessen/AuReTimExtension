@@ -14,27 +14,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62bbde6f-770b-405c-ad97-e7898d97b85b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractNBackSpeechTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/InputTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/InputTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NoGoInputTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NoGoInputTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/SpeechDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/input/SpeechDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechInputTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechInputTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/tasks/NBackSpeechTask.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/RandomSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/stzeyetrial/auretim/util/RandomSequence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/AuReTim-1.3-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/AbstractRunnerTask.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/InputTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/InputTask.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NoGoInputTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/tasks/NoGoInputTask.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/util/RandomSequence.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/stzeyetrial/auretim/util/RandomSequence.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/MackworthClockTest.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/Test.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/VisualPVT.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestAuditive.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestDual.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualIdentity.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualIdentityDual.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocation.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocationDual.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/nBackTestVisualLocationIdentityDual.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/spatialWorkingMemoryUpdate.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,8 +80,8 @@
       <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="de.stzeyetrial.auretim.controller" />
       <recent name="de.stzeyetrial.auretim.tasks" />
+      <recent name="de.stzeyetrial.auretim.controller" />
       <recent name="de.stzeyetrial.auretim.tests" />
       <recent name="de.stzeyetrial.auretim.config" />
       <recent name="de.stzeyetrial.auretim.input" />

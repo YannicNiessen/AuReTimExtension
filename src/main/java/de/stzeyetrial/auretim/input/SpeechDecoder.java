@@ -1,6 +1,7 @@
 
 package de.stzeyetrial.auretim.input;
 
+import de.stzeyetrial.auretim.tests.SpeechDecoderTest;
 import edu.cmu.pocketsphinx.Config;
 import edu.cmu.pocketsphinx.Decoder;
 import edu.cmu.pocketsphinx.*;
@@ -22,14 +23,27 @@ public class SpeechDecoder {
     private static TargetDataLine line;
     private static Decoder speechDecoder;
     private static List<String> recognizedWordsList = new ArrayList<>();
-    public static List<String> synList = Collections.synchronizedList(recognizedWordsList);
+    public static volatile List<String> currentWords;
     private static boolean recording = false;
     public static SpeechDecoder instance;
+
+    public enum Language {
+        GERMAN,
+        ENGLISH
+    }
+
+    public enum MaterialType{
+        LETTERS,
+        DIGITS,
+        COLORS
+    }
 
 
     public static SpeechDecoder getInstance() {
         return instance;
     }
+
+
 
     static AudioFormat getAudioFormat() {
         float sampleRate = 16000;
@@ -42,16 +56,31 @@ public class SpeechDecoder {
         return format;
     }
 
-    public void initialize() throws InterruptedException, IOException, LineUnavailableException {
+    public void initialize(SpeechDecoder.Language language, SpeechDecoder.MaterialType materialType) throws InterruptedException, IOException, LineUnavailableException {
 
         Config c = Decoder.defaultConfig();
-        c.setString("-hmm", "/home/pi/Downloads/cmusphinx-ptm-voxforge-de-r20171217/model_parameters/voxforge.cd_ptm_5000/");
-        //c.setString("-lm", "/home/pi/Downloads/srilm-voxforge-de-r20171217.arpa");
-        c.setString("-lm", "/home/pi/Documents/myLM.arpa");
-        c.setString("-dict", "/home/pi/Downloads/myDic.dic");
+
+        String languageString = (language == SpeechDecoder.Language.GERMAN) ? "german" : "english";
+        String typeString =  materialType.toString().toLowerCase();
+
+
+        String acousticModel = "speechRecognition/acousticModels/" + languageString + "/";
+        String languageModels = "speechRecognition/languageModels/" + typeString + "/" + languageString + ".arpa";
+        String dictionary = "speechRecognition/dictionaries/" + typeString + "/" + languageString + ".dic";
+
+
+
+        c.setString("-hmm", acousticModel);
+        c.setString("-lm", languageModels);
+        c.setString("-dict", dictionary);
+
+
         c.setInt("-vad_postspeech", 15);
         c.setFloat("-vad_threshold", 2.0);
         c.setString("-logfn", "/dev/null");
+        c.setFloat("-silprob", 1.0);
+        c.setFloat("-wip", 1e-25);
+
         speechDecoder = new Decoder(c);
         recognizedWordsList = new ArrayList<String>();
 
@@ -59,8 +88,8 @@ public class SpeechDecoder {
 
     }
 
-    public synchronized void clearList(){
-        synList.clear();
+    public synchronized void clearWords(){
+        currentWords.clear();
     }
 
 
@@ -72,8 +101,7 @@ public class SpeechDecoder {
         line.open(getAudioFormat());
         line.start();
         speechDecoder.startUtt();
-        recognizedWordsList = new ArrayList<>();
-        synList = Collections.synchronizedList(recognizedWordsList);
+        currentWords = new ArrayList<>();
 
         byte[] b = new byte[line.getBufferSize() / 5];
 
@@ -91,9 +119,7 @@ public class SpeechDecoder {
             if (!speechDecoder.getInSpeech()){
                 String currentWord = getCurrentWord();
                 if (currentWord != null){
-                    synchronized (synList){
-                        synList.add(currentWord);
-                    }
+                    currentWords.add(currentWord);
                 }
 
             }
@@ -111,8 +137,6 @@ public class SpeechDecoder {
             String currentWord = hypothesis.getHypstr();
 
             if (currentWord != null){
-
-
                 speechDecoder.endUtt();
                 speechDecoder.startUtt();
                 return currentWord;
@@ -130,7 +154,7 @@ public class SpeechDecoder {
     }
 
     public synchronized List<String> getRecognizedWordsList(){
-        return synList;
+        return currentWords;
     }
 
     public boolean isRecording() {

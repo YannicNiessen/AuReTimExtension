@@ -56,7 +56,6 @@ de/stzeyetrial/auretim/output/TriggerType.class
 edu/cmu/pocketsphinx/NBestList.class
 de/stzeyetrial/auretim/input/gpio/GPIOButtonInput.class
 de/stzeyetrial/auretim/controller/nBack/IdentityNBackTestController$1.class
-de/stzeyetrial/auretim/tasks/NBackSpeechTask.class
 de/stzeyetrial/auretim/Preloader.class
 de/stzeyetrial/auretim/input/mouse/MouseButtonInput.class
 de/stzeyetrial/auretim/controller/nBack/AbstractNBackTestController$2$1.class
@@ -74,6 +73,7 @@ de/stzeyetrial/auretim/tasks/SpeechTask.class
 de/stzeyetrial/auretim/controller/nBack/IdentityLocationDualNBackTestController.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_ps_seg_t.class
 de/stzeyetrial/auretim/controller/nBack/LocationNBackTestController.class
+de/stzeyetrial/auretim/input/SpeechDecoder$Language.class
 de/stzeyetrial/auretim/tests/SpeechDecoderTest$1.class
 de/stzeyetrial/auretim/tests/SpeechDecoderTest$Language.class
 edu/cmu/pocketsphinx/SWIGTYPE_p_float32.class
@@ -108,10 +108,12 @@ de/stzeyetrial/auretim/input/AbstractInputSource.class
 de/stzeyetrial/auretim/controller/MackworthClockTestController$2$1.class
 de/stzeyetrial/auretim/controller/nBack/AuditoryIdentityDualNBackTestController$1.class
 de/stzeyetrial/auretim/controller/MackworthClockTestController.class
+de/stzeyetrial/auretim/tasks/AbstractNBackSpeechTask.class
 de/stzeyetrial/auretim/output/NoOpTrigger.class
 de/stzeyetrial/auretim/util/NullSafeNumberStringConverter.class
 de/stzeyetrial/auretim/controller/SpatialWorkingMemoryUpdatingTestController$1.class
 de/stzeyetrial/auretim/util/Result$Type.class
+de/stzeyetrial/auretim/input/SpeechDecoder$MaterialType.class
 de/stzeyetrial/auretim/tasks/MonoNBackSpeechTask.class
 de/stzeyetrial/auretim/controller/DirectoryChooserController.class
 de/stzeyetrial/auretim/util/ByteBufferBackedInputStream.class

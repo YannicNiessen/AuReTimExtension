@@ -34,12 +34,10 @@ public class NBackSpeechInputTask implements Callable<Result> {
 
 	private final int _maximumTime;
 
-	private static int _wordsSizePreAdd = 0;
-	private int _expectedValue;
+	private String _expectedValue;
 	private static List<String> _allWords = new ArrayList<>();
-	private String _foundWord;
 
-	public NBackSpeechInputTask(final CyclicBarrier gate, final long testStart, final int maximumTime, final int minimumResponseTime, final boolean positive, int expectedValue) {
+	public NBackSpeechInputTask(final CyclicBarrier gate, final long testStart, final int maximumTime, final int minimumResponseTime, final boolean positive, String expectedValue) {
 		_gate = gate;
 		_testStart = testStart;
 		_maximumTime = maximumTime;
@@ -55,7 +53,7 @@ public class NBackSpeechInputTask implements Callable<Result> {
 		_gate.await();
 
 		final long start = System.currentTimeMillis();
-		final boolean timeout = !_latch.await(_maximumTime, TimeUnit.SECONDS);
+		final boolean timeout = !_latch.await(_maximumTime, TimeUnit.MILLISECONDS);
 
 		final long now = System.currentTimeMillis();
 
@@ -65,27 +63,13 @@ public class NBackSpeechInputTask implements Callable<Result> {
 		if (!timeout) {
 			_trigger.trigger(TriggerType.RESPONSE);
 		}
-		List<String> words = new ArrayList<>();
-		synchronized (SpeechDecoder.synList){
-			for (int j = _wordsSizePreAdd; j < SpeechDecoder.synList.size(); j++) {
-				words.add(SpeechDecoder.synList.get(j));
-			}
-			_wordsSizePreAdd = SpeechDecoder.synList.size();
+		List<String> currentWords = SpeechDecoder.currentWords;
+
+		for (int i = 0; i < currentWords.size(); i++) {
+			System.out.println("recognized: " + currentWords.get(i));
 		}
 
-		boolean foundWord = false;
-		for (int j = 0; j < words.size(); j++) {
-			if (words.get(j).contains(intToGermanWord(_expectedValue))){
-				_allWords.add(String.valueOf(_expectedValue));
-				foundWord = true;
-				_foundWord = String.valueOf(_expectedValue);
-				break;
-			}
-			if (j == words.size()-1){
-				_allWords.add(String.valueOf(germanWordToInt(words.get(j).split(" ")[0])));
-				_foundWord = _allWords.get(_allWords.size()-1);
-			}
-		}
+		boolean foundWord = currentWords.contains(_expectedValue);
 
 		return evaluate(startStep, duration, timeout, foundWord);
 	}
@@ -152,9 +136,6 @@ public class NBackSpeechInputTask implements Callable<Result> {
 		return _allWords;
 	}
 
-	public String get_foundWord() {
-		return _foundWord;
-	}
 
 	public static void resetAllWords(){
 		_allWords.clear();

@@ -170,14 +170,19 @@ public  class RandomSequence {
         for (int i = 0; i < nMatch; i++) {
 
             int newIndex = nBackLevel + ((int) (Math.random() * (length - nBackLevel)));
-            while (sequence[newIndex] != null || sequence[newIndex - nBackLevel] != null) {
+            while (sequence[newIndex] != null || sequence[newIndex - nBackLevel] != null || ((newIndex + nBackLevel < length) && sequence[newIndex + nBackLevel] != null)) {
                 newIndex = nBackLevel + ((int) (Math.random() * (length - nBackLevel)));
             }
             matchIndices[i] = newIndex;
             int digit = digits.get((int) (Math.random() * digits.size()));
+            while(matchIndices[i] >= 2 * nBackLevel){
+                if (!(sequence[matchIndices[i] - 2 * nBackLevel] != null && sequence[matchIndices[i] - 2 * nBackLevel] == digit)) break;
+                digit = digits.get((int) (Math.random() * digits.size()));
+            }
             sequence[matchIndices[i]] = digit;
             sequence[matchIndices[i]-nBackLevel] = digit;
         }
+
 
         List<Integer> availableDigits = new ArrayList<>(digits);
 
@@ -192,14 +197,14 @@ public  class RandomSequence {
 
             int randomDigit = availableDigits.get((int) (Math.random() * availableDigits.size()));
 
-            if (i > nBackLevel) {
+            if (i >= nBackLevel) {
                 int counter = 0;
 
                 while ((randomDigit == sequence[i - nBackLevel]) || ((i + nBackLevel < length) && (Integer.valueOf(randomDigit).equals(sequence[i + nBackLevel])))) {
                     if (counter == availableDigits.size()){
                         for (int j = i; j >= refillIndex; j--) {
                             int finalJ = j;
-                            if (Arrays.stream(matchIndices).anyMatch(x -> x == finalJ))continue;
+                            if (Arrays.stream(matchIndices).anyMatch(x -> x == finalJ || x - nBackLevel == finalJ))continue;
                             sequence[j] = null;
                         }
                         availableDigits.clear();
@@ -210,14 +215,26 @@ public  class RandomSequence {
 
                     randomDigit = availableDigits.get((int) (Math.random() * availableDigits.size()));
                     counter++;
+                    if (i < nBackLevel){
+                        randomDigit = -1;
+                        break;
+                    }
 
                 }
+            }else if(sequence[i + nBackLevel] != null && randomDigit == sequence[i + nBackLevel]){
+                while(randomDigit == sequence[i + nBackLevel]){
+                    randomDigit = availableDigits.get((int) (Math.random() * availableDigits.size()));
+                }
             }
-
+            if(randomDigit == -1){
+                i--;
+                continue;
+            }
             sequence[i] = randomDigit;
             availableDigits.remove((Integer) randomDigit);
 
         }
+
 
 
      return sequence;
@@ -258,11 +275,17 @@ public  class RandomSequence {
 
         Set<Integer> uniqueNumbers = new LinkedHashSet<>(Arrays.asList(sequence));
 
+        String sequenceString = "";
+        for (int i = 0; i < sequence.length; i++) {
+            sequenceString += sequence[i] + " ";
+        }
+
+
         if (length != sequence.length){
             throw new Exception("Lengths do not match. Generated sequence has length " + sequence.length);
         }
         if (detectedMatches != nMatch){
-            throw new Exception("Matches to not match. Generated sequence has " + detectedMatches + " matches");
+            throw new Exception("Matches do not match. Generated sequence has " + detectedMatches + " matches. Sequence is: " + sequenceString);
         }
         if(nRepeat != uniqueNumbers.size()){
             throw new Exception("nRepeat is not correct. Generated Sequence has " + uniqueNumbers.size() + " repeats");
