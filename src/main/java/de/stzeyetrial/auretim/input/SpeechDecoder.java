@@ -106,7 +106,9 @@ public class SpeechDecoder {
     }
 
     public synchronized void clearWords(){
-        currentWords.clear();
+        if (currentWords != null){
+            currentWords.clear();
+        }
     }
 
 
