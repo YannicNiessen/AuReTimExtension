@@ -311,16 +311,13 @@ public class SettingsController extends AbstractBackSupportController {
 		timeline.setCycleCount(WAIT_TIME);
 		timeline.play();
 		if (inputType == Input.SPEECH){
-			Runnable r = new Runnable() {
-				@Override
-				public void run() {
-					try {
-						SpeechDecoder.getInstance().clearWords();
-						SpeechDecoder.getInstance().initialize(SpeechDecoder.Language.GERMAN, Stimulus.Type.DIGIT);
-						SpeechDecoder.getInstance().startRecording();
-					} catch (InterruptedException | IOException | LineUnavailableException interruptedException) {
-						interruptedException.printStackTrace();
-					}
+			Runnable r = () -> {
+				try {
+					SpeechDecoder.getInstance().clearWords();
+					SpeechDecoder.getInstance().initialize(SpeechDecoder.Language.GERMAN, Stimulus.Type.DIGIT);
+					SpeechDecoder.getInstance().startRecording();
+				} catch (InterruptedException | IOException | LineUnavailableException interruptedException) {
+					interruptedException.printStackTrace();
 				}
 			};
 			Thread t = new Thread(r);
@@ -345,6 +342,11 @@ public class SettingsController extends AbstractBackSupportController {
 
 			SpeechDecoder.getInstance().stopRecording();
 			List<String> recognizedWords = SpeechDecoder.getInstance().currentWords;
+
+			for (int i = 0; i < recognizedWords.size(); i++) {
+				System.out.println(recognizedWords.get(i));
+			}
+			
 
 
 			Platform.runLater(() -> {
