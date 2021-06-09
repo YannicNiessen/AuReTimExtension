@@ -39,7 +39,13 @@ public class SpeechDecoder {
     }
 
 
-    public static SpeechDecoder getInstance() {
+    public static SpeechDecoder getInstance()
+    {
+
+        if (instance == null){
+            instance = new SpeechDecoder();
+        }
+
         return instance;
     }
 

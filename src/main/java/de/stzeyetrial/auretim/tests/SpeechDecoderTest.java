@@ -36,6 +36,11 @@ public class SpeechDecoderTest {
 
 
     public static SpeechDecoderTest getInstance() {
+
+
+
+
+
         return instance;
     }
 
