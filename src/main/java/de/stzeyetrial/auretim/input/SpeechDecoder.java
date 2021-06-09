@@ -25,7 +25,7 @@ public class SpeechDecoder {
     private static Decoder speechDecoder;
     private static List<String> recognizedWordsList = new ArrayList<>();
     public volatile List<String> currentWords;
-    private static boolean recording = false;
+    private static volatile boolean recording = false;
     public static SpeechDecoder instance;
     private static Language _currentLanguage;
     private static Stimulus.Type _currentType;
@@ -68,10 +68,7 @@ public class SpeechDecoder {
     public void initialize(SpeechDecoder.Language language, Stimulus.Type materialType) throws InterruptedException, IOException, LineUnavailableException {
 
         if (speechDecoder != null){
-            while(speechDecoder.getInSpeech()){
-
-            }
-            speechDecoder.endUtt();
+            recording = false;
         }
 
         Config c = Decoder.defaultConfig();
@@ -129,7 +126,7 @@ public class SpeechDecoder {
 
         System.out.println("Recording started");
         int nbytes;
-        while ((nbytes = audioStream.read(b)) > 0) {
+        while ((nbytes = audioStream.read(b)) > 0 && recording) {
 
             ByteBuffer bb = ByteBuffer.wrap(b, 0, nbytes);
             bb.order(ByteOrder.LITTLE_ENDIAN);
@@ -152,6 +149,8 @@ public class SpeechDecoder {
             }
         }
         System.out.println("line ended");
+        speechDecoder.endUtt();
+        speechDecoder.delete();
     }
 
 
@@ -177,7 +176,7 @@ public class SpeechDecoder {
     }
 
     public void stopRecording() {
-            line.close();
+            recording = false;
     }
 
     public synchronized List<String> getRecognizedWordsList(){

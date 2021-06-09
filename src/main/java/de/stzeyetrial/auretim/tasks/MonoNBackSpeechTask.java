@@ -93,6 +93,9 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 			}
 
 		}
+
+		SpeechDecoder.getInstance().stopRecording();
+
 		_trigger.trigger(TriggerType.END_TEST);
 		return Collections.unmodifiableList(_results);
 	}
