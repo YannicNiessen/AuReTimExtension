@@ -71,7 +71,7 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 				expectedValue = String.valueOf(_sequence[i - _nBackLevel]);
 			}
 
-			final NBackSpeechInputTask inputTask = getSpeechInputTask(gate, testStart, positive, "");
+			final NBackSpeechInputTask inputTask = getSpeechInputTask(gate, testStart, positive, expectedValue);
 
 			_currentStimulus.setValue(Stimulus.unrealStimulus());
 
