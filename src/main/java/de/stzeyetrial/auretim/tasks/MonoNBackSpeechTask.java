@@ -65,8 +65,11 @@ public class MonoNBackSpeechTask extends AbstractNBackTask {
 		for (int i = 0; i < _sequence.length && !isCancelled(); i++) {
 
 			boolean positive = false;
-			if (i >= _nBackLevel)
+			String expectedValue = "-1";
+			if (i >= _nBackLevel){
 				positive = (_sequence[i - _nBackLevel].equals(_sequence[i]));
+				expectedValue = String.valueOf(_sequence[i - _nBackLevel]);
+			}
 
 			final NBackSpeechInputTask inputTask = getSpeechInputTask(gate, testStart, positive, "");
 

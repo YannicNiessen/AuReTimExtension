@@ -26,6 +26,8 @@ public class SpeechDecoder {
     public volatile List<String> currentWords;
     private static boolean recording = false;
     public static SpeechDecoder instance;
+    private static Language _currentLanguage;
+    private static MaterialType _currentType;
 
     public enum Language {
         GERMAN,
@@ -69,6 +71,8 @@ public class SpeechDecoder {
         String languageString = (language == SpeechDecoder.Language.GERMAN) ? "german" : "english";
         String typeString =  materialType.toString().toLowerCase();
 
+        _currentLanguage= language;
+        _currentType = materialType;
 
         String acousticModel = "speechRecognition/acousticModels/" + languageString + "/";
         String languageModels = "speechRecognition/languageModels/" + typeString + "/" + languageString + ".arpa";
@@ -124,6 +128,14 @@ public class SpeechDecoder {
             speechDecoder.processRaw(s, nbytes/2, false, false);
             if (!speechDecoder.getInSpeech()){
                 String currentWord = getCurrentWord();
+
+                if (_currentType == MaterialType.DIGITS){
+                    if (_currentLanguage == Language.GERMAN){
+                        currentWord = String.valueOf(germanWordToInt(currentWord));
+                    }else{
+                        currentWord = String.valueOf(englishWordToInt(currentWord));
+                    }
+                }
                 if (currentWord != null){
                     currentWords.add(currentWord);
                 }
@@ -166,4 +178,58 @@ public class SpeechDecoder {
     public boolean isRecording() {
         return recording;
     }
+
+    private int germanWordToInt(String word) {
+        switch (word) {
+            case "null":
+                return 0;
+            case "eins":
+                return 1;
+            case "zwei":
+                return 2;
+            case "drei":
+                return 3;
+            case "vier":
+                return 4;
+            case "fünf":
+                return 5;
+            case "sechs":
+                return 6;
+            case "sieben":
+                return 7;
+            case "acht":
+                return 8;
+            case "neun":
+                return 9;
+        }
+        return -1;
+
+    }
+    private int englishWordToInt(String word) {
+        switch (word) {
+            case "zero":
+                return 0;
+            case "one":
+                return 1;
+            case "two":
+                return 2;
+            case "three":
+                return 3;
+            case "four":
+                return 4;
+            case "five":
+                return 5;
+            case "six":
+                return 6;
+            case "seven":
+                return 7;
+            case "eight":
+                return 8;
+            case "nine":
+                return 9;
+        }
+        return -1;
+    }
+
+
 }
