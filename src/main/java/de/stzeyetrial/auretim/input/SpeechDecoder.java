@@ -68,6 +68,9 @@ public class SpeechDecoder {
     public void initialize(SpeechDecoder.Language language, Stimulus.Type materialType) throws InterruptedException, IOException, LineUnavailableException {
 
         if (speechDecoder != null){
+            while(speechDecoder.getInSpeech()){
+
+            }
             speechDecoder.endUtt();
         }
 
