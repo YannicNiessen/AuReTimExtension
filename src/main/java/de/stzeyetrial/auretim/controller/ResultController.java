@@ -184,7 +184,12 @@ public class ResultController extends AbstractBackSupportController {
 			Session.getCurrentSession().setTestType(nextTest);
 			Session.getCurrentSession().clearResults();
 			getScreenManager().setScreen(Screens.valueOf(nextTest.name()));
-
+		}else{
+			try {
+				buttonSave(null, true);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
