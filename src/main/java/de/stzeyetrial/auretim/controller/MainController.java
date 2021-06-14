@@ -7,16 +7,16 @@ import de.stzeyetrial.auretim.input.SpeechDecoder;
 import de.stzeyetrial.auretim.screens.ScreenManager;
 import de.stzeyetrial.auretim.screens.Screens;
 import de.stzeyetrial.auretim.session.Session;
-import de.stzeyetrial.auretim.util.EnterSubmitHandler;
-import de.stzeyetrial.auretim.util.PreferencesMap;
+import de.stzeyetrial.auretim.util.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import de.stzeyetrial.auretim.util.Test;
-import de.stzeyetrial.auretim.util.TestType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -38,7 +38,7 @@ public class MainController extends AbstractController {
 	private final ValidationSupport _validation = new ValidationSupport();
 
 	@FXML
-	private ComboBox<TestType> _testComboBox;
+	private ComboBox<String> _testComboBox;
     
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
@@ -47,9 +47,15 @@ public class MainController extends AbstractController {
 		_subjectTextField.getProperties().put("vkType", 0);
 		_subjectTextField.setOnKeyPressed(new EnterSubmitHandler());
 
-		_testComboBox.getItems().addAll(TestType.values());
+		for(TestType t : TestType.values()){
+			_testComboBox.getItems().add(t.name());
+		}
 
-		_testComboBox.getSelectionModel().select(TestType.PVT_AUDITORY);
+		for(TestSequence t: TestSequence.getLoadedSets()){
+			_testComboBox.getItems().add(t.get_name());
+		}
+
+		_testComboBox.getSelectionModel().select(TestType.PVT_AUDITORY.name());
 
 
 		_validation.registerValidator(_testTextField, false, Validator.createEmptyValidator(rb.getString("emptyTestId.text")));
@@ -73,15 +79,38 @@ public class MainController extends AbstractController {
 
     }
 
+    public void setAvailableTests(){
+    	_testComboBox.getItems().clear();
+		for(TestType t : TestType.values()){
+			_testComboBox.getItems().add(t.name());
+		}
+
+		for(TestSequence t: TestSequence.getLoadedSets()){
+			_testComboBox.getItems().add(t.get_name());
+		}
+
+		_testComboBox.getSelectionModel().select(TestType.PVT_AUDITORY.name());
+	}
+
 	@FXML
 	private void test(final ActionEvent e) {
 		if (!_validation.isInvalid()) {
 
-			TestType testType = _testComboBox.getValue();
+			String testType = _testComboBox.getValue();
 
-			Session.newSession(_subjectTextField.getText(), _testTextField.getText(),testType );
+			Queue<TestType> testTypeQueue = new LinkedList<>();
 
-			getScreenManager().setScreen(Screens.valueOf(testType.toString()));
+			if(TestType.contains(testType))
+				testTypeQueue.add(TestType.valueOf(testType));
+			else {
+				for(String testTypeName: TestSequence.getSet(testType).get_elements()){
+					testTypeQueue.add(TestType.valueOf(testTypeName));
+				}
+			}
+
+			Session.newSession(_subjectTextField.getText(), _testTextField.getText(),testTypeQueue.peek(), testTypeQueue);
+
+			getScreenManager().setScreen(Screens.valueOf(testTypeQueue.poll().name()));
 
 		} else {
 			_validation.initInitialDecoration();

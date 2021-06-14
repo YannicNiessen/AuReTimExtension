@@ -533,7 +533,6 @@ public class Config {
 
 		p.setProperty(PROPERTY_DIRECTORY,				directoryProperty().getValue());
 		p.setProperty(PROPERTY_INPUT,					inputProperty().getValue().toString());
-		p.setProperty(PROPERTY_AUDITORY_PVT_FREQUENCIES,				PROPERTY_FREQUENCIES_DEFAULT);
 		p.setProperty(PROPERTY_USE_AUTO_COMPLETION,		Boolean.toString(useAutoCompletionProperty().getValue()));
 
 		p.setProperty(PROPERTY_VISUAL_LOCATION_COLOR, visualLocationColorProperty().getValue());

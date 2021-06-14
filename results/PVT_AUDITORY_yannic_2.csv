@@ -1,0 +1,32 @@
+# subjectId=yannic
+# testId=2
+# testType=PVT_AUDITORY
+# total=10
+# hits=10
+# correct rejections=0
+# misses=0
+# false positives=0
+# CV'=0.1519
+# mean=296.10 ms
+# sd=44.98 ms
+# median=292.50 ms
+# Q10=239.90 ms
+# Q25=259.25 ms
+# Q75=327.25 ms
+# Q90=381.40 ms
+# max=387 ms
+# min=239 ms
+# reaction speed=3.377237
+# performance score=1.000000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+3004	331	TRUE_POSITIVE
+7190	326	TRUE_POSITIVE
+12390	248	TRUE_POSITIVE
+19668	306	TRUE_POSITIVE
+28892	263	TRUE_POSITIVE
+34143	279	TRUE_POSITIVE
+38372	272	TRUE_POSITIVE
+45616	310	TRUE_POSITIVE
+51831	239	TRUE_POSITIVE
+61113	387	TRUE_POSITIVE

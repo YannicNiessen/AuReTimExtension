@@ -10,6 +10,7 @@ import de.stzeyetrial.auretim.input.InputFactory;
 import de.stzeyetrial.auretim.tests.InputLatencyTest;
 import de.stzeyetrial.auretim.util.Stimulus;
 import de.stzeyetrial.auretim.util.StimulusSet;
+import de.stzeyetrial.auretim.util.TestSequence;
 import javafx.application.Application;
 import javafx.application.Preloader.StateChangeNotification;
 import javafx.scene.Cursor;
@@ -31,6 +32,7 @@ public class AuReTim extends Application {
 		config.load();
 
 		StimulusSet.loadAllSetsFromDisk();
+		TestSequence.loadAllSequencesFromDisk();
 
 
 		final ScreenManager manager = new ScreenManager();

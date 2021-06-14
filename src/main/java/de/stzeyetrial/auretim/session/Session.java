@@ -1,10 +1,12 @@
 package de.stzeyetrial.auretim.session;
 
 import de.stzeyetrial.auretim.util.Result;
+import de.stzeyetrial.auretim.util.Test;
 import de.stzeyetrial.auretim.util.TestType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * @author strasser
@@ -15,17 +17,22 @@ public class Session {
 	private final List<Result> _results;
 	private final String _subjectId;
 	private final String _testId;
-	private final TestType _testType;
+	private final Queue<TestType> _testQueue;
 
-	private Session(final String subjectId, final String testId, TestType testType) {
+	private TestType _testType;
+
+
+	private Session(final String subjectId, final String testId, TestType testType, Queue<TestType> testQueue) {
 		_subjectId = subjectId;
 		_testId = testId;
-		_results = new ArrayList<>();
 		_testType = testType;
+		_testQueue = testQueue;
+		_results = new ArrayList<>();
+
 	}
 
-	public static Session newSession(final String subjectId, final String testId, TestType testType) {
-		_instance = new Session(subjectId, testId, testType);
+	public static Session newSession(final String subjectId, final String testId, TestType testType, Queue<TestType> testQueue) {
+		_instance = new Session(subjectId, testId, testType, testQueue);
 		return _instance;
 	}
 
@@ -50,6 +57,15 @@ public class Session {
 	}
 
 	public TestType getTestType(){return _testType;}
+
+	public Queue<TestType> getTestQueue() {
+		return _testQueue;
+	}
+
+
+	public void setTestType(TestType testType){
+		_testType = testType;
+	}
 
 	public void clearResults() {
 		_results.clear();

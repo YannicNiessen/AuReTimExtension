@@ -15,8 +15,10 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Queue;
 import java.util.ResourceBundle;
 
+import de.stzeyetrial.auretim.util.Test;
 import de.stzeyetrial.auretim.util.TestType;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -30,6 +32,8 @@ import javafx.scene.control.TextField;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
+import javax.swing.*;
 
 /**
  * FXML Controller class
@@ -166,6 +170,23 @@ public class ResultController extends AbstractBackSupportController {
 		_reactionSpeed.setValue(1000 / _mean.getValue());
 		_performanceScore.setValue(1 - (misses + falseAlarms) / results.size());
 		_lapseProbability.setValue(misses / results.size());
+
+		Queue<TestType> testTypeQueue = Session.getCurrentSession().getTestQueue();
+		if (!testTypeQueue.isEmpty()){
+			TestType nextTest = testTypeQueue.poll();
+
+			try {
+				buttonSave(null, true);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			Session.getCurrentSession().setTestType(nextTest);
+			Session.getCurrentSession().clearResults();
+			getScreenManager().setScreen(Screens.valueOf(nextTest.name()));
+
+		}
+
 	}
 
 	@Override
@@ -174,7 +195,7 @@ public class ResultController extends AbstractBackSupportController {
 	}
 
 	@FXML
-	private void buttonSave(final ActionEvent e) {
+	private void buttonSave(final ActionEvent e, boolean quiet) throws IOException {
 		_saveButton.disableProperty().set(true);
 
 		File directory = new File("results");
@@ -197,45 +218,57 @@ public class ResultController extends AbstractBackSupportController {
 			path = FileSystems.getDefault().getPath(directoryName, String.format("%s.%d.csv", baseFilename, i));
 		}
 
-		try (CSVPrinter writer = new CSVPrinter(new FileWriter(path.toFile()), CSVFormat.newFormat('\t').withCommentMarker('#').withRecordSeparator('\n'))) {
-			writer.printComment(String.format("subjectId=%s", subjectId));
-			writer.printComment(String.format("testId=%s", testId));
-			writer.printComment(String.format("testType=%s", testType));
-			writer.printComment(String.format("total=%d", _total.get()));
-			writer.printComment(String.format("hits=%d", _hits.get()));
-			writer.printComment(String.format("correct rejections=%d", _correctRejections.get()));
-			writer.printComment(String.format("misses=%d", _misses.get()));
-			writer.printComment(String.format("false positives=%d", _falsePositives.get()));
-			writer.printComment(String.format("CV'=%.4f", _cv.get()));
-			writer.printComment(String.format("mean=%.2f ms", _mean.get()));
-			writer.printComment(String.format("sd=%.2f ms", _sd.get()));
-			writer.printComment(String.format("median=%.2f ms", _median.get()));
-			writer.printComment(String.format("Q10=%.2f ms", _q10.get()));
-			writer.printComment(String.format("Q25=%.2f ms", _q25.get()));
-			writer.printComment(String.format("Q75=%.2f ms", _q75.get()));
-			writer.printComment(String.format("Q90=%.2f ms", _q90.get()));
-			writer.printComment(String.format("max=%d ms", _max.get()));
-			writer.printComment(String.format("min=%d ms", _min.get()));
-			writer.printComment(String.format("reaction speed=%f", _reactionSpeed.get()));
-			writer.printComment(String.format("performance score=%f", _performanceScore.get()));
-			writer.printComment(String.format("lapse probability=%f", _lapseProbability.get()));
+		CSVPrinter writer = new CSVPrinter(new FileWriter(path.toFile()), CSVFormat.newFormat('\t').withCommentMarker('#').withRecordSeparator('\n'));
+		writer.printComment(String.format("subjectId=%s", subjectId));
+		writer.printComment(String.format("testId=%s", testId));
+		writer.printComment(String.format("testType=%s", testType));
+		writer.printComment(String.format("total=%d", _total.get()));
+		writer.printComment(String.format("hits=%d", _hits.get()));
+		writer.printComment(String.format("correct rejections=%d", _correctRejections.get()));
+		writer.printComment(String.format("misses=%d", _misses.get()));
+		writer.printComment(String.format("false positives=%d", _falsePositives.get()));
+		writer.printComment(String.format("CV'=%.4f", _cv.get()));
+		writer.printComment(String.format("mean=%.2f ms", _mean.get()));
+		writer.printComment(String.format("sd=%.2f ms", _sd.get()));
+		writer.printComment(String.format("median=%.2f ms", _median.get()));
+		writer.printComment(String.format("Q10=%.2f ms", _q10.get()));
+		writer.printComment(String.format("Q25=%.2f ms", _q25.get()));
+		writer.printComment(String.format("Q75=%.2f ms", _q75.get()));
+		writer.printComment(String.format("Q90=%.2f ms", _q90.get()));
+		writer.printComment(String.format("max=%d ms", _max.get()));
+		writer.printComment(String.format("min=%d ms", _min.get()));
+		writer.printComment(String.format("reaction speed=%f", _reactionSpeed.get()));
+		writer.printComment(String.format("performance score=%f", _performanceScore.get()));
+		writer.printComment(String.format("lapse probability=%f", _lapseProbability.get()));
 
-			writer.printRecord("timepoint (ms)", "duration (ms)", "type");
+		writer.printRecord("timepoint (ms)", "duration (ms)", "type");
 
-			for (final Result result : Session.getCurrentSession().getResults()) {
-				writer.printRecord(
-					result.getRuntime(),
-					result.getDuration(),
-					result.getType()
-				);
-			}
+		for (final Result result : Session.getCurrentSession().getResults()) {
+			writer.printRecord(
+				result.getRuntime(),
+				result.getDuration(),
+				result.getType()
+			);
+		}
 
-			writer.flush();
+		writer.flush();
 
+		if(!quiet){
 			getScreenManager().showMessage(String.format("Test saved as\n%s.", path.getFileName().toString()));
 			getScreenManager().setScreen(Screens.MAIN);
-		} catch (IOException ex) {
-			getScreenManager().showException(ex);
+		}
+
+
+
+	}
+
+	public void buttonSave(final ActionEvent e){
+		try{
+			buttonSave(e, false);
+		}catch (Exception ex){
+			ex.printStackTrace();
 		}
 	}
+
+
 }

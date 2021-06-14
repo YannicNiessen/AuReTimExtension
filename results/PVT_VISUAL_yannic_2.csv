@@ -1,0 +1,32 @@
+# subjectId=yannic
+# testId=2
+# testType=PVT_VISUAL
+# total=10
+# hits=10
+# correct rejections=0
+# misses=0
+# false positives=0
+# CV'=0.3063
+# mean=374.10 ms
+# sd=114.60 ms
+# median=309.50 ms
+# Q10=285.30 ms
+# Q25=294.00 ms
+# Q75=494.00 ms
+# Q90=591.80 ms
+# max=601 ms
+# min=285 ms
+# reaction speed=2.673082
+# performance score=1.000000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+5003	601	TRUE_POSITIVE
+14005	489	TRUE_POSITIVE
+19006	306	TRUE_POSITIVE
+26007	285	TRUE_POSITIVE
+35009	304	TRUE_POSITIVE
+44011	350	TRUE_POSITIVE
+49013	509	TRUE_POSITIVE
+56015	296	TRUE_POSITIVE
+61017	313	TRUE_POSITIVE
+70019	288	TRUE_POSITIVE

@@ -58,6 +58,7 @@ import javafx.stage.FileChooser;
 import javax.sound.sampled.LineUnavailableException;
 
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
@@ -159,6 +160,9 @@ public class SettingsController extends AbstractBackSupportController {
 				case "Stimulus Sets":
 					addStimulusSetSettings();
 					break;
+				case "Test Sequences":
+					addTestSequenceSettings();
+					break;
 				case "PVT_AUDITORY":
 					addAuditoryPVTSettings();
 					break;
@@ -189,6 +193,7 @@ public class SettingsController extends AbstractBackSupportController {
 				case "SPATIAL_WORKING_MEMORY":
 					addSpatialWorkingMemoryUpdatingSettings();
 					break;
+
 			}
 
 
@@ -196,6 +201,7 @@ public class SettingsController extends AbstractBackSupportController {
 
 		_testSelectionComboBox.getItems().add("General");
 		_testSelectionComboBox.getItems().add("Stimulus Sets");
+		_testSelectionComboBox.getItems().add("Test Sequences");
 
 		for (int i = 0; i < TestType.values().length; i++) {
 			_testSelectionComboBox.getItems().add(TestType.values()[i].name());
@@ -234,7 +240,9 @@ public class SettingsController extends AbstractBackSupportController {
 			Config.getInstance().save();
 			ConfigMeta.getInstance().save();
 			StimulusSet.saveAllSetsToDisk();
+			TestSequence.saveAllSetsToDisk();
 
+			((MainController) getScreenManager().getController(Screens.MAIN)).setAvailableTests();
 			((IdentityNBackTestController) getScreenManager().getController(Screens.N_BACK_VISUAL_STIMULUS_IDENTITY)).setConfig();
 			((LocationNBackTestController) getScreenManager().getController(Screens.N_BACK_VISUAL_LOCATION_IDENTITY)).setConfig();
 			((AuditoryNBackTestController) getScreenManager().getController(Screens.N_BACK_AUDITORY_STIMULUS_IDENTITY)).setConfig();
@@ -918,6 +926,32 @@ public class SettingsController extends AbstractBackSupportController {
 		config.auditoryPVTuseNoGoProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, Boolean newValue) -> maximumDelayTextField.setDisable(newValue));
 		maximumDelayTextField.setDisable(config.auditoryPVTuseNoGoProperty().get());
 
+
+		ComboBox<Integer> frequencyChoiceBox = new ComboBox<>();
+		VBox.setMargin(frequencyChoiceBox, new Insets(0, 50 , 10, 50));
+
+		Label frequencyChoiceBoxLabel = createLabel(frequencyChoiceBox, "Frequency");
+
+		frequencyChoiceBox.setConverter(new StringConverter<Integer>() {
+			@Override
+			public String toString(final Integer object) {
+				return String.format("%d Hz", object);
+			}
+
+			@Override
+			public Integer fromString(final String string) {
+				return Integer.valueOf(string.split(" ")[0]);
+			}
+		});
+		frequencyChoiceBox.getSelectionModel().select(config.auditoryPVTfrequencyProperty().getValue());
+		config.auditoryPVTfrequencyProperty().bind(frequencyChoiceBox.getSelectionModel().selectedItemProperty());
+		frequencyChoiceBox.itemsProperty().bind(config.frequenciesProperty());
+
+		List<Integer> l = Config.getInstance().frequenciesProperty().get();
+		for(Integer i : l){
+			System.out.println(i);
+		}
+
 		contentAnchor.getChildren().add(volumeTextFieldLabel);
 		contentAnchor.getChildren().add(volumeTextField);
 		contentAnchor.getChildren().add(pulseDurationTextFieldLabel);
@@ -932,6 +966,8 @@ public class SettingsController extends AbstractBackSupportController {
 		contentAnchor.getChildren().add(minimumResponseTimeTextField);
 		contentAnchor.getChildren().add(timeoutTextFieldLabel);
 		contentAnchor.getChildren().add(timeoutTextField);
+		contentAnchor.getChildren().add(frequencyChoiceBoxLabel);
+		contentAnchor.getChildren().add(frequencyChoiceBox);
 		contentAnchor.getChildren().add(useNoGoCheckBoxLabel);
 		contentAnchor.getChildren().add(useNoGoCheckbox);
 
@@ -1176,9 +1212,6 @@ public class SettingsController extends AbstractBackSupportController {
 
 	private void addStimulusSetSettings(){
 		VBox contentAnchor = (VBox) _scrollPane.getContent();
-
-		Config config = Config.getInstance();
-
 
 		ComboBox<String> stimulusSetComboBox = new ComboBox<>();
 		VBox.setMargin(stimulusSetComboBox, new Insets(0, 50, 10, 50));
@@ -1425,5 +1458,174 @@ public class SettingsController extends AbstractBackSupportController {
 
 		anchorNode.getChildren().add(anchorNode.getChildren().size() - 1, elementHBox);
 	}
+
+	private void addTestSequenceSettings(){
+		VBox contentAnchor = (VBox) _scrollPane.getContent();
+
+		ComboBox<String> testSequenceComboBox = new ComboBox<>();
+		VBox.setMargin(testSequenceComboBox, new Insets(0, 50, 10, 50));
+
+		testSequenceComboBox.getItems().addAll((TestSequence.getLoadedSets()).stream().map(TestSequence::get_name).collect(Collectors.toList()));
+
+		ComboBox<Stimulus.Type> testSequenceTypeComboBox = new ComboBox<>();
+
+		testSequenceTypeComboBox.getItems().addAll(Stimulus.Type.values());
+		testSequenceTypeComboBox.valueProperty().addListener((observableValue, s, t1) -> {
+			Objects.requireNonNull(StimulusSet.getSet(testSequenceComboBox.getValue())).set_type(t1);
+			String currentSequenceName = testSequenceComboBox.getValue();
+			testSequenceComboBox.getSelectionModel().select("-1");
+			testSequenceComboBox.getSelectionModel().select(currentSequenceName);
+		});
+
+
+		VBox.setMargin(testSequenceTypeComboBox, new Insets(0, 50 , 10 , 50));
+
+		VBox elementVBox = new VBox();
+		VBox.setMargin(elementVBox, new Insets(0 , 50, 10,50));
+		elementVBox.setPrefWidth(contentAnchor.getPrefWidth() - 100);
+
+		Button deleteButton = new Button();
+		VBox.setMargin(deleteButton, new Insets(0, 50 , 10 , 50));
+		deleteButton.setText("Delete current Sequence");
+		deleteButton.setStyle("-fx-background-color: red;");
+		deleteButton.setOnAction(actionEvent -> {
+
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("Confirmation");
+			alert.setHeaderText("");
+			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+			alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+			alert.setContentText("Are you sure that you want to delete the sequence: " + testSequenceComboBox.getValue() + " ?");
+			Optional<ButtonType> response = alert.showAndWait();
+
+			if (response.isEmpty()) return;
+			if (response.get().getButtonData().equals(ButtonBar.ButtonData.CANCEL_CLOSE)) return;
+
+			Objects.requireNonNull(TestSequence.getSet(testSequenceComboBox.getValue())).deleteSetFromDisk();
+			_testSelectionComboBox.getSelectionModel().select("");
+			_testSelectionComboBox.getSelectionModel().select("Test Sequences");
+
+		});
+
+		Button addButton = new Button();
+		VBox.setMargin(addButton, new Insets(30, 50 , 10 , 50));
+		addButton.setText("Add new Sequence");
+		addButton.setOnAction(actionEvent -> {
+
+			TextInputDialog alert = new TextInputDialog();
+			alert.setTitle("Prompt");
+			alert.setHeaderText("");
+			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+			alert.getDialogPane().setStyle("-fx-font-size: 0.5em;");
+			alert.setContentText("Please enter the name of the new sequence");
+			Optional<String> response = alert.showAndWait();
+
+			if (response.isEmpty()) return;
+			if (response.get().equals("")) return;
+			TestSequence.getLoadedSets().add(new TestSequence(new ArrayList<>(), response.get()));
+			testSequenceComboBox.getItems().add(response.get());
+			testSequenceComboBox.getSelectionModel().select(response.get());
+		});
+
+			testSequenceComboBox.valueProperty().addListener((observableValue, s, t1) -> {
+			TestSequence currentSequence = TestSequence.getSet(t1);
+			elementVBox.getChildren().clear();
+			if (currentSequence == null) return;
+
+			HBox addItemHBox = new HBox();
+
+			ComboBox<TestType> addItemComboxBox =  new ComboBox<>();
+			addItemComboxBox.getItems().addAll(TestType.values());
+			addItemComboxBox.getSelectionModel().select(0);
+
+
+			Button addItemButton = new Button();
+			addItemButton.setText("➕");
+			addItemButton.setStyle("-fx-background-color: green;");
+			addItemButton.setMaxHeight(50);
+			addItemButton.setOnAction(actionEvent -> {
+
+				currentSequence.get_elements().add(addItemComboxBox.getValue().toString());
+
+				getElementHBoxTestSequence(currentSequence, elementVBox, addItemComboxBox.getValue().toString());
+
+			});
+
+			addItemHBox.getChildren().add(addItemComboxBox);
+
+
+			addItemHBox.getChildren().add(addItemButton);
+
+			addItemHBox.setPrefWidth(elementVBox.getPrefWidth());
+			HBox.setHgrow(addItemComboxBox, Priority.ALWAYS);
+			VBox.setMargin(addItemHBox, new Insets(25, 0, 10 , 0));
+
+
+			elementVBox.getChildren().add(addItemHBox);
+
+			for(String text : currentSequence.get_elements()){
+				getElementHBoxTestSequence(currentSequence, elementVBox, text);
+			}
+		});
+
+
+		testSequenceComboBox.getSelectionModel().select(0);
+
+		Label testSequenceComboBoxLabel = createLabel(testSequenceComboBox, "Test Sequence");
+		Label elementVBoxLabel = createLabel(elementVBox, "Tests in Sequence");
+
+		contentAnchor.getChildren().add(testSequenceComboBoxLabel);
+		contentAnchor.getChildren().add(testSequenceComboBox);
+
+
+
+		contentAnchor.getChildren().add(elementVBoxLabel);
+		contentAnchor.getChildren().add(elementVBox);
+		contentAnchor.getChildren().add(deleteButton);
+		contentAnchor.getChildren().add(addButton);
+
+
+	}
+
+
+	private void getElementHBoxTestSequence(TestSequence currentSequence, VBox anchorNode, String text){
+		HBox elementHBox = new HBox();
+		elementHBox.setPrefWidth(anchorNode.getPrefWidth());
+		Text t = new Text(text);
+		t.setFont(new Font(15));
+
+
+		Button b = new Button();
+		b.setOnAction(actionEvent -> {
+			currentSequence.get_elements().remove(text);
+			anchorNode.getChildren().remove(elementHBox);
+		});
+		b.setText("❌");
+		b.setStyle("-fx-background-color: red;");
+		b.setAlignment(Pos.CENTER_RIGHT);
+		b.setMaxHeight(50);
+
+		elementHBox.setFillHeight(true);
+		Region region1 = new Region();
+
+		HBox.setHgrow(region1, Priority.ALWAYS);
+
+		elementHBox.getChildren().add(t);
+		elementHBox.getChildren().add(region1);
+
+
+		elementHBox.getChildren().add(b);
+		elementHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+
+		VBox.setMargin(elementHBox, new Insets(10, 0 ,0, 0));
+
+
+		anchorNode.getChildren().add(anchorNode.getChildren().size() - 1, elementHBox);
+	}
+
+
+
+
 
 }
