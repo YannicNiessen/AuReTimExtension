@@ -1,0 +1,32 @@
+# subjectId=q
+# testId=1
+# testType=PVT_VISUAL_GO_NOGO
+# total=10
+# hits=4
+# correct rejections=5
+# misses=0
+# false positives=1
+# CV'=0.2365
+# mean=371.50 ms
+# sd=87.87 ms
+# median=366.00 ms
+# Q10=277.00 ms
+# Q25=289.50 ms
+# Q75=459.00 ms
+# Q90=477.00 ms
+# max=477 ms
+# min=277 ms
+# reaction speed=2.691790
+# performance score=0.900000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+2003	2000	TRUE_NEGATIVE
+6005	2000	TRUE_NEGATIVE
+10006	405	TRUE_POSITIVE
+14008	2001	TRUE_NEGATIVE
+18010	277	TRUE_POSITIVE
+22012	2000	TRUE_NEGATIVE
+26014	327	TRUE_POSITIVE
+30016	477	TRUE_POSITIVE
+34018	313	FALSE_POSITIVE
+38020	2000	TRUE_NEGATIVE

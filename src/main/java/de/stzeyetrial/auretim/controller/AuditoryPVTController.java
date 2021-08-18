@@ -130,10 +130,7 @@ public class AuditoryPVTController extends AbstractController {
 		final List<Result> results = Session.getCurrentSession().getResults();
 		results.clear();
 
-		final AbstractRunnerTask task = (Config.getInstance().auditoryPVTuseNoGoProperty().get())
-			? new NoGoRunnerTask(results, frequency, Config.getInstance().auditoryPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, timeout, repetitions, false)
-			: new RunnerTask(results, frequency, Config.getInstance().auditoryPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, maximumDelay, timeout, repetitions, false)
-		;
+		final AbstractRunnerTask task = new RunnerTask(results, frequency, Config.getInstance().auditoryPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, maximumDelay, timeout, repetitions, false);
 		task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
 		//task.setOnFailed(event -> getScreenManager().showException(task.getException()));
 		bind(task);

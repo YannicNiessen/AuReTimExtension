@@ -1,0 +1,32 @@
+# subjectId=q
+# testId=1
+# testType=PVT_AUDITORY_GO_NOGO
+# total=10
+# hits=2
+# correct rejections=6
+# misses=0
+# false positives=2
+# CV'=0.0273
+# mean=362.00 ms
+# sd=9.90 ms
+# median=362.00 ms
+# Q10=355.00 ms
+# Q25=355.00 ms
+# Q75=369.00 ms
+# Q90=369.00 ms
+# max=369 ms
+# min=355 ms
+# reaction speed=2.762431
+# performance score=0.800000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+2003	355	TRUE_POSITIVE
+6156	302	FALSE_POSITIVE
+10361	2000	TRUE_NEGATIVE
+14366	369	TRUE_POSITIVE
+18507	367	FALSE_POSITIVE
+22651	2000	TRUE_NEGATIVE
+26656	2000	TRUE_NEGATIVE
+30661	2000	TRUE_NEGATIVE
+34665	2000	TRUE_NEGATIVE
+38670	2000	TRUE_NEGATIVE

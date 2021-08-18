@@ -1,0 +1,25 @@
+# subjectId=q
+# testId=1
+# testType=PVT_AUDITORY
+# total=3
+# hits=3
+# correct rejections=0
+# misses=0
+# false positives=0
+# CV'=0.1496
+# mean=395.00 ms
+# sd=59.09 ms
+# median=377.00 ms
+# Q10=347.00 ms
+# Q25=347.00 ms
+# Q75=461.00 ms
+# Q90=461.00 ms
+# max=461 ms
+# min=347 ms
+# reaction speed=2.531646
+# performance score=1.000000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+3004	461	TRUE_POSITIVE
+7559	347	TRUE_POSITIVE
+13228	377	TRUE_POSITIVE

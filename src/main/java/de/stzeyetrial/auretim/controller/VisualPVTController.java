@@ -149,10 +149,7 @@ public class VisualPVTController extends AbstractController {
 		final List<Result> results = Session.getCurrentSession().getResults();
 		results.clear();
 
-		final AbstractRunnerTask task = (Config.getInstance().visualPVTuseNoGoProperty().get())
-			? new NoGoRunnerTask(results, frequency, Config.getInstance().visualPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, timeout, repetitions, true)
-			: new RunnerTask(results, frequency, Config.getInstance().visualPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, maximumDelay, timeout, repetitions, true)
-		;
+		final AbstractRunnerTask task = new RunnerTask(results, frequency, Config.getInstance().visualPVTvolumeProperty(), pulseDuration, minimumResponseTime, minimumDelay, maximumDelay, timeout, repetitions, true);
 		task.setOnSucceeded(event -> getScreenManager().setScreen(Screens.RESULT));
 		//task.setOnFailed(event -> getScreenManager().showException(task.getException()));
 		bind(task);
@@ -252,10 +249,9 @@ public class VisualPVTController extends AbstractController {
 
 	private void outputStimulus(Stimulus stimulus){
 		if (stimulus.isGo()){
-			_stimulusRectangle.setFill(Color.web(Config.getInstance().visualPVTgoColorProperty().getValue()));
-		}else if (stimulus.isNoGo()){
-			_stimulusRectangle.setFill(Color.web(Config.getInstance().visualPVTnoGoColorProperty().getValue()));
-		}else if(stimulus.isUnreal()){
+			_stimulusRectangle.setFill(Color.web(Config.getInstance().visualPVTColorProperty().getValue()));
+		}
+		else if(stimulus.isUnreal()){
 			_stimulusRectangle.setFill(Paint.valueOf("white"));
 		}
 	}

@@ -1,0 +1,28 @@
+# subjectId=q
+# testId=1
+# testType=PVT_VISUAL
+# total=6
+# hits=5
+# correct rejections=0
+# misses=1
+# false positives=0
+# CV'=0.0840
+# mean=356.00 ms
+# sd=29.91 ms
+# median=364.00 ms
+# Q10=309.00 ms
+# Q25=327.50 ms
+# Q75=380.50 ms
+# Q90=382.00 ms
+# max=382 ms
+# min=309 ms
+# reaction speed=2.808989
+# performance score=0.833333
+# lapse probability=0.166667
+timepoint (ms)	duration (ms)	type
+3003	309	TRUE_POSITIVE
+7505	379	TRUE_POSITIVE
+13007	2500	FALSE_NEGATIVE
+16509	364	TRUE_POSITIVE
+22011	346	TRUE_POSITIVE
+27513	382	TRUE_POSITIVE

@@ -2,7 +2,9 @@ package de.stzeyetrial.auretim.util;
 
 public enum TestType {
     PVT_AUDITORY,
+    PVT_AUDITORY_GO_NOGO,
     PVT_VISUAL,
+    PVT_VISUAL_GO_NOGO,
     N_BACK_VISUAL_STIMULUS_IDENTITY,
     N_BACK_VISUAL_LOCATION_IDENTITY,
     N_BACK_AUDITORY_STIMULUS_IDENTITY,

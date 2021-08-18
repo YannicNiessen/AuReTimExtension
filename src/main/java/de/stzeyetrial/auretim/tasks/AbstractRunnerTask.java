@@ -99,7 +99,6 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 			}else{
 				tone = getTone();
 			}
-
 			final AbstractInputTask inputTask = getInputTask(gate, testStart, _timeout, _minimumResponseTime);
 
 			final Result result;
@@ -112,8 +111,10 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 				_currentStimulus.setValue(Stimulus.unrealStimulus());
 
 			}else{
+
 				final ScheduledFuture<?> futureTone = _executor.schedule(new ToneTask(tone, gate, _volumeProperty.get()), delay, TimeUnit.SECONDS);
 				result = _executor.submit(inputTask).get();
+
 				futureTone.get();
 
 			}

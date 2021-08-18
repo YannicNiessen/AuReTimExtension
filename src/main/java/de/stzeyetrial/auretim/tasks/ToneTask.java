@@ -25,6 +25,7 @@ final class ToneTask implements Runnable, LineListener {
 		_tone = tone;
 		_volume = volume;
 		_tone.addLineListener(this);
+
 	}
 
 	@Override
@@ -37,6 +38,7 @@ final class ToneTask implements Runnable, LineListener {
 
 	@Override
 	public void update(final LineEvent event) {
+
 		if (Type.START == event.getType()) {
 			try {
 				_gate.await();

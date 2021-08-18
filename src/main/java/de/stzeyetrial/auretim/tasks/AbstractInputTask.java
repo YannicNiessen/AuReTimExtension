@@ -34,7 +34,9 @@ abstract class AbstractInputTask implements Callable<Result> {
 
 	@Override
 	public final Result call() throws Exception {
+
 		_gate.await();
+
 
 		final long start = System.currentTimeMillis();
 		final boolean timeout = !_latch.await(_maximumTime, TimeUnit.MILLISECONDS);
