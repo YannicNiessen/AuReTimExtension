@@ -1,0 +1,24 @@
+# subjectId=q
+# testId=1
+# testType=SPATIAL_WORKING_MEMORY
+# total=2
+# hits=2
+# correct rejections=0
+# misses=0
+# false positives=0
+# CV'=NaN
+# mean=0.00 ms
+# sd=0.00 ms
+# median=0.00 ms
+# Q10=0.00 ms
+# Q25=0.00 ms
+# Q75=0.00 ms
+# Q90=0.00 ms
+# max=0 ms
+# min=0 ms
+# reaction speed=Infinity
+# performance score=1.000000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+1623755055080	0	TRUE_POSITIVE
+1623755056886	0	TRUE_POSITIVE

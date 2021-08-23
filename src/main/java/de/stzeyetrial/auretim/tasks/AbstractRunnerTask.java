@@ -66,6 +66,7 @@ public abstract class AbstractRunnerTask extends Task<List<Result>> {
 			return t;
 		});
 		Runtime.getRuntime().addShutdownHook(new Thread(() ->_executor.shutdown()));
+
 	}
 
 	public ReadOnlyObjectProperty<Result> currentResultProperty() {

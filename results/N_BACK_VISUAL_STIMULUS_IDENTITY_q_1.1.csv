@@ -1,0 +1,32 @@
+# subjectId=q
+# testId=1
+# testType=N_BACK_VISUAL_STIMULUS_IDENTITY
+# total=10
+# hits=2
+# correct rejections=8
+# misses=0
+# false positives=0
+# CV'=0.3333
+# mean=471.00 ms
+# sd=156.98 ms
+# median=471.00 ms
+# Q10=360.00 ms
+# Q25=360.00 ms
+# Q75=582.00 ms
+# Q90=582.00 ms
+# max=582 ms
+# min=360 ms
+# reaction speed=2.123142
+# performance score=1.000000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+2	1500	TRUE_NEGATIVE
+1505	1500	TRUE_NEGATIVE
+3006	1501	TRUE_NEGATIVE
+4508	1501	TRUE_NEGATIVE
+6010	1501	TRUE_NEGATIVE
+7512	1500	TRUE_NEGATIVE
+9014	1500	TRUE_NEGATIVE
+10515	1501	TRUE_NEGATIVE
+12017	360	TRUE_POSITIVE
+13520	582	TRUE_POSITIVE

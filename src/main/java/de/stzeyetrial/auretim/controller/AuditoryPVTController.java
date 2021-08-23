@@ -36,7 +36,7 @@ import javafx.util.Duration;
  * @author strasser
  */
 public class AuditoryPVTController extends AbstractController {
-	private final ExecutorService _executor;
+	private ExecutorService _executor;
 
 	private Timeline _timelineGreen;
 	private Timeline _timelineRed;
@@ -144,14 +144,24 @@ public class AuditoryPVTController extends AbstractController {
 			_future.cancel(true);
 			TriggerFactory.getInstance().createTrigger().trigger(TriggerType.END_TEST);
 		}
+		_endButton.disableProperty().set(false);
 
-		_endButton.disableProperty().set(Session.getCurrentSession().getResults().stream().filter(r -> r.getType() == Result.Type.TRUE_POSITIVE).count() < 3);
+	//	_endButton.disableProperty().set(Session.getCurrentSession().getResults().stream().filter(r -> r.getType() == Result.Type.TRUE_POSITIVE).count() < 3);
 	}
 
 	@FXML
 	private void end() {
 		unbind();
 		getScreenManager().setScreen(Screens.RESULT);
+		_executor.shutdownNow();
+		_executor = Executors.newSingleThreadExecutor(r -> {
+			final Thread t = Executors.defaultThreadFactory().newThread(r);
+			t.setDaemon(true);
+			return t;
+		});
+
+		_startButton.disableProperty().set(false);
+
 	}
 
 	@FXML
