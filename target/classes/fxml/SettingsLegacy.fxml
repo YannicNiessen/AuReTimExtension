@@ -20,26 +20,25 @@
 
         </center>
             <top>
+
         <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                  prefHeight="45.0" prefWidth="480.0">
             <items>
                 <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
                         minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
-                        onAction="#buttonBack" prefHeight="40.0" prefWidth="80.0" text="%back.text"/>
-                <Label id="title" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" styleClass="title"
-                       text="%settings.title" textAlignment="CENTER"/>
+                        onAction="#buttonBack" prefHeight="40.0" prefWidth="110.0" text="%back.text"/>
                 <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
                         minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createNew"
-                        prefHeight="40.0" prefWidth="80.0" text="%new.text"/>
+                        prefHeight="40.0" prefWidth="110.0" text="%new.text"/>
                 <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
                         minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#load"
-                        prefHeight="40.0" prefWidth="80.0" text="%load.text"/>
+                        prefHeight="40.0" prefWidth="110.0" text="%load.text"/>
                 <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity"
                         minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#save"
-                        prefHeight="40.0" prefWidth="80.0" text="%save.text"/>
+                        prefHeight="40.0" prefWidth="110.0" text="%save.text"/>
             </items>
         </ToolBar>
+
             </top>
         </BorderPane>
     </children>

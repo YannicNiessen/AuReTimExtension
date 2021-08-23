@@ -76,7 +76,8 @@ public class MainController extends AbstractController {
 			}
 		});
 
-
+		_testComboBox.getSelectionModel().select(TestType.PVT_AUDITORY.name());
+		_testComboBox.setVisibleRowCount(_testComboBox.getItems().size());
     }
 
     public void setAvailableTests(){
@@ -88,9 +89,10 @@ public class MainController extends AbstractController {
 		for(TestSequence t: TestSequence.getLoadedSets()){
 			_testComboBox.getItems().add(t.get_name());
 		}
-
+		System.out.println(_testComboBox.getItems().size());
 		_testComboBox.getSelectionModel().select(TestType.PVT_AUDITORY.name());
-	}
+    	_testComboBox.setVisibleRowCount(_testComboBox.getItems().size());
+    }
 
 	@FXML
 	private void test(final ActionEvent e) {
