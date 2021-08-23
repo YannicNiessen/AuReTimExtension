@@ -211,6 +211,7 @@ public class ResultController extends AbstractBackSupportController {
 		String directoryName = ConfigMeta.getInstance().resultDirectoryProperty().getValue();
 		final String subjectId = Session.getCurrentSession().getSubjectId().replaceAll("[:\\\\/*\"?|<>]", "_");
 		final String testId = Session.getCurrentSession().getTestId().replaceAll("[:\\\\/*\"?|<>]", "_");
+		final String sequenceId = Session.getCurrentSession().get_sequenceId().replaceAll("[:\\\\/*\"?|<>]", "_");
 		final String testType = Session.getCurrentSession().getTestType().name();
 		final String baseFilename = String.format("%s_%s_%s", testType, subjectId, testId);
 
@@ -226,6 +227,7 @@ public class ResultController extends AbstractBackSupportController {
 		CSVPrinter writer = new CSVPrinter(new FileWriter(path.toFile()), CSVFormat.newFormat('\t').withCommentMarker('#').withRecordSeparator('\n'));
 		writer.printComment(String.format("subjectId=%s", subjectId));
 		writer.printComment(String.format("testId=%s", testId));
+		writer.printComment(String.format("sequenceId=%s", sequenceId));
 		writer.printComment(String.format("testType=%s", testType));
 		writer.printComment(String.format("total=%d", _total.get()));
 		writer.printComment(String.format("hits=%d", _hits.get()));

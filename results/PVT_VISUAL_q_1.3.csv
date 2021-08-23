@@ -1,0 +1,26 @@
+# subjectId=q
+# testId=1
+# sequenceId=PVT_VISUAL
+# testType=PVT_VISUAL
+# total=3
+# hits=3
+# correct rejections=0
+# misses=0
+# false positives=0
+# CV'=0.0740
+# mean=286.67 ms
+# sd=21.22 ms
+# median=293.00 ms
+# Q10=263.00 ms
+# Q25=263.00 ms
+# Q75=304.00 ms
+# Q90=304.00 ms
+# max=304 ms
+# min=263 ms
+# reaction speed=3.488372
+# performance score=1.000000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+1004	304	TRUE_POSITIVE
+4509	263	TRUE_POSITIVE
+10011	293	TRUE_POSITIVE

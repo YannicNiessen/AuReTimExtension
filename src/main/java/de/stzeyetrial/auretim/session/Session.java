@@ -18,21 +18,23 @@ public class Session {
 	private final String _subjectId;
 	private final String _testId;
 	private final Queue<TestType> _testQueue;
+	private final String _sequenceId;
 
 	private TestType _testType;
 
 
-	private Session(final String subjectId, final String testId, TestType testType, Queue<TestType> testQueue) {
+	private Session(final String subjectId, final String testId, TestType testType, Queue<TestType> testQueue, String sequenceId) {
 		_subjectId = subjectId;
 		_testId = testId;
 		_testType = testType;
 		_testQueue = testQueue;
 		_results = new ArrayList<>();
+		_sequenceId = sequenceId;
 
 	}
 
-	public static Session newSession(final String subjectId, final String testId, TestType testType, Queue<TestType> testQueue) {
-		_instance = new Session(subjectId, testId, testType, testQueue);
+	public static Session newSession(final String subjectId, final String testId, TestType testType, Queue<TestType> testQueue, String sequenceId) {
+		_instance = new Session(subjectId, testId, testType, testQueue, sequenceId);
 		return _instance;
 	}
 
@@ -69,5 +71,9 @@ public class Session {
 
 	public void clearResults() {
 		_results.clear();
+	}
+
+	public String get_sequenceId() {
+		return _sequenceId;
 	}
 }

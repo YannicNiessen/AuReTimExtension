@@ -110,7 +110,7 @@ public class MainController extends AbstractController {
 				}
 			}
 
-			Session.newSession(_subjectTextField.getText(), _testTextField.getText(),testTypeQueue.peek(), testTypeQueue);
+			Session.newSession(_subjectTextField.getText(), _testTextField.getText(),testTypeQueue.peek(), testTypeQueue, testType);
 
 			getScreenManager().setScreen(Screens.valueOf(testTypeQueue.poll().name()));
 

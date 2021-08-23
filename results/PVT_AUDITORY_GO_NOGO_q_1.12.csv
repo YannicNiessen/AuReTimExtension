@@ -1,0 +1,27 @@
+# subjectId=q
+# testId=1
+# sequenceId=PVT NOGO ALTERNATION
+# testType=PVT_AUDITORY_GO_NOGO
+# total=4
+# hits=3
+# correct rejections=1
+# misses=0
+# false positives=0
+# CV'=0.3909
+# mean=628.00 ms
+# sd=245.49 ms
+# median=537.00 ms
+# Q10=441.00 ms
+# Q25=441.00 ms
+# Q75=906.00 ms
+# Q90=906.00 ms
+# max=906 ms
+# min=441 ms
+# reaction speed=1.592357
+# performance score=1.000000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+3004	441	TRUE_POSITIVE
+8088	906	TRUE_POSITIVE
+12704	537	TRUE_POSITIVE
+17696	1500	TRUE_NEGATIVE

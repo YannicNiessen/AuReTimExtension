@@ -1,0 +1,27 @@
+# subjectId=q
+# testId=1
+# sequenceId=PVT NOGO ALTERNATION
+# testType=PVT_VISUAL
+# total=4
+# hits=4
+# correct rejections=0
+# misses=0
+# false positives=0
+# CV'=0.2312
+# mean=352.00 ms
+# sd=81.37 ms
+# median=321.00 ms
+# Q10=296.00 ms
+# Q25=297.00 ms
+# Q75=438.00 ms
+# Q90=470.00 ms
+# max=470 ms
+# min=296 ms
+# reaction speed=2.840909
+# performance score=1.000000
+# lapse probability=0.000000
+timepoint (ms)	duration (ms)	type
+3004	342	TRUE_POSITIVE
+8507	296	TRUE_POSITIVE
+13009	470	TRUE_POSITIVE
+18510	300	TRUE_POSITIVE
