@@ -58,6 +58,7 @@ public class ResultController extends AbstractBackSupportController {
 	private final IntegerProperty _falsePositives = new SimpleIntegerProperty();
 	private final DoubleProperty _cv = new SimpleDoubleProperty();
 	private final DoubleProperty _reactionSpeed = new SimpleDoubleProperty();
+	private final DoubleProperty _reactionSpeedBasner = new SimpleDoubleProperty();
 	private final DoubleProperty _performanceScore = new SimpleDoubleProperty();
 	private final DoubleProperty _lapseProbability = new SimpleDoubleProperty();
 
@@ -167,9 +168,16 @@ public class ResultController extends AbstractBackSupportController {
 		_falsePositives.setValue(falseAlarms);
 		_q10.setValue(stats.getPercentile(10));
 		_q90.setValue(stats.getPercentile(90));
-		_reactionSpeed.setValue(1000 / _mean.getValue());
+		_reactionSpeed.setValue(1000 / stats.getMean());
 		_performanceScore.setValue(1 - (misses + falseAlarms) / results.size());
 		_lapseProbability.setValue(misses / results.size());
+
+		double[] dataPoints = stats.getValues();
+
+		for (double dataPoint : dataPoints) {
+			_reactionSpeedBasner.setValue(_reactionSpeedBasner.getValue() + 1000 / dataPoint);
+		}
+		_reactionSpeedBasner.setValue(_reactionSpeedBasner.getValue() / dataPoints.length);
 
 		Queue<TestType> testTypeQueue = Session.getCurrentSession().getTestQueue();
 		if (!testTypeQueue.isEmpty()){
@@ -245,6 +253,7 @@ public class ResultController extends AbstractBackSupportController {
 		writer.printComment(String.format("max=%d ms", _max.get()));
 		writer.printComment(String.format("min=%d ms", _min.get()));
 		writer.printComment(String.format("reaction speed=%f", _reactionSpeed.get()));
+		writer.printComment(String.format("reaction speed basner=%f", _reactionSpeedBasner.get()));
 		writer.printComment(String.format("performance score=%f", _performanceScore.get()));
 		writer.printComment(String.format("lapse probability=%f", _lapseProbability.get()));
 
