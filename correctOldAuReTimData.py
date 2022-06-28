@@ -25,13 +25,15 @@ if not files_in_folder:
 Path(folder_name + "corrected/").mkdir(parents=True, exist_ok=True)
 
 for filename in files_in_folder:
-    print(filename)
     results = []
     with open(folder_name + filename) as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             results.append(row)
     dataPointStartRow = 0
+
+    if "basner" in results[19][0] or "basner" in results[20][0]:
+        continue
 
     for row in results:
         print(row)
