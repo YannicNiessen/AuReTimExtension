@@ -50,7 +50,9 @@ for filename in files_in_folder:
     reaction_speed_sum = 0
 
     print(dataPoints)
-
+    if not dataPoints: 
+        print("No Data Points found in file", filename) 
+        continue 
     for point in dataPoints:
         reaction_speed_sum += 1000 / int(point[1])
 
